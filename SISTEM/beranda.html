@@ -225,7 +225,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Data riwayat akan diisi oleh JavaScript jika ada -->
+                                <!-- Data riwayat akan diisi oleh JavaScript -->
                                 <tr id="riwayat-tes-placeholder" class="hidden">
                                     <td colspan="4" class="text-center py-8 text-slate-500">Belum ada riwayat tes.</td>
                                 </tr>
@@ -297,14 +297,10 @@
                 loggedInUser = JSON.parse(loggedInUserString);
                 // Pastikan struktur data lengkap dengan data contoh
                 if (!loggedInUser.stats) {
-                    loggedInUser.stats = { simulasi: 12, rataRata: 82.5, peringkat: "#5,231" };
+                    loggedInUser.stats = { simulasi: 0, rataRata: 0, peringkat: "N/A" };
                 }
                  if (!loggedInUser.history) {
-                    loggedInUser.history = [
-                        { name: 'Try Out UTBK #3', date: '12 Juli 2025', score: 88.2, status: 'green' },
-                        { name: 'Simulasi SKD Kedinasan', date: '5 Juli 2025', score: 75.0, status: 'amber' },
-                        { name: 'Try Out UTBK #2', date: '28 Juni 2025', score: 64.7, status: 'red' }
-                    ];
+                    loggedInUser.history = [];
                 }
                 if (!loggedInUser.avatar) {
                      loggedInUser.avatar = `https://placehold.co/96x96/e0e7ff/4f46e5?text=${loggedInUser.username.charAt(0).toUpperCase()}`;
@@ -368,10 +364,8 @@
 
                 // Update Riwayat Tes
                 const historyTableBody = document.querySelector('#profil-content tbody');
-                const placeholder = document.getElementById('riwayat-tes-placeholder');
                 historyTableBody.innerHTML = ''; // Kosongkan tabel dulu
                 if (user.history && user.history.length > 0) {
-                    placeholder.classList.add('hidden');
                     user.history.forEach(item => {
                         const scoreColor = `text-${item.status}-600`;
                         const row = `
@@ -384,14 +378,19 @@
                         historyTableBody.innerHTML += row;
                     });
                 } else {
-                    historyTableBody.appendChild(placeholder);
-                    placeholder.classList.remove('hidden');
+                    // Jika tidak ada riwayat, tambahkan baris placeholder
+                    historyTableBody.innerHTML = `
+                        <tr id="riwayat-tes-placeholder">
+                            <td colspan="4" class="text-center py-8 text-slate-500">Belum ada riwayat tes.</td>
+                        </tr>`;
                 }
             };
 
-            updateAllUserData(loggedInUser);
-
             const switchPage = (targetId) => {
+                // **PERBAIKAN**: Selalu panggil updateAllUserData setiap kali berpindah halaman
+                // untuk memastikan semua data (profil, avatar, dll) selalu sinkron.
+                updateAllUserData(loggedInUser);
+
                 contentSections.forEach(section => section.classList.add('hidden'));
                 document.getElementById(targetId)?.classList.remove('hidden');
                 
@@ -478,6 +477,9 @@
                     profileDropdown.classList.add('hidden');
                 }
             });
+
+            // --- Inisialisasi Halaman ---
+            // Memanggil switchPage di awal untuk memuat data dan mengatur tab aktif
             switchPage('beranda-content');
         });
     </script>
