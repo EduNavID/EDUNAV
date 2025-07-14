@@ -320,23 +320,28 @@
             const editAvatarPreview = document.getElementById('edit-avatar-preview');
             let newAvatarDataUrl = null;
 
-            // --- [BARU] Fungsi untuk menyimpan data sesi ke database utama ---
-            const saveUserDataToDatabase = (user) => {
-                if (!user || !user.username) return; // Jangan simpan jika tidak ada user
+            // --- [DISSEMPURNAKAN] Fungsi untuk menyimpan data sesi ke database utama ---
+            const saveCurrentSessionToDatabase = () => {
+                if (!loggedInUser || !loggedInUser.username) return;
                 
                 const userDbString = localStorage.getItem(USER_DB_KEY);
-                if (!userDbString) return; // Jangan simpan jika database utama tidak ada
+                if (!userDbString) return;
 
                 let userDb = JSON.parse(userDbString);
                 
-                if (userDb[user.username]) {
-                    // Perbarui hanya bagian profil dari user di database utama
-                    userDb[user.username].profile = {
-                        avatar: user.avatar,
-                        stats: user.stats,
-                        history: user.history
+                if (userDb[loggedInUser.username]) {
+                    // Buat objek profil yang lengkap dari data sesi saat ini
+                    const currentProfile = {
+                        avatar: loggedInUser.avatar,
+                        stats: loggedInUser.stats,
+                        history: loggedInUser.history
                     };
+                    // Perbarui database utama dengan profil yang lengkap ini
+                    userDb[loggedInUser.username].profile = currentProfile;
                     localStorage.setItem(USER_DB_KEY, JSON.stringify(userDb));
+                    
+                    // [PENTING] Perbarui juga data di 'loggedInUser' untuk konsistensi
+                    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
                 }
             };
 
@@ -388,19 +393,20 @@
                 }
             };
 
-            // --- Fungsi untuk memuat ulang data dari localStorage dan memperbarui UI ---
-            const refreshUserDataFromStorage = () => {
+            // --- [DISSEMPURNAKAN] Fungsi untuk memuat data ---
+            const loadAndDisplayUserData = () => {
                 const userString = localStorage.getItem('loggedInUser');
                 if (userString) {
                     loggedInUser = JSON.parse(userString);
+                    // Lakukan validasi dan set nilai default jika ada data yang hilang
                     if (!loggedInUser.stats) loggedInUser.stats = { simulasi: 0, rataRata: 0, peringkat: "N/A" };
                     if (!loggedInUser.history) loggedInUser.history = [];
                     if (!loggedInUser.avatar) loggedInUser.avatar = `https://placehold.co/96x96/e0e7ff/4f46e5?text=${loggedInUser.username.charAt(0).toUpperCase()}`;
+                    
+                    updateAllUserData(loggedInUser);
                 } else {
                     redirectToLogin();
-                    return;
                 }
-                updateAllUserData(loggedInUser);
             };
 
             const switchPage = (targetId) => {
@@ -462,9 +468,8 @@
                 if (newAvatarDataUrl) {
                     loggedInUser.avatar = newAvatarDataUrl;
                 }
-                localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
-                saveUserDataToDatabase(loggedInUser); // Simpan ke database utama
                 updateAllUserData(loggedInUser);
+                saveCurrentSessionToDatabase(); // Langsung simpan setiap ada perubahan
                 editProfileModal.classList.add('hidden');
             });
             
@@ -477,7 +482,7 @@
             });
             cancelLogoutBtn.addEventListener('click', () => logoutConfirmModal.classList.add('hidden'));
             confirmLogoutBtn.addEventListener('click', () => {
-                saveUserDataToDatabase(loggedInUser); // [PENTING] Simpan data terakhir sebelum logout
+                saveCurrentSessionToDatabase(); // Simpan data terakhir sebelum logout
                 localStorage.removeItem('loggedInUser');
                 redirectToLogin();
             });
@@ -487,20 +492,20 @@
                 }
             });
 
-            // [PENTING] Simpan data saat tab akan ditutup
+            // Simpan data saat tab akan ditutup
             window.addEventListener('beforeunload', () => {
-                saveUserDataToDatabase(loggedInUser);
+                saveCurrentSessionToDatabase();
             });
 
             // --- Event listener untuk menyegarkan data saat tab kembali aktif ---
             document.addEventListener('visibilitychange', () => {
                 if (document.visibilityState === 'visible') {
-                    refreshUserDataFromStorage();
+                    loadAndDisplayUserData();
                 }
             });
 
             // --- Inisialisasi Halaman ---
-            refreshUserDataFromStorage();
+            loadAndDisplayUserData();
             switchPage('beranda-content');
         });
     </script>
