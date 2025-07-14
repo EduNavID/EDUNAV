@@ -117,6 +117,17 @@
             const proceedToLoginButton = document.getElementById('proceed-to-login-button');
             
             const USER_DB_KEY = 'eduNavUserDatabase';
+            // Kunci baru untuk menandai bahwa akun telah dibuat di browser ini
+            const ACCOUNT_CREATED_KEY = 'eduNavAccountCreated';
+
+            // --- Cek apakah akun sudah pernah dibuat ---
+            const hasCreatedAccount = localStorage.getItem(ACCOUNT_CREATED_KEY);
+            if (hasCreatedAccount) {
+                // Jika ya, sembunyikan tombol Sign Up dan pastikan hanya form login yang tampil
+                navToggleButton.style.display = 'none';
+                signupContainer.classList.add('hidden');
+                loginContainer.classList.remove('hidden');
+            }
 
             // --- Fungsi untuk berpindah halaman (Login/Sign Up) ---
             const switchPage = (pageToShow, pageToHide) => {
@@ -162,11 +173,9 @@
 
                 const newPassword = Math.random().toString(36).slice(-8);
                 
-                // --- FIX: Membuat profil baru dengan nilai nol ---
                 userDb[username] = { 
                     email: email, 
                     password: newPassword,
-                    // Data profil untuk pengguna baru
                     profile: {
                         avatar: `https://placehold.co/96x96/e0e7ff/4f46e5?text=${username.charAt(0).toUpperCase()}`,
                         stats: { simulasi: 0, rataRata: 0, peringkat: "N/A" },
@@ -175,10 +184,16 @@
                 };
                 localStorage.setItem(USER_DB_KEY, JSON.stringify(userDb));
 
+                // --- PERUBAHAN: Set flag bahwa akun telah dibuat ---
+                localStorage.setItem(ACCOUNT_CREATED_KEY, 'true');
+
                 // Tampilkan password ke pengguna
                 generatedPasswordInput.value = newPassword;
                 signupView.classList.add('hidden');
                 passwordDisplay.classList.remove('hidden');
+
+                // Sembunyikan tombol Sign Up secara permanen setelah berhasil mendaftar
+                navToggleButton.style.display = 'none';
             });
 
             // --- Tombol untuk lanjut ke login setelah sign up ---
@@ -199,11 +214,9 @@
 
                 if (storedUserData && password === storedUserData.password) {
                     // --- Login Berhasil ---
-                    // --- FIX: Mengambil data profil yang sudah ada dari database ---
                     const userProfile = {
                         username: username,
                         email: storedUserData.email,
-                        // Ambil semua data profil dari database
                         avatar: storedUserData.profile.avatar,
                         stats: storedUserData.profile.stats,
                         history: storedUserData.profile.history
