@@ -199,7 +199,7 @@
         let currentQuestionIndex = 0;
         let userAnswers = {};
         let timerInterval;
-        let testStartTime = 0;
+        let testEndTime = 0; // [DIUBAH] Menggunakan waktu berakhir
         const TEST_DURATION_SECONDS = 130 * 60;
 
         // --- Elemen DOM ---
@@ -234,12 +234,12 @@
         document.getElementById('header-avatar').src = loggedInUser.avatar;
         document.getElementById('profile-username').textContent = loggedInUser.username;
         
-        // --- [BARU] Fungsi Penyimpanan & Pemuatan State ---
+        // --- [DISSEMPURNAKAN] Fungsi Penyimpanan & Pemuatan State ---
         function saveState() {
             const state = {
                 currentQuestionIndex,
                 userAnswers,
-                testStartTime
+                testEndTime // [DIUBAH] Menyimpan waktu berakhir
             };
             localStorage.setItem(SIMULATION_STATE_KEY, JSON.stringify(state));
         }
@@ -445,21 +445,21 @@
             showPage('review-page');
         }
 
-        // --- Event Listeners ---
+        // --- [DISSEMPURNAKAN] Event Listener untuk memulai/melanjutkan tes ---
         startTestButton.addEventListener('click', () => {
             const savedState = loadState();
             if (savedState) {
                 // Lanjutkan tes
                 userAnswers = savedState.userAnswers;
                 currentQuestionIndex = savedState.currentQuestionIndex;
-                testStartTime = savedState.testStartTime;
-                const elapsedTime = Math.floor((Date.now() - testStartTime) / 1000);
-                const remainingTime = TEST_DURATION_SECONDS - elapsedTime;
+                testEndTime = savedState.testEndTime; // [DIUBAH] Muat waktu berakhir
                 
-                if (remainingTime > 0) {
+                const remainingSeconds = Math.floor((testEndTime - Date.now()) / 1000);
+                
+                if (remainingSeconds > 0) {
                     showPage('test-page');
                     displayQuestion(currentQuestionIndex);
-                    startTimer(remainingTime);
+                    startTimer(remainingSeconds);
                 } else {
                     finishTest(); // Waktu habis saat tab ditutup
                 }
@@ -468,7 +468,7 @@
                 clearState();
                 userAnswers = {};
                 currentQuestionIndex = 0;
-                testStartTime = Date.now();
+                testEndTime = Date.now() + (TEST_DURATION_SECONDS * 1000); // [DIUBAH] Set waktu berakhir
                 saveState(); // Simpan state awal
                 showPage('test-page');
                 displayQuestion(0);
@@ -516,7 +516,7 @@
             }
         });
 
-        // --- [BARU] Inisialisasi Halaman ---
+        // --- Inisialisasi Halaman ---
         const savedState = loadState();
         if (savedState) {
             continueMessage.classList.remove('hidden');
