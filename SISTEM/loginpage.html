@@ -16,15 +16,6 @@
             min-height: 100vh;
             background: linear-gradient(to bottom right, #f8fafc, #eef2ff);
         }
-        main {
-            flex-grow: 1;
-        }
-        input, button {
-            transition: all 0.2s ease-in-out;
-        }
-        button:active {
-            transform: scale(0.98);
-        }
         .page-container {
             transition: opacity 0.3s ease-out, transform 0.3s ease-out;
         }
@@ -38,24 +29,21 @@
 
     <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-indigo-600">
-                EduNav
-            </a>
+            <a href="#" class="text-2xl font-bold text-indigo-600">EduNav</a>
             <button id="nav-toggle-button" class="font-semibold text-indigo-600 border border-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-600 hover:text-white transition-colors duration-300">
                 Sign Up
             </button>
         </nav>
     </header>
 
-    <main class="container mx-auto px-6 py-12 flex items-center justify-center">
-        <!-- Kontainer Sign Up -->
+    <main class="container mx-auto px-6 py-12 flex items-center justify-center flex-grow">
+        <!-- Kontainer Sign Up (Hidden by default) -->
         <div id="signup-container" class="w-full max-w-md page-container hidden">
             <div class="bg-white p-8 rounded-xl shadow-2xl">
                 <!-- Tampilan Awal Sign Up -->
                 <div id="signup-view">
                     <h2 class="text-3xl font-extrabold text-center text-gray-900 mb-2">Daftar Akun Baru</h2>
-                    <p class="text-center text-gray-500 mb-6">Isi data di bawah untuk menyelesaikan pendaftaran.</p>
-                    
+                    <p class="text-center text-gray-500 mb-6">Isi data di bawah untuk mendaftar.</p>
                     <form id="signup-form" class="space-y-4">
                         <div>
                             <label for="signup-email" class="block text-sm font-medium text-gray-700">Email</label>
@@ -66,7 +54,7 @@
                             <input type="text" id="signup-username" class="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" required>
                         </div>
                         <div id="signup-error" class="hidden text-red-500 text-sm text-center pt-1"></div>
-                        <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-all shadow-lg hover:shadow-xl text-lg">
+                        <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300">
                             Daftar
                         </button>
                     </form>
@@ -90,11 +78,6 @@
             <div class="bg-white p-8 rounded-xl shadow-2xl">
                 <h2 id="login-greeting" class="text-3xl font-extrabold text-center text-gray-900 mb-2">Selamat Datang!</h2>
                 <p class="text-center text-gray-500 mb-6">Silakan masuk untuk melanjutkan.</p>
-                
-                 <div id="registered-message" class="hidden mb-4 p-3 bg-blue-50 text-blue-700 rounded-lg text-center text-sm">
-                    Akun terdeteksi. Silakan login.
-                </div>
-
                 <form id="login-form" class="space-y-6">
                     <div>
                         <label for="login-username" class="block text-sm font-medium text-gray-700">Username</label>
@@ -105,17 +88,17 @@
                         <input type="password" id="login-password" class="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" required>
                     </div>
                      <div id="login-error" class="hidden text-red-500 text-sm text-center pt-1"></div>
-                    <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-all shadow-lg hover:shadow-xl text-lg">
+                    <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 text-lg">
                         Login
                     </button>
                 </form>
             </div>
         </div>
     </main>
-
-    <footer class="bg-white/80 backdrop-blur-lg mt-12">
+    
+    <footer class="bg-white/80 backdrop-blur-lg">
         <div class="container mx-auto px-6 py-4 text-center text-gray-500">
-            &copy; 2024 EduNav. Seluruh hak cipta dilindungi.
+            &copy; 2025 EduNav. Seluruh hak cipta dilindungi.
         </div>
     </footer>
 
@@ -128,8 +111,6 @@
             const loginForm = document.getElementById('login-form');
             const signupError = document.getElementById('signup-error');
             const loginError = document.getElementById('login-error');
-            const registeredMessage = document.getElementById('registered-message');
-            const loginGreeting = document.getElementById('login-greeting');
             const signupView = document.getElementById('signup-view');
             const passwordDisplay = document.getElementById('password-display');
             const generatedPasswordInput = document.getElementById('generated-password');
@@ -137,36 +118,7 @@
             
             const USER_DB_KEY = 'eduNavUserDatabase';
 
-            // --- Aturan Rahasia Untuk Validasi & Generate Password ---
-            const checkPasswordRules = (passwordString) => {
-                if (!/^\d{8}$/.test(passwordString)) return false;
-                const digits = passwordString.split('').map(Number);
-                const sum = digits.reduce((a, b) => a + b, 0);
-                if (sum % 3 !== 0) return false;
-                for (let i = 0; i < digits.length - 1; i++) {
-                    if (digits[i] === digits[i+1]) return false;
-                }
-                if (!digits.includes(7) && !digits.includes(8)) return false;
-                if (digits[0] <= digits[digits.length - 1]) return false;
-                return true;
-            };
-
-            // --- Fungsi Untuk Membuat Password Acak Yang Valid ---
-            const generateValidPassword = () => {
-                let attempts = 0;
-                while (attempts < 10000) {
-                    let randomPassword = '';
-                    for (let i = 0; i < 8; i++) {
-                        randomPassword += Math.floor(Math.random() * 10);
-                    }
-                    if (checkPasswordRules(randomPassword)) {
-                        return randomPassword;
-                    }
-                    attempts++;
-                }
-                return "87635421"; // Fallback jika gagal
-            };
-
+            // --- Fungsi untuk berpindah halaman (Login/Sign Up) ---
             const switchPage = (pageToShow, pageToHide) => {
                 pageToHide.classList.add('is-exiting');
                 setTimeout(() => {
@@ -176,31 +128,15 @@
                 }, 300);
             };
 
-            const initializePage = () => {
-                const userDb = JSON.parse(localStorage.getItem(USER_DB_KEY) || '{}');
-                const hasUsers = Object.keys(userDb).length > 0;
-                
-                loginContainer.classList.remove('hidden');
-                signupContainer.classList.add('hidden');
-                navToggleButton.textContent = 'Sign Up';
-
-                if (hasUsers) {
-                    const firstUsername = Object.keys(userDb)[0];
-                    loginGreeting.innerHTML = `Halo, <span class="text-indigo-600">${firstUsername}</span>!`;
-                    registeredMessage.classList.remove('hidden');
-                } else {
-                    loginGreeting.textContent = 'Selamat Datang!';
-                    registeredMessage.classList.add('hidden');
-                }
-            };
-
+            // --- Event Listener untuk tombol navigasi header ---
             navToggleButton.addEventListener('click', () => {
-                if (loginContainer.classList.contains('hidden')) {
-                    switchPage(loginContainer, signupContainer);
-                    navToggleButton.textContent = 'Sign Up';
-                } else {
+                const isLoginVisible = !loginContainer.classList.contains('hidden');
+                if (isLoginVisible) {
                     switchPage(signupContainer, loginContainer);
                     navToggleButton.textContent = 'Login';
+                } else {
+                    switchPage(loginContainer, signupContainer);
+                    navToggleButton.textContent = 'Sign Up';
                 }
             });
 
@@ -208,7 +144,7 @@
             signupForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const email = document.getElementById('signup-email').value.trim();
-                const username = document.getElementById('signup-username').value.trim();
+                const username = document.getElementById('signup-username').value.trim().toLowerCase();
                 signupError.classList.add('hidden');
 
                 if (!email || !username) {
@@ -224,7 +160,7 @@
                     return;
                 }
 
-                const newPassword = generateValidPassword();
+                const newPassword = Math.random().toString(36).slice(-8);
                 
                 userDb[username] = { email: email, password: newPassword };
                 localStorage.setItem(USER_DB_KEY, JSON.stringify(userDb));
@@ -234,14 +170,9 @@
                 signupView.classList.add('hidden');
                 passwordDisplay.classList.remove('hidden');
             });
-            
+
+            // --- Tombol untuk lanjut ke login setelah sign up ---
             proceedToLoginButton.addEventListener('click', () => {
-                const userDb = JSON.parse(localStorage.getItem(USER_DB_KEY) || '{}');
-                const latestUsername = Object.keys(userDb).pop();
-                if(latestUsername) {
-                    loginGreeting.innerHTML = `Halo, <span class="text-indigo-600">${latestUsername}</span>!`;
-                    registeredMessage.classList.remove('hidden');
-                }
                 switchPage(loginContainer, signupContainer);
                 navToggleButton.textContent = 'Sign Up';
             });
@@ -249,29 +180,34 @@
             // --- Logika Login ---
             loginForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                const username = document.getElementById('login-username').value.trim();
+                const username = document.getElementById('login-username').value.trim().toLowerCase();
                 const password = document.getElementById('login-password').value.trim();
                 loginError.classList.add('hidden');
 
                 const userDb = JSON.parse(localStorage.getItem(USER_DB_KEY) || '{}');
                 const storedUserData = userDb[username];
 
-                if (!storedUserData) {
-                    loginError.textContent = 'Username tidak ditemukan.';
-                    loginError.classList.remove('hidden');
-                    return;
-                }
-                
-                if (password === storedUserData.password) {
-                    alert('Login berhasil! Mengarahkan ke halaman beranda...');
-                    window.location.href = 'beranda.html'; 
+                if (storedUserData && password === storedUserData.password) {
+                    // --- Login Berhasil ---
+                    const userProfile = {
+                        username: username,
+                        email: storedUserData.email,
+                        avatar: `https://placehold.co/96x96/e0e7ff/4f46e5?text=${username.charAt(0).toUpperCase()}`,
+                        stats: { simulasi: 12, rataRata: 82.5, peringkat: "#5,231" },
+                        history: [
+                            { name: 'Try Out UTBK #3', date: '12 Juli 2025', score: 88.2, status: 'green' },
+                            { name: 'Simulasi SKD Kedinasan', date: '5 Juli 2025', score: 75.0, status: 'amber' },
+                            { name: 'Try Out UTBK #2', date: '28 Juni 2025', score: 64.7, status: 'red' }
+                        ]
+                    };
+                    localStorage.setItem('loggedInUser', JSON.stringify(userProfile));
+                    window.location.href = './beranda.html'; 
                 } else {
-                    loginError.textContent = 'Password salah.';
+                    // --- Login Gagal ---
+                    loginError.textContent = 'Username atau password salah.';
                     loginError.classList.remove('hidden');
                 }
             });
-
-            initializePage();
         });
     </script>
 </body>
