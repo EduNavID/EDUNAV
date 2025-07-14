@@ -59,110 +59,71 @@
         </nav>
     </header>
 
-    <!-- Halaman Konfirmasi -->
-    <div id="confirmation-page" class="page active-page container mx-auto px-4 sm:px-6 py-12 flex-grow flex-center">
-        <div class="max-w-2xl w-full bg-white shadow-lg rounded-2xl p-8 text-center">
-            <h1 class="text-3xl font-extrabold text-slate-900">Simulasi SKD Kedinasan</h1>
-            <p class="mt-4 text-slate-600">Anda akan memulai simulasi dengan detail sebagai berikut:</p>
-            <div class="mt-6 text-left bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-3">
-                <div class="flex justify-between">
-                    <span class="font-semibold text-slate-700">Jumlah Soal</span>
-                    <span class="font-bold text-indigo-600">110 Soal</span>
+    <!-- Kontainer Utama untuk Halaman Dinamis -->
+    <main id="main-content" class="flex-grow">
+        <!-- Halaman Konfirmasi -->
+        <div id="confirmation-page" class="page active-page container mx-auto px-4 sm:px-6 py-12 flex-grow flex-center">
+            <div class="max-w-2xl w-full bg-white shadow-lg rounded-2xl p-8 text-center">
+                <h1 class="text-3xl font-extrabold text-slate-900">Simulasi SKD Kedinasan</h1>
+                <p class="mt-4 text-slate-600">Anda akan memulai simulasi dengan detail sebagai berikut:</p>
+                <div class="mt-6 text-left bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-3">
+                    <div class="flex justify-between">
+                        <span class="font-semibold text-slate-700">Jumlah Soal</span>
+                        <span class="font-bold text-indigo-600">110 Soal</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-semibold text-slate-700">Waktu Pengerjaan</span>
+                        <span class="font-bold text-indigo-600">130 Menit</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="font-semibold text-slate-700">Sistem Penilaian</span>
+                        <span class="font-bold text-indigo-600">Sesuai Aturan CAT</span>
+                    </div>
                 </div>
-                <div class="flex justify-between">
-                    <span class="font-semibold text-slate-700">Waktu Pengerjaan</span>
-                    <span class="font-bold text-indigo-600">130 Menit</span>
+                <p id="continue-message" class="hidden mt-6 text-sm font-semibold text-amber-600 bg-amber-50 p-3 rounded-md">Kami menemukan progres tes yang belum selesai. Anda akan melanjutkan dari sesi terakhir.</p>
+                <p class="mt-6 text-sm text-slate-500">Pastikan Anda berada di tempat yang kondusif. Waktu akan berjalan setelah Anda menekan tombol 'Mulai'.</p>
+                <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="./beranda.html" class="w-full sm:w-auto px-8 py-3 bg-slate-200 text-slate-800 font-bold rounded-lg hover:bg-slate-300 transition-colors">Kembali</a>
+                    <button id="start-test-button" class="w-full sm:w-auto px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition-colors shadow-lg hover:shadow-indigo-300">Saya Siap, Mulai Sekarang</button>
                 </div>
-                <div class="flex justify-between">
-                    <span class="font-semibold text-slate-700">Sistem Penilaian</span>
-                    <span class="font-bold text-indigo-600">Sesuai Aturan CAT</span>
-                </div>
-            </div>
-            <p id="continue-message" class="hidden mt-6 text-sm font-semibold text-amber-600 bg-amber-50 p-3 rounded-md">Kami menemukan progres tes yang belum selesai. Anda akan melanjutkan dari sesi terakhir.</p>
-            <p class="mt-6 text-sm text-slate-500">Pastikan Anda berada di tempat yang kondusif. Waktu akan berjalan setelah Anda menekan tombol 'Mulai'.</p>
-            <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-                <a href="./beranda.html" class="w-full sm:w-auto px-8 py-3 bg-slate-200 text-slate-800 font-bold rounded-lg hover:bg-slate-300 transition-colors">Kembali</a>
-                <button id="start-test-button" class="w-full sm:w-auto px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition-colors shadow-lg hover:shadow-indigo-300">Saya Siap, Mulai Sekarang</button>
             </div>
         </div>
-    </div>
 
-    <!-- Halaman Ujian -->
-    <div id="test-page" class="page container mx-auto p-4 md:p-6 flex-grow">
-        <div class="bg-white shadow-xl rounded-2xl">
-            <!-- Header Ujian -->
-            <div class="p-4 border-b border-gray-200 flex justify-between items-center sticky top-[65px] bg-white z-10 rounded-t-2xl">
-                <h2 id="test-title" class="text-xl font-bold text-gray-800">SKD Kedinasan</h2>
-                <div class="text-lg font-semibold bg-red-100 text-red-700 px-4 py-1 rounded-md"><span id="timer">130:00</span></div>
-            </div>
-            <!-- Konten Soal -->
-            <div class="p-6">
-                <p class="text-lg font-semibold text-gray-800 mb-2">Soal No. <span id="question-number"></span> (<span id="question-category"></span>)</p>
-                <div id="question-text" class="text-gray-700 leading-relaxed text-lg min-h-[60px]"></div>
-                <div id="options-container" class="grid grid-cols-1 gap-3 mt-6"></div>
-                <div class="flex justify-between mt-8">
-                    <button id="prev-question-button" class="px-5 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 disabled:opacity-50">Sebelumnya</button>
-                    <button id="next-question-button" class="px-5 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700">Berikutnya</button>
+        <!-- Halaman Ujian -->
+        <div id="test-page" class="page container mx-auto p-4 md:p-6 flex-grow">
+            <div class="bg-white shadow-xl rounded-2xl">
+                <!-- Header Ujian -->
+                <div class="p-4 border-b border-gray-200 flex justify-between items-center sticky top-[65px] bg-white z-10 rounded-t-2xl">
+                    <h2 id="test-title" class="text-xl font-bold text-gray-800">SKD Kedinasan</h2>
+                    <div class="text-lg font-semibold bg-red-100 text-red-700 px-4 py-1 rounded-md"><span id="timer">130:00</span></div>
                 </div>
-            </div>
-            <!-- Navigasi Soal (Accordion) -->
-            <div class="border-t border-gray-200">
-                <button id="navigation-toggle" class="w-full p-4 flex justify-between items-center bg-gray-50 hover:bg-gray-100">
-                    <h3 class="font-semibold text-center">Navigasi Soal</h3>
-                    <svg id="nav-arrow" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                <div id="navigation-content" class="p-6 bg-gray-50 rounded-b-2xl">
-                    <div id="navigation-grid" class="grid grid-cols-7 sm:grid-cols-10 md:grid-cols-15 gap-2"></div>
+                <!-- Konten Soal -->
+                <div class="p-6">
+                    <p class="text-lg font-semibold text-gray-800 mb-2">Soal No. <span id="question-number"></span> (<span id="question-category"></span>)</p>
+                    <div id="question-text" class="text-gray-700 leading-relaxed text-lg min-h-[60px]"></div>
+                    <div id="options-container" class="grid grid-cols-1 gap-3 mt-6"></div>
+                    <div class="flex justify-between mt-8">
+                        <button id="prev-question-button" class="px-5 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 disabled:opacity-50">Sebelumnya</button>
+                        <button id="next-question-button" class="px-5 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700">Berikutnya</button>
+                    </div>
                 </div>
-            </div>
-             <!-- Tombol Selesaikan Ujian -->
-            <div class="p-6 text-center border-t border-gray-200">
-                <button id="finish-test-button" class="w-full sm:w-auto bg-green-600 text-white font-bold py-3 px-8 rounded-md hover:bg-green-700">Selesaikan Ujian</button>
+                <!-- Navigasi Soal (Accordion) -->
+                <div class="border-t border-gray-200">
+                    <button id="navigation-toggle" class="w-full p-4 flex justify-between items-center bg-gray-50 hover:bg-gray-100">
+                        <h3 class="font-semibold text-center">Navigasi Soal</h3>
+                        <svg id="nav-arrow" class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="navigation-content" class="p-6 bg-gray-50 rounded-b-2xl">
+                        <div id="navigation-grid" class="grid grid-cols-7 sm:grid-cols-10 md:grid-cols-15 gap-2"></div>
+                    </div>
+                </div>
+                 <!-- Tombol Selesaikan Ujian -->
+                <div class="p-6 text-center border-t border-gray-200">
+                    <button id="finish-test-button" class="w-full sm:w-auto bg-green-600 text-white font-bold py-3 px-8 rounded-md hover:bg-green-700">Selesaikan Ujian</button>
+                </div>
             </div>
         </div>
-    </div>
-
-    <!-- Halaman Hasil -->
-    <div id="results-page" class="page container mx-auto px-4 sm:px-6 py-12 flex-grow flex-center">
-        <div class="max-w-2xl w-full bg-white shadow-lg rounded-2xl p-8 text-center">
-            <h1 id="result-title" class="text-3xl font-extrabold">Hasil Simulasi</h1>
-            <p id="result-subtitle" class="text-gray-600 mt-2">Berikut adalah rekap hasil Anda:</p>
-            <p class="text-6xl font-bold text-indigo-600 my-4"><span id="result-total-score">0</span></p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                <div id="result-twk-box" class="p-4 rounded-lg">
-                    <p class="text-sm font-bold text-gray-500">TWK</p>
-                    <p id="result-twk-score" class="text-2xl font-bold">0</p>
-                </div>
-                <div id="result-tiu-box" class="p-4 rounded-lg">
-                    <p class="text-sm font-bold text-gray-500">TIU</p>
-                    <p id="result-tiu-score" class="text-2xl font-bold">0</p>
-                </div>
-                <div id="result-tkp-box" class="p-4 rounded-lg">
-                    <p class="text-sm font-bold text-gray-500">TKP</p>
-                    <p id="result-tkp-score" class="text-2xl font-bold">0</p>
-                </div>
-            </div>
-            <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-                <button id="review-button" class="w-full sm:w-auto px-6 py-3 bg-slate-700 text-white font-bold rounded-lg hover:bg-slate-800">Lihat Pembahasan</button>
-                <a id="whatsapp-button" target="_blank" class="w-full sm:w-auto px-6 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 flex items-center justify-center gap-2">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413 0 6.557-5.338 11.892-11.894 11.892-1.99 0-3.903-.52-5.58-1.452l-6.195 1.654zm5.473-5.16L5.29 18.57l-1.655.443.45-1.64L2.55 15.96c-1.235-1.423-1.905-3.21-1.905-5.108.002-5.45 4.436-9.884 9.884-9.884 2.64 0 5.122 1.03 6.988 2.898s2.897 4.347 2.897 6.988c0 5.45-4.436 9.884-9.884 9.884-1.795 0-3.482-.48-4.939-1.311zM18.33 13.98c-.283-.141-1.673-.825-1.933-.92-.259-.095-.448-.141-.637.141-.189.283-.732.92-.898 1.108-.167.189-.333.212-.622.071-.289-.141-1.217-.444-2.318-1.428-.857-.768-1.44-1.716-1.616-2.005-.176-.289-.019-.44.123-.581.129-.129.283-.333.425-.499.141-.167.189-.283.283-.472.095-.189.048-.354-.024-.499-.071-.141-.637-1.527-.872-2.099-.227-.552-.456-.479-.637-.488-.181-.01-.379-.01-.577-.01s-.52.071-.798.354c-.279.283-1.08 1.053-1.08 2.565 0 1.512 1.107 2.979 1.254 3.19.147.212 2.123 3.25 5.167 4.553.742.313 1.33.499 1.785.637.598.181 1.133.154 1.554.095.464-.06 1.673-.683 1.908-1.341.235-.658.235-1.217.167-1.341-.071-.125-.259-.212-.548-.354z"></path></svg>
-                    <span>Kirim ke WhatsApp</span>
-                </a>
-                <a href="./beranda.html" class="w-full sm:w-auto px-6 py-3 bg-slate-200 text-slate-800 font-bold rounded-lg hover:bg-slate-300">Kembali ke Beranda</a>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Halaman Pembahasan -->
-    <div id="review-page" class="page container mx-auto p-4 md:p-6 flex-grow">
-        <div class="max-w-4xl mx-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h1 class="text-3xl font-extrabold text-slate-900">Pembahasan Soal</h1>
-                <button id="back-to-result-button" class="px-4 py-2 bg-slate-200 text-slate-800 font-semibold rounded-lg hover:bg-slate-300">Kembali ke Hasil</button>
-            </div>
-            <div id="review-container" class="space-y-6"></div>
-        </div>
-    </div>
+    </main>
 
     <!-- Modal Konfirmasi Selesai -->
     <div id="confirm-finish-modal" class="modal hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 p-4">
@@ -199,10 +160,11 @@
         let currentQuestionIndex = 0;
         let userAnswers = {};
         let timerInterval;
-        let testEndTime = 0; // [DIUBAH] Menggunakan waktu berakhir
+        let testEndTime = 0;
         const TEST_DURATION_SECONDS = 130 * 60;
 
         // --- Elemen DOM ---
+        const mainContent = document.getElementById('main-content');
         const confirmationPage = document.getElementById('confirmation-page');
         const testPage = document.getElementById('test-page');
         const startTestButton = document.getElementById('start-test-button');
@@ -218,11 +180,6 @@
         const confirmFinishModal = document.getElementById('confirm-finish-modal');
         const confirmModalYes = document.getElementById('confirm-modal-yes');
         const confirmModalNo = document.getElementById('confirm-modal-no');
-        const resultsPage = document.getElementById('results-page');
-        const reviewButton = document.getElementById('review-button');
-        const whatsappButton = document.getElementById('whatsapp-button');
-        const reviewPage = document.getElementById('review-page');
-        const backToResultButton = document.getElementById('back-to-result-button');
         const navigationToggle = document.getElementById('navigation-toggle');
         const navigationContent = document.getElementById('navigation-content');
         const navArrow = document.getElementById('nav-arrow');
@@ -234,21 +191,58 @@
         document.getElementById('header-avatar').src = loggedInUser.avatar;
         document.getElementById('profile-username').textContent = loggedInUser.username;
         
-        // --- [DISSEMPURNAKAN] Fungsi Penyimpanan & Pemuatan State ---
+        // --- Template HTML untuk Halaman Hasil & Pembahasan ---
+        const resultsPageTemplate = `
+            <div id="results-page" class="page container mx-auto px-4 sm:px-6 py-12 flex-grow flex-center">
+                <div class="max-w-2xl w-full bg-white shadow-lg rounded-2xl p-8 text-center">
+                    <h1 id="result-title" class="text-3xl font-extrabold">Hasil Simulasi</h1>
+                    <p id="result-subtitle" class="text-gray-600 mt-2">Berikut adalah rekap hasil Anda:</p>
+                    <p class="text-6xl font-bold text-indigo-600 my-4"><span id="result-total-score">0</span></p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div id="result-twk-box" class="p-4 rounded-lg">
+                            <p class="text-sm font-bold text-gray-500">TWK</p>
+                            <p id="result-twk-score" class="text-2xl font-bold">0</p>
+                        </div>
+                        <div id="result-tiu-box" class="p-4 rounded-lg">
+                            <p class="text-sm font-bold text-gray-500">TIU</p>
+                            <p id="result-tiu-score" class="text-2xl font-bold">0</p>
+                        </div>
+                        <div id="result-tkp-box" class="p-4 rounded-lg">
+                            <p class="text-sm font-bold text-gray-500">TKP</p>
+                            <p id="result-tkp-score" class="text-2xl font-bold">0</p>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+                        <button id="review-button" class="w-full sm:w-auto px-6 py-3 bg-slate-700 text-white font-bold rounded-lg hover:bg-slate-800">Lihat Pembahasan</button>
+                        <a id="whatsapp-button" target="_blank" class="w-full sm:w-auto px-6 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413 0 6.557-5.338 11.892-11.894 11.892-1.99 0-3.903-.52-5.58-1.452l-6.195 1.654zm5.473-5.16L5.29 18.57l-1.655.443.45-1.64L2.55 15.96c-1.235-1.423-1.905-3.21-1.905-5.108.002-5.45 4.436-9.884 9.884-9.884 2.64 0 5.122 1.03 6.988 2.898s2.897 4.347 2.897 6.988c0 5.45-4.436 9.884-9.884 9.884-1.795 0-3.482-.48-4.939-1.311zM18.33 13.98c-.283-.141-1.673-.825-1.933-.92-.259-.095-.448-.141-.637.141-.189.283-.732.92-.898 1.108-.167.189-.333.212-.622.071-.289-.141-1.217-.444-2.318-1.428-.857-.768-1.44-1.716-1.616-2.005-.176-.289-.019-.44.123-.581.129-.129.283-.333.425-.499.141-.167.189-.283.283-.472.095-.189.048-.354-.024-.499-.071-.141-.637-1.527-.872-2.099-.227-.552-.456-.479-.637-.488-.181-.01-.379-.01-.577-.01s-.52.071-.798.354c-.279.283-1.08 1.053-1.08 2.565 0 1.512 1.107 2.979 1.254 3.19.147.212 2.123 3.25 5.167 4.553.742.313 1.33.499 1.785.637.598.181 1.133.154 1.554.095.464-.06 1.673-.683 1.908-1.341.235-.658.235-1.217.167-1.341-.071-.125-.259-.212-.548-.354z"></path></svg>
+                            <span>Kirim ke WhatsApp</span>
+                        </a>
+                        <a href="./beranda.html" class="w-full sm:w-auto px-6 py-3 bg-slate-200 text-slate-800 font-bold rounded-lg hover:bg-slate-300">Kembali ke Beranda</a>
+                    </div>
+                </div>
+            </div>`;
+        
+        const reviewPageTemplate = `
+            <div id="review-page" class="page container mx-auto p-4 md:p-6 flex-grow">
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex justify-between items-center mb-6">
+                        <h1 class="text-3xl font-extrabold text-slate-900">Pembahasan Soal</h1>
+                        <button id="back-to-result-button" class="px-4 py-2 bg-slate-200 text-slate-800 font-semibold rounded-lg hover:bg-slate-300">Kembali ke Hasil</button>
+                    </div>
+                    <div id="review-container" class="space-y-6"></div>
+                </div>
+            </div>`;
+
+        // --- Fungsi Penyimpanan & Pemuatan State ---
         function saveState() {
-            const state = {
-                currentQuestionIndex,
-                userAnswers,
-                testEndTime // [DIUBAH] Menyimpan waktu berakhir
-            };
+            const state = { currentQuestionIndex, userAnswers, testEndTime };
             localStorage.setItem(SIMULATION_STATE_KEY, JSON.stringify(state));
         }
 
         function loadState() {
             const savedStateString = localStorage.getItem(SIMULATION_STATE_KEY);
-            if (savedStateString) {
-                return JSON.parse(savedStateString);
-            }
+            if (savedStateString) return JSON.parse(savedStateString);
             return null;
         }
 
@@ -280,16 +274,19 @@
             return { scores, totalScore, isPass, ambangBatas, correctAnswers };
         }
 
-        // --- Fungsi Utama ---
+        // --- [DISSEMPURNAKAN] Fungsi untuk menampilkan halaman ---
         function showPage(pageId) {
+            // Sembunyikan semua halaman
             document.querySelectorAll('.page').forEach(p => {
-                p.classList.remove('active-page');
                 p.style.display = 'none';
+                p.classList.remove('active-page');
             });
+            
             const targetPage = document.getElementById(pageId);
             if (targetPage) {
-                const isFlexPage = targetPage.id === 'confirmation-page' || targetPage.id === 'results-page';
-                targetPage.style.display = isFlexPage ? 'flex' : 'block';
+                // Gunakan 'flex' untuk halaman yang perlu di-center
+                const useFlex = targetPage.classList.contains('flex-center');
+                targetPage.style.display = useFlex ? 'flex' : 'block';
                 targetPage.classList.add('active-page');
             }
         }
@@ -311,7 +308,7 @@
                 }
                 optionButton.onclick = () => {
                     userAnswers[index] = key;
-                    saveState(); // Simpan state setiap kali menjawab
+                    saveState();
                     displayQuestion(index);
                 };
                 optionsContainer.appendChild(optionButton);
@@ -334,7 +331,7 @@
                 }
                 button.onclick = () => {
                     displayQuestion(i);
-                    saveState(); // Simpan state setiap kali navigasi
+                    saveState();
                 }
                 navigationGrid.appendChild(button);
             });
@@ -378,7 +375,9 @@
 
                 localStorage.setItem('loggedInUser', JSON.stringify(userData));
             }
-
+            
+            mainContent.insertAdjacentHTML('beforeend', resultsPageTemplate);
+            
             document.getElementById('result-total-score').textContent = results.totalScore;
             document.getElementById('result-twk-score').textContent = results.scores.TWK;
             document.getElementById('result-tiu-score').textContent = results.scores.TIU;
@@ -393,15 +392,21 @@
             
             const message = `Halo, saya ${loggedInUser.username} telah menyelesaikan simulasi SKD di EduNav.\n\n*Hasil Saya:*\n- Total Skor: *${results.totalScore}*\n- TWK: ${results.scores.TWK}\n- TIU: ${results.scores.TIU}\n- TKP: ${results.scores.TKP}\n\n*Status: ${results.isPass ? 'LULUS' : 'TIDAK LULUS'}*\n\nTerima kasih, EduNav!`;
             const encodedMessage = encodeURIComponent(message);
-            whatsappButton.href = `https://wa.me/6289530471620?text=${encodedMessage}`;
+            document.getElementById('whatsapp-button').href = `https://wa.me/6289530471620?text=${encodedMessage}`;
+            document.getElementById('review-button').addEventListener('click', showReview);
 
             sessionStorage.setItem('lastTestResult', JSON.stringify({userAnswers, correctAnswers: results.correctAnswers}));
             
-            clearState(); // Hapus state setelah tes selesai
+            clearState();
             showPage('results-page');
         }
 
         function showReview() {
+            if (!document.getElementById('review-page')) {
+                mainContent.insertAdjacentHTML('beforeend', reviewPageTemplate);
+                document.getElementById('back-to-result-button').addEventListener('click', () => showPage('results-page'));
+            }
+
             const reviewContainer = document.getElementById('review-container');
             const lastResult = JSON.parse(sessionStorage.getItem('lastTestResult'));
             if (!lastResult) return;
@@ -445,14 +450,13 @@
             showPage('review-page');
         }
 
-        // --- [DISSEMPURNAKAN] Event Listener untuk memulai/melanjutkan tes ---
+        // --- Event Listeners ---
         startTestButton.addEventListener('click', () => {
             const savedState = loadState();
             if (savedState) {
-                // Lanjutkan tes
                 userAnswers = savedState.userAnswers;
                 currentQuestionIndex = savedState.currentQuestionIndex;
-                testEndTime = savedState.testEndTime; // [DIUBAH] Muat waktu berakhir
+                testEndTime = savedState.testEndTime;
                 
                 const remainingSeconds = Math.floor((testEndTime - Date.now()) / 1000);
                 
@@ -461,15 +465,14 @@
                     displayQuestion(currentQuestionIndex);
                     startTimer(remainingSeconds);
                 } else {
-                    finishTest(); // Waktu habis saat tab ditutup
+                    finishTest();
                 }
             } else {
-                // Mulai tes baru
                 clearState();
                 userAnswers = {};
                 currentQuestionIndex = 0;
-                testEndTime = Date.now() + (TEST_DURATION_SECONDS * 1000); // [DIUBAH] Set waktu berakhir
-                saveState(); // Simpan state awal
+                testEndTime = Date.now() + (TEST_DURATION_SECONDS * 1000);
+                saveState();
                 showPage('test-page');
                 displayQuestion(0);
                 startTimer(TEST_DURATION_SECONDS);
@@ -503,9 +506,6 @@
             finishTest();
         });
         
-        reviewButton.addEventListener('click', showReview);
-        backToResultButton.addEventListener('click', () => showPage('results-page'));
-
         navigationToggle.addEventListener('click', () => {
             if (navigationContent.style.maxHeight) {
                 navigationContent.style.maxHeight = null;
