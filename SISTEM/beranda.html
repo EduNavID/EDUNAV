@@ -49,39 +49,13 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
         }
+        /* Custom file input */
         #edit-avatar-input {
             display: none;
-        }
-        /* Loading Spinner */
-        #loading-overlay {
-            position: fixed;
-            inset: 0;
-            background-color: rgba(255, 255, 255, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            transition: opacity 0.3s ease;
-        }
-        .spinner {
-            width: 56px;
-            height: 56px;
-            border: 8px solid #e0e7ff; /* indigo-100 */
-            border-top-color: #4f46e5; /* indigo-600 */
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body class="text-slate-800">
-
-    <!-- Loading Overlay -->
-    <div id="loading-overlay">
-        <div class="spinner"></div>
-    </div>
 
     <!-- Header -->
     <header class="bg-white/80 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-50">
@@ -147,6 +121,25 @@
                     </svg>
                 </div>
             </div>
+            <!-- Keuntungan EduNav -->
+            <div class="mt-16">
+                <h2 class="text-2xl font-bold text-center mb-2 text-slate-800">Kenapa Memilih EduNav?</h2>
+                <p class="text-center text-slate-500 mb-10">Kami menyediakan semua yang kamu butuhkan untuk sukses.</p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl solid-shadow border border-transparent hover:border-indigo-300 card-hover">
+                        <h3 class="text-lg font-bold mb-2">Simulasi Realistis</h3>
+                        <p class="text-slate-600 text-sm">Rasakan pengalaman tes yang sesungguhnya dengan antarmuka dan sistem penilaian yang mirip aslinya.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl solid-shadow border border-transparent hover:border-indigo-300 card-hover">
+                        <h3 class="text-lg font-bold mb-2">Analisis Performa</h3>
+                        <p class="text-slate-600 text-sm">Dapatkan laporan detail kekuatan dan kelemahanmu untuk strategi belajar yang lebih efektif.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl solid-shadow border border-transparent hover:border-indigo-300 card-hover">
+                        <h3 class="text-lg font-bold mb-2">100% Gratis</h3>
+                        <p class="text-slate-600 text-sm">Kami berkomitmen menyediakan akses pendidikan berkualitas tanpa biaya sepeserpun.</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Konten Simulasi Tes (Hidden by default) -->
@@ -154,11 +147,13 @@
             <h1 class="text-3xl font-extrabold text-slate-900 text-center mb-2">Pilih Simulasi Tes</h1>
             <p class="text-slate-600 text-center mb-10">Asah kemampuanmu pada bidang yang kamu tuju.</p>
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Link ke halaman UTBK -->
                 <a href="./utbk.html" class="group block bg-white p-8 rounded-xl solid-shadow card-hover border-2 border-transparent hover:border-indigo-500">
                     <h2 class="text-2xl font-bold text-indigo-700">Try Out UTBK</h2>
                     <p class="mt-2 text-slate-600">Raih PTN impianmu dengan persiapan matang.</p>
                     <span class="mt-4 inline-block font-semibold text-indigo-600 group-hover:underline">Mulai Mengerjakan &rarr;</span>
                 </a>
+                <!-- Link ke halaman SKD -->
                 <a href="./skd.html" class="group block bg-white p-8 rounded-xl solid-shadow card-hover border-2 border-transparent hover:border-blue-500">
                     <h2 class="text-2xl font-bold text-blue-700">SKD Kedinasan</h2>
                     <p class="mt-2 text-slate-600">Jadilah abdi negara selanjutnya.</p>
@@ -171,14 +166,24 @@
         <div id="pengumuman-content" class="content-section hidden">
             <h1 class="text-3xl font-extrabold text-slate-900 text-center mb-10">Papan Pengumuman</h1>
             <div class="max-w-3xl mx-auto space-y-6">
-                <div class="bg-white p-6 rounded-xl solid-shadow">
-                    <p class="font-bold text-lg text-slate-800">Integrasi AI untuk Pembahasan (Coming Soon)</p>
-                    <p class="mt-2 text-slate-600">Kami sedang mengembangkan fitur AI canggih yang akan memberikan pembahasan soal yang lebih personal dan interaktif!</p>
+                <div class="bg-white p-6 rounded-xl solid-shadow flex items-start space-x-4">
+                    <span class="flex-shrink-0 w-3 h-3 bg-purple-500 rounded-full mt-1.5"></span>
+                    <div>
+                        <p class="font-bold text-lg text-slate-800">Integrasi AI untuk Pembahasan (Coming Soon)</p>
+                        <p class="mt-2 text-slate-600">Kami sedang mengembangkan fitur AI canggih yang akan memberikan pembahasan soal yang lebih personal dan interaktif!</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl solid-shadow flex items-start space-x-4">
+                    <span class="flex-shrink-0 w-3 h-3 bg-blue-500 rounded-full mt-1.5"></span>
+                    <div>
+                        <p class="font-bold text-lg text-slate-800">Jadwal Simulasi SKD Kedinasan: 15 Juli 2025</p>
+                        <p class="mt-2 text-slate-600">Persiapkan dirimu! Simulasi Akbar SKD Kedinasan akan dibuka serentak. Jangan sampai ketinggalan!</p>
+                    </div>
                 </div>
             </div>
         </div>
         
-        <!-- KONTEN PROFIL SAYA -->
+        <!-- KONTEN PROFIL SAYA (TEMPLATE) -->
         <div id="profil-content" class="content-section hidden">
             <div class="max-w-4xl mx-auto">
                 <div class="bg-white rounded-2xl solid-shadow-lg p-8 flex flex-col md:flex-row items-center gap-8">
@@ -213,12 +218,17 @@
                         <table class="w-full text-left">
                             <thead>
                                 <tr class="border-b border-slate-200 text-sm text-slate-500">
-                                    <th class="py-2">Nama Tes</th><th class="py-2">Tanggal</th><th class="py-2">Skor</th><th class="py-2"></th>
+                                    <th class="py-2">Nama Tes</th>
+                                    <th class="py-2">Tanggal</th>
+                                    <th class="py-2">Skor</th>
+                                    <th class="py-2"></th>
                                 </tr>
                             </thead>
-                            <tbody id="riwayat-tes-body">
-                                <!-- Data riwayat akan diisi oleh JavaScript -->
-                                <tr><td colspan="4" class="text-center py-8 text-slate-500">Belum ada riwayat tes.</td></tr>
+                            <tbody>
+                                <!-- Data riwayat akan diisi oleh JavaScript jika ada -->
+                                <tr id="riwayat-tes-placeholder" class="hidden">
+                                    <td colspan="4" class="text-center py-8 text-slate-500">Belum ada riwayat tes.</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -247,15 +257,19 @@
                 <div class="flex items-center gap-4 mb-6">
                     <img id="edit-avatar-preview" class="w-20 h-20 rounded-full object-cover border-2 border-slate-200" src="" alt="Avatar Preview">
                     <div>
-                        <label for="edit-avatar-input" class="cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2 px-4 rounded-lg text-sm">Ganti Foto</label>
+                        <label for="edit-avatar-input" class="cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2 px-4 rounded-lg text-sm">
+                            Ganti Foto
+                        </label>
                         <input type="file" id="edit-avatar-input" accept="image/*">
                         <p class="text-xs text-slate-500 mt-2">JPG, PNG, atau GIF. Maks 1MB.</p>
                     </div>
                 </div>
+                <!-- Username (tidak bisa diedit) -->
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-slate-700 mb-1">Username</label>
                     <p id="edit-username-display" class="text-slate-500 bg-slate-100 px-4 py-2 rounded-lg"></p>
                 </div>
+                <!-- Email (tidak bisa diedit) -->
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-slate-700 mb-1">Email</label>
                     <p id="edit-email-display" class="text-slate-500 bg-slate-100 px-4 py-2 rounded-lg"></p>
@@ -268,29 +282,45 @@
         </div>
     </div>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        // Import fungsi yang diperlukan dari Firebase SDK
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signOut, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // --- KONFIGURASI FIREBASE ---
-        // Konfigurasi ini akan disediakan oleh environment Canvas
-        const firebaseConfig = typeof __firebase_config !== 'undefined' 
-            ? JSON.parse(__firebase_config)
-            : { apiKey: "YOUR_API_KEY", authDomain: "YOUR_AUTH_DOMAIN", projectId: "YOUR_PROJECT_ID" }; // Fallback
-        
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'edunav-app';
-
-        // Inisialisasi Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- VARIABEL GLOBAL & ELEMEN DOM ---
-            const loadingOverlay = document.getElementById('loading-overlay');
+            const redirectToLogin = () => {
+                const currentPath = window.location.pathname;
+                const loginPagePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1) + 'loginpage.html';
+                window.location.href = loginPagePath;
+            };
+            
+            let loggedInUser;
+            const loggedInUserString = localStorage.getItem('loggedInUser');
+            
+            if (loggedInUserString) {
+                loggedInUser = JSON.parse(loggedInUserString);
+                // Pastikan struktur data lengkap dengan data contoh
+                if (!loggedInUser.stats) {
+                    loggedInUser.stats = { simulasi: 12, rataRata: 82.5, peringkat: "#5,231" };
+                }
+                 if (!loggedInUser.history) {
+                    loggedInUser.history = [
+                        { name: 'Try Out UTBK #3', date: '12 Juli 2025', score: 88.2, status: 'green' },
+                        { name: 'Simulasi SKD Kedinasan', date: '5 Juli 2025', score: 75.0, status: 'amber' },
+                        { name: 'Try Out UTBK #2', date: '28 Juni 2025', score: 64.7, status: 'red' }
+                    ];
+                }
+                if (!loggedInUser.avatar) {
+                     loggedInUser.avatar = `https://placehold.co/96x96/e0e7ff/4f46e5?text=${loggedInUser.username.charAt(0).toUpperCase()}`;
+                }
+            } else {
+                console.log("Tidak ada pengguna yang login. Menggunakan data 'Pengguna Asing'.");
+                loggedInUser = {
+                    username: "Pengguna Asing",
+                    email: "Tidak diketahui",
+                    avatar: `https://placehold.co/96x96/64748B/FFFFFF?text=?`,
+                    stats: { simulasi: 0, rataRata: 0, peringkat: "N/A" },
+                    history: []
+                };
+            }
+            
+            // --- Inisialisasi Elemen ---
             const profileButton = document.getElementById('profile-button');
             const profileDropdown = document.getElementById('profile-dropdown');
             const logoutButton = document.getElementById('logout-button');
@@ -300,36 +330,26 @@
             const navLinks = document.querySelectorAll('.nav-link');
             const contentSections = document.querySelectorAll('.content-section');
             const logoLink = document.getElementById('logo-link');
+
+            // --- Elemen Edit Profil ---
             const editProfileModal = document.getElementById('edit-profile-modal');
             const editProfileBtn = document.getElementById('edit-profile-btn');
             const cancelEditProfileBtn = document.getElementById('cancel-edit-profile-btn');
             const editProfileForm = document.getElementById('edit-profile-form');
+            const editUsernameDisplay = document.getElementById('edit-username-display');
+            const editEmailDisplay = document.getElementById('edit-email-display');
             const editAvatarInput = document.getElementById('edit-avatar-input');
             const editAvatarPreview = document.getElementById('edit-avatar-preview');
-            
-            let currentUserData = null; // Menyimpan data pengguna saat ini
-            let currentUserRef = null; // Menyimpan referensi dokumen pengguna di Firestore
-            let newAvatarDataUrl = null; // Menyimpan data URL avatar baru
-            let unsubscribeUser = null; // Fungsi untuk berhenti mendengarkan perubahan data
+            let newAvatarDataUrl = null;
 
-            // --- FUNGSI UTAMA ---
-
-            // Fungsi untuk menampilkan loading
-            const showLoading = (isLoading) => {
-                loadingOverlay.style.opacity = isLoading ? '1' : '0';
-                loadingOverlay.style.pointerEvents = isLoading ? 'auto' : 'none';
-            };
-
-            // Fungsi untuk memperbarui semua data pengguna di UI
-            const updateAllUserDataUI = (user) => {
-                if (!user) return;
-                const defaultAvatar = `https://placehold.co/96x96/e0e7ff/4f46e5?text=${user.username.charAt(0).toUpperCase()}`;
-                const avatarUrl = user.avatar || defaultAvatar;
-
-                // Update Header & Dropdown
-                document.getElementById('header-avatar').src = avatarUrl;
+            // --- Fungsi untuk update semua data pengguna di UI ---
+            const updateAllUserData = (user) => {
+                // Update Header
+                document.getElementById('header-avatar').src = user.avatar;
                 document.getElementById('profile-username').textContent = user.username;
                 document.getElementById('profile-email').textContent = user.email;
+                
+                // Update Dropdown
                 document.getElementById('dropdown-username').textContent = user.username;
                 document.getElementById('dropdown-email').textContent = user.email;
 
@@ -337,21 +357,23 @@
                 document.getElementById('welcome-message').textContent = `Halo, ${user.username}!`;
                 
                 // Update Halaman Profil
-                document.getElementById('profile-avatar-main').src = avatarUrl;
+                document.getElementById('profile-avatar-main').src = user.avatar;
                 document.getElementById('profile-name-main').textContent = user.username;
                 document.getElementById('profile-email-main').textContent = user.email;
 
                 // Update Statistik
-                document.getElementById('stat-simulasi').textContent = user.stats?.simulasi || 0;
-                document.getElementById('stat-rata-rata').textContent = user.stats?.rataRata || 0;
-                document.getElementById('stat-peringkat').textContent = user.stats?.peringkat || 'N/A';
+                document.getElementById('stat-simulasi').textContent = user.stats.simulasi;
+                document.getElementById('stat-rata-rata').textContent = user.stats.rataRata;
+                document.getElementById('stat-peringkat').textContent = user.stats.peringkat;
 
                 // Update Riwayat Tes
-                const historyTableBody = document.getElementById('riwayat-tes-body');
-                historyTableBody.innerHTML = '';
+                const historyTableBody = document.querySelector('#profil-content tbody');
+                const placeholder = document.getElementById('riwayat-tes-placeholder');
+                historyTableBody.innerHTML = ''; // Kosongkan tabel dulu
                 if (user.history && user.history.length > 0) {
+                    placeholder.classList.add('hidden');
                     user.history.forEach(item => {
-                        const scoreColor = `text-${item.status || 'green'}-600`;
+                        const scoreColor = `text-${item.status}-600`;
                         const row = `
                             <tr class="border-b border-slate-100">
                                 <td class="py-4 font-semibold">${item.name}</td>
@@ -362,120 +384,48 @@
                         historyTableBody.innerHTML += row;
                     });
                 } else {
-                    historyTableBody.innerHTML = '<tr><td colspan="4" class="text-center py-8 text-slate-500">Belum ada riwayat tes.</td></tr>';
+                    historyTableBody.appendChild(placeholder);
+                    placeholder.classList.remove('hidden');
                 }
             };
 
-            // Fungsi untuk navigasi antar "halaman"
+            updateAllUserData(loggedInUser);
+
             const switchPage = (targetId) => {
                 contentSections.forEach(section => section.classList.add('hidden'));
                 document.getElementById(targetId)?.classList.remove('hidden');
+                
                 navLinks.forEach(link => {
-                    link.classList.toggle('nav-link-active', link.dataset.target === targetId);
+                    const isActive = link.dataset.target === targetId;
+                    link.classList.toggle('nav-link-active', isActive);
+                    if (!link.closest('#profile-dropdown')) {
+                         link.classList.toggle('text-slate-600', !isActive);
+                         link.classList.toggle('hover:text-indigo-600', !isActive);
+                    }
                 });
                 profileDropdown.classList.add('hidden');
             };
 
-            // --- LOGIKA AUTENTIKASI & FIRESTORE ---
-
-            onAuthStateChanged(auth, async (user) => {
-                showLoading(true);
-                if (unsubscribeUser) unsubscribeUser(); // Berhenti listen dari user sebelumnya
-
-                if (user) {
-                    // Pengguna sudah login
-                    console.log("Pengguna terautentikasi:", user.uid);
-                    const userId = user.uid;
-                    currentUserRef = doc(db, "artifacts", appId, "users", userId);
-
-                    // Listen untuk perubahan data pengguna secara real-time
-                    unsubscribeUser = onSnapshot(currentUserRef, (docSnap) => {
-                        if (docSnap.exists()) {
-                            console.log("Data pengguna diterima dari Firestore:", docSnap.data());
-                            currentUserData = docSnap.data();
-                            updateAllUserDataUI(currentUserData);
-                        } else {
-                            // Jika dokumen belum ada, buat data pengguna baru
-                            console.log("Dokumen pengguna tidak ditemukan, membuat data baru...");
-                            const newUser = {
-                                username: user.email ? user.email.split('@')[0] : "Pengguna Baru",
-                                email: user.email || "Tidak diketahui",
-                                avatar: "",
-                                stats: { simulasi: 0, rataRata: 0, peringkat: "N/A" },
-                                history: []
-                            };
-                            setDoc(currentUserRef, newUser).then(() => {
-                                console.log("Data pengguna baru berhasil dibuat.");
-                                currentUserData = newUser;
-                                updateAllUserDataUI(currentUserData);
-                            });
-                        }
-                        showLoading(false);
-                    }, (error) => {
-                        console.error("Error listening to user data:", error);
-                        showLoading(false);
-                    });
-                } else {
-                    // Pengguna tidak login, coba login dengan token atau secara anonim
-                    console.log("Tidak ada pengguna, mencoba login...");
-                    try {
-                        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                            await signInWithCustomToken(auth, __initial_auth_token);
-                            console.log("Login dengan custom token berhasil.");
-                        } else {
-                            await signInAnonymously(auth);
-                            console.log("Login secara anonim berhasil.");
-                        }
-                        // onAuthStateChanged akan terpanggil lagi setelah login berhasil
-                    } catch (error) {
-                        console.error("Gagal login:", error);
-                        showLoading(false);
-                    }
-                }
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    switchPage(e.currentTarget.dataset.target);
+                });
             });
-
-            // --- EVENT LISTENERS ---
-
-            // Navigasi
-            navLinks.forEach(link => link.addEventListener('click', (e) => {
-                e.preventDefault();
-                switchPage(e.currentTarget.dataset.target);
-            }));
+            
             logoLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 switchPage('beranda-content');
             });
+
             document.getElementById('cta-simulasi').addEventListener('click', () => switchPage('simulasi-content'));
 
-            // Dropdown Profil
-            profileButton.addEventListener('click', () => profileDropdown.classList.toggle('hidden'));
-            window.addEventListener('click', (e) => {
-                if (!profileButton.contains(e.target) && !profileDropdown.contains(e.target)) {
-                    profileDropdown.classList.add('hidden');
-                }
-            });
-
-            // Logout
-            logoutButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                profileDropdown.classList.add('hidden');
-                logoutConfirmModal.classList.remove('hidden');
-            });
-            cancelLogoutBtn.addEventListener('click', () => logoutConfirmModal.classList.add('hidden'));
-            confirmLogoutBtn.addEventListener('click', () => {
-                signOut(auth).then(() => {
-                    console.log("Logout berhasil.");
-                    window.location.reload(); // Muat ulang halaman untuk memulai sesi anonim baru
-                }).catch((error) => console.error("Gagal logout:", error));
-            });
-
-            // Edit Profil
+            // --- Logika Edit Profil ---
             editProfileBtn.addEventListener('click', () => {
-                if (!currentUserData) return;
-                document.getElementById('edit-username-display').textContent = currentUserData.username;
-                document.getElementById('edit-email-display').textContent = currentUserData.email;
-                editAvatarPreview.src = currentUserData.avatar || `https://placehold.co/96x96/e0e7ff/4f46e5?text=${currentUserData.username.charAt(0).toUpperCase()}`;
-                newAvatarDataUrl = null;
+                editUsernameDisplay.textContent = loggedInUser.username;
+                editEmailDisplay.textContent = loggedInUser.email;
+                editAvatarPreview.src = loggedInUser.avatar;
+                newAvatarDataUrl = null; // Reset
                 editProfileModal.classList.remove('hidden');
             });
 
@@ -491,31 +441,43 @@
                 }
             });
 
-            cancelEditProfileBtn.addEventListener('click', () => editProfileModal.classList.add('hidden'));
-
-            editProfileForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                if (!currentUserRef) return;
-                
-                showLoading(true);
-                const updates = {};
-                if (newAvatarDataUrl) {
-                    updates.avatar = newAvatarDataUrl;
-                }
-                // Tambahkan field lain yang bisa diupdate di sini jika perlu
-
-                try {
-                    await updateDoc(currentUserRef, updates);
-                    console.log("Profil berhasil diperbarui di Firestore.");
-                } catch (error) {
-                    console.error("Gagal memperbarui profil:", error);
-                } finally {
-                    editProfileModal.classList.add('hidden');
-                    showLoading(false);
-                }
+            cancelEditProfileBtn.addEventListener('click', () => {
+                editProfileModal.classList.add('hidden');
             });
 
-            // Inisialisasi halaman
+            editProfileForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                if (newAvatarDataUrl) {
+                    loggedInUser.avatar = newAvatarDataUrl;
+                }
+                
+                // Hanya simpan jika user bukan "Pengguna Asing"
+                if (localStorage.getItem('loggedInUser')) {
+                    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+                }
+
+                updateAllUserData(loggedInUser);
+                editProfileModal.classList.add('hidden');
+            });
+            
+            // --- Logika Lainnya ---
+            profileButton.addEventListener('click', () => profileDropdown.classList.toggle('hidden'));
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                profileDropdown.classList.add('hidden');
+                logoutConfirmModal.classList.remove('hidden');
+            });
+            cancelLogoutBtn.addEventListener('click', () => logoutConfirmModal.classList.add('hidden'));
+            confirmLogoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('loggedInUser');
+                redirectToLogin();
+            });
+            window.addEventListener('click', (e) => {
+                if (!profileButton.contains(e.target) && !profileDropdown.contains(e.target)) {
+                    profileDropdown.classList.add('hidden');
+                }
+            });
             switchPage('beranda-content');
         });
     </script>
