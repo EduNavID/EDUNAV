@@ -295,31 +295,7 @@
                 window.location.href = loginPagePath;
             };
             
-            let loggedInUser;
-            const loggedInUserString = localStorage.getItem('loggedInUser');
-            
-            if (loggedInUserString) {
-                loggedInUser = JSON.parse(loggedInUserString);
-                // Pastikan struktur data lengkap dengan data contoh
-                if (!loggedInUser.stats) {
-                    loggedInUser.stats = { simulasi: 0, rataRata: 0, peringkat: "N/A" };
-                }
-                 if (!loggedInUser.history) {
-                    loggedInUser.history = [];
-                }
-                if (!loggedInUser.avatar) {
-                     loggedInUser.avatar = `https://placehold.co/96x96/e0e7ff/4f46e5?text=${loggedInUser.username.charAt(0).toUpperCase()}`;
-                }
-            } else {
-                console.log("Tidak ada pengguna yang login. Menggunakan data 'Pengguna Asing'.");
-                loggedInUser = {
-                    username: "Pengguna Asing",
-                    email: "Tidak diketahui",
-                    avatar: `https://placehold.co/96x96/64748B/FFFFFF?text=?`,
-                    stats: { simulasi: 0, rataRata: 0, peringkat: "N/A" },
-                    history: []
-                };
-            }
+            let loggedInUser = {};
             
             // --- Inisialisasi Elemen ---
             const profileButton = document.getElementById('profile-button');
@@ -345,6 +321,7 @@
 
             // --- Fungsi untuk update semua data pengguna di UI ---
             const updateAllUserData = (user) => {
+                if (!user) return;
                 // Update Header
                 document.getElementById('header-avatar').src = user.avatar;
                 document.getElementById('profile-username').textContent = user.username;
@@ -372,7 +349,7 @@
                 historyTableBody.innerHTML = ''; // Kosongkan tabel dulu
                 if (user.history && user.history.length > 0) {
                     user.history.forEach(item => {
-                        const scoreColor = `text-${item.status}-600`;
+                        const scoreColor = item.status === 'green' ? 'text-green-600' : 'text-red-600';
                         const row = `
                             <tr class="border-b border-slate-100">
                                 <td class="py-4 font-semibold">${item.name}</td>
@@ -391,11 +368,32 @@
                 }
             };
 
-            const switchPage = (targetId) => {
-                // **PERBAIKAN**: Selalu panggil updateAllUserData setiap kali berpindah halaman
-                // untuk memastikan semua data (profil, avatar, dll) selalu sinkron.
+            // --- Fungsi untuk memuat ulang data dari localStorage dan memperbarui UI ---
+            const refreshUserDataFromStorage = () => {
+                const userString = localStorage.getItem('loggedInUser');
+                if (userString) {
+                    loggedInUser = JSON.parse(userString);
+                    // Pastikan struktur data lengkap dengan data default jika tidak ada
+                    if (!loggedInUser.stats) {
+                        loggedInUser.stats = { simulasi: 0, rataRata: 0, peringkat: "N/A" };
+                    }
+                    if (!loggedInUser.history) {
+                        loggedInUser.history = [];
+                    }
+                    if (!loggedInUser.avatar) {
+                        loggedInUser.avatar = `https://placehold.co/96x96/e0e7ff/4f46e5?text=${loggedInUser.username.charAt(0).toUpperCase()}`;
+                    }
+                } else {
+                     // Jika tidak ada pengguna yang login, arahkan ke halaman login
+                    redirectToLogin();
+                    return; // Hentikan eksekusi lebih lanjut
+                }
+                // Selalu perbarui UI setelah data dimuat atau di-refresh
                 updateAllUserData(loggedInUser);
+            };
 
+
+            const switchPage = (targetId) => {
                 contentSections.forEach(section => section.classList.add('hidden'));
                 document.getElementById(targetId)?.classList.remove('hidden');
                 
@@ -456,10 +454,8 @@
                     loggedInUser.avatar = newAvatarDataUrl;
                 }
                 
-                // Hanya simpan jika user bukan "Pengguna Asing"
-                if (localStorage.getItem('loggedInUser')) {
-                    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
-                }
+                // Simpan data yang diperbarui ke localStorage
+                localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
 
                 updateAllUserData(loggedInUser);
                 editProfileModal.classList.add('hidden');
@@ -483,9 +479,16 @@
                 }
             });
 
+            // --- Event listener untuk menyegarkan data saat tab kembali aktif ---
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible') {
+                    refreshUserDataFromStorage();
+                }
+            });
+
             // --- Inisialisasi Halaman ---
-            // Memanggil switchPage di awal untuk memuat data dan mengatur tab aktif
-            switchPage('beranda-content');
+            refreshUserDataFromStorage(); // Muat data saat halaman pertama kali dibuka
+            switchPage('beranda-content'); // Tampilkan halaman beranda sebagai default
         });
     </script>
 </body>
