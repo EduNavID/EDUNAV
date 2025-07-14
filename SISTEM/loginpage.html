@@ -193,11 +193,8 @@
                         username: username,
                         email: storedUserData.email,
                         avatar: `https://placehold.co/96x96/e0e7ff/4f46e5?text=${username.charAt(0).toUpperCase()}`,
-                        stats: { simulasi: 12, rataRata: 82.5, peringkat: "#5,231" },
+                        stats: { simulasi: -, rataRata: -, peringkat: "-" },
                         history: [
-                            { name: 'Try Out UTBK #3', date: '12 Juli 2025', score: 88.2, status: 'green' },
-                            { name: 'Simulasi SKD Kedinasan', date: '5 Juli 2025', score: 75.0, status: 'amber' },
-                            { name: 'Try Out UTBK #2', date: '28 Juni 2025', score: 64.7, status: 'red' }
                         ]
                     };
                     localStorage.setItem('loggedInUser', JSON.stringify(userProfile));
