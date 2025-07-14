@@ -162,7 +162,17 @@
 
                 const newPassword = Math.random().toString(36).slice(-8);
                 
-                userDb[username] = { email: email, password: newPassword };
+                // --- FIX: Membuat profil baru dengan nilai nol ---
+                userDb[username] = { 
+                    email: email, 
+                    password: newPassword,
+                    // Data profil untuk pengguna baru
+                    profile: {
+                        avatar: `https://placehold.co/96x96/e0e7ff/4f46e5?text=${username.charAt(0).toUpperCase()}`,
+                        stats: { simulasi: 0, rataRata: 0, peringkat: "N/A" },
+                        history: []
+                    }
+                };
                 localStorage.setItem(USER_DB_KEY, JSON.stringify(userDb));
 
                 // Tampilkan password ke pengguna
@@ -189,13 +199,14 @@
 
                 if (storedUserData && password === storedUserData.password) {
                     // --- Login Berhasil ---
+                    // --- FIX: Mengambil data profil yang sudah ada dari database ---
                     const userProfile = {
                         username: username,
                         email: storedUserData.email,
-                        avatar: `https://placehold.co/96x96/e0e7ff/4f46e5?text=${username.charAt(0).toUpperCase()}`,
-                        stats: { simulasi: -, rataRata: -, peringkat: "-" },
-                        history: [
-                        ]
+                        // Ambil semua data profil dari database
+                        avatar: storedUserData.profile.avatar,
+                        stats: storedUserData.profile.stats,
+                        history: storedUserData.profile.history
                     };
                     localStorage.setItem('loggedInUser', JSON.stringify(userProfile));
                     window.location.href = './beranda.html'; 
