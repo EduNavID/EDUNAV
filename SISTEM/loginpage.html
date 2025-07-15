@@ -37,10 +37,8 @@
     </header>
 
     <main class="container mx-auto px-6 py-12 flex items-center justify-center flex-grow">
-        <!-- Kontainer Sign Up (Hidden by default) -->
         <div id="signup-container" class="w-full max-w-md page-container hidden">
             <div class="bg-white p-8 rounded-xl shadow-2xl">
-                <!-- Tampilan Awal Sign Up -->
                 <div id="signup-view">
                     <h2 class="text-3xl font-extrabold text-center text-gray-900 mb-2">Daftar Akun Baru</h2>
                     <p class="text-center text-gray-500 mb-6">Isi data di bawah untuk mendaftar.</p>
@@ -59,8 +57,7 @@
                         </button>
                     </form>
                 </div>
-                <!-- Tampilan Setelah Password Dibuat -->
-                 <div id="password-display" class="hidden text-center">
+                <div id="password-display" class="hidden text-center">
                     <h3 class="text-2xl font-bold text-green-600">Akun Dibuat!</h3>
                     <p class="text-gray-600 mt-2">Ini password Anda. Harap simpan baik-baik.</p>
                     <div class="mt-4 flex items-center bg-gray-100 p-3 rounded-lg border-2 border-dashed">
@@ -73,7 +70,6 @@
             </div>
         </div>
 
-        <!-- Kontainer Login -->
         <div id="login-container" class="w-full max-w-md page-container">
             <div class="bg-white p-8 rounded-xl shadow-2xl">
                 <h2 id="login-greeting" class="text-3xl font-extrabold text-center text-gray-900 mb-2">Selamat Datang!</h2>
@@ -117,8 +113,29 @@
             const proceedToLoginButton = document.getElementById('proceed-to-login-button');
             
             const USER_DB_KEY = 'eduNavUserDatabase';
-            // Kunci baru untuk menandai bahwa akun telah dibuat di browser ini
             const ACCOUNT_CREATED_KEY = 'eduNavAccountCreated';
+
+            // --- [PERMINTAAN BARU] Menambahkan akun admin darurat ---
+            // Fungsi ini memastikan akun 'admin' selalu ada di database browser.
+            (function seedAdminAccount() {
+                let userDb = JSON.parse(localStorage.getItem(USER_DB_KEY) || '{}');
+                // Periksa apakah akun admin belum ada
+                if (!userDb['admin']) {
+                    userDb['admin'] = { 
+                        email: 'admin@edunav.com', // Email default
+                        password: '120107100307',
+                        profile: {
+                            avatar: `https://placehold.co/96x96/4338ca/FFFFFF?text=A`, // Avatar khusus admin
+                            stats: { simulasi: 0, rataRata: 0, peringkat: "N/A" },
+                            history: []
+                        }
+                    };
+                    // Simpan kembali database yang sudah diperbarui
+                    localStorage.setItem(USER_DB_KEY, JSON.stringify(userDb));
+                }
+            })();
+            // --- Akhir dari blok akun darurat ---
+
 
             // --- Cek apakah akun sudah pernah dibuat ---
             const hasCreatedAccount = localStorage.getItem(ACCOUNT_CREATED_KEY);
@@ -183,16 +200,11 @@
                     }
                 };
                 localStorage.setItem(USER_DB_KEY, JSON.stringify(userDb));
-
-                // --- PERUBAHAN: Set flag bahwa akun telah dibuat ---
                 localStorage.setItem(ACCOUNT_CREATED_KEY, 'true');
 
-                // Tampilkan password ke pengguna
                 generatedPasswordInput.value = newPassword;
                 signupView.classList.add('hidden');
                 passwordDisplay.classList.remove('hidden');
-
-                // Sembunyikan tombol Sign Up secara permanen setelah berhasil mendaftar
                 navToggleButton.style.display = 'none';
             });
 
@@ -217,9 +229,7 @@
                     const userProfile = {
                         username: username,
                         email: storedUserData.email,
-                        avatar: storedUserData.profile.avatar,
-                        stats: storedUserData.profile.stats,
-                        history: storedUserData.profile.history
+                        ...storedUserData.profile // Gabungkan data profil
                     };
                     localStorage.setItem('loggedInUser', JSON.stringify(userProfile));
                     window.location.href = './beranda.html'; 
