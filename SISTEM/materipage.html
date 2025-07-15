@@ -18,6 +18,16 @@
             font-weight: 600;
             position: relative;
         }
+        .solid-shadow-lg {
+             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.07);
+        }
+        .modal-container {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body class="text-slate-800 flex flex-col min-h-screen">
@@ -27,9 +37,9 @@
             <a href="./beranda.html" class="text-2xl font-bold text-indigo-600">EduNav</a>
             <div class="hidden md:flex items-center space-x-10">
                 <a href="./beranda.html" class="text-slate-600 hover:text-indigo-600 transition-colors">Beranda</a>
-                <a href="./beranda.html#simulasi" onclick="sessionStorage.setItem('targetSection', 'simulasi-content');" class="text-slate-600 hover:text-indigo-600 transition-colors">Simulasi Tes</a>
+                <a href="./beranda.html" onclick="sessionStorage.setItem('targetSection', 'simulasi-content');" class="text-slate-600 hover:text-indigo-600 transition-colors">Simulasi Tes</a>
                 <a href="./materipage.html" class="nav-link-active">Materi</a>
-                <a href="./beranda.html#pengumuman" onclick="sessionStorage.setItem('targetSection', 'pengumuman-content');" class="text-slate-600 hover:text-indigo-600 transition-colors">Pengumuman</a>
+                <a href="./beranda.html" onclick="sessionStorage.setItem('targetSection', 'pengumuman-content');" class="text-slate-600 hover:text-indigo-600 transition-colors">Pengumuman</a>
             </div>
             <div class="relative">
                 <button id="profile-button" class="flex items-center space-x-3 group">
@@ -39,6 +49,42 @@
                         <p id="profile-email" class="text-xs text-slate-500 text-left">Memuat...</p>
                     </div>
                 </button>
+                <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg solid-shadow-lg z-20 py-2">
+                    <div class="px-4 py-2 border-b border-slate-100">
+                        <p class="font-bold text-slate-800 truncate" id="dropdown-username">Username</p>
+                        <p class="text-sm text-slate-500 truncate" id="dropdown-email">email@example.com</p>
+                    </div>
+                    <div class="py-1">
+                         <a href="./beranda.html" onclick="sessionStorage.setItem('targetSection', 'profil-content');" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">
+                            <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                            <span>Profil Saya</span>
+                        </a>
+                    </div>
+                    <div class="py-1 border-t border-slate-100">
+                        <a href="./beranda.html" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">
+                            <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                            <span>Beranda</span>
+                        </a>
+                        <a href="./beranda.html" onclick="sessionStorage.setItem('targetSection', 'simulasi-content');" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">
+                            <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z"></path></svg>
+                            <span>Simulasi Tes</span>
+                        </a>
+                         <a href="./materipage.html" class="flex items-center gap-3 px-4 py-2 text-sm text-indigo-700 font-semibold bg-indigo-50">
+                            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            <span>Materi</span>
+                        </a>
+                        <a href="./beranda.html" onclick="sessionStorage.setItem('targetSection', 'pengumuman-content');" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">
+                            <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                            <span>Pengumuman</span>
+                        </a>
+                    </div>
+                    <div class="py-1 border-t border-slate-100">
+                        <a href="#" id="logout-button" class="flex items-center gap-3 w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                            <span>Logout</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
@@ -61,7 +107,6 @@
                             Lihat Pembahasan
                         </a>
                     </div>
-
                     <div class="bg-white p-5 rounded-lg border-l-4 border-slate-300 flex items-center justify-between opacity-70">
                         <div>
                             <p class="font-bold text-slate-700">Pembahasan Try Out UTBK #1</p>
@@ -69,7 +114,6 @@
                         </div>
                         <span class="text-sm font-semibold text-slate-600 bg-slate-200 px-3 py-1 rounded-full">Coming Soon</span>
                     </div>
-
                     <div class="bg-white p-5 rounded-lg border-l-4 border-slate-300 flex items-center justify-between opacity-70">
                         <div>
                             <p class="font-bold text-slate-700">Pembahasan SKD Kedinasan #2</p>
@@ -79,9 +123,19 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </main>
+    
+    <div id="logout-confirm-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-60 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto text-center modal-container">
+            <h3 class="text-lg font-bold text-slate-900">Konfirmasi Logout</h3>
+            <p class="mt-2 text-sm text-slate-600">Apakah Anda yakin ingin keluar dari sesi ini?</p>
+            <div class="mt-6 flex justify-center gap-4">
+                <button id="cancel-logout-btn" class="px-6 py-2 bg-slate-200 text-slate-800 font-semibold rounded-lg hover:bg-slate-300">Batal</button>
+                <button id="confirm-logout-btn" class="px-6 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700">Ya, Logout</button>
+            </div>
+        </div>
+    </div>
 
     <footer class="bg-white/80 backdrop-blur-lg mt-12 border-t border-slate-200">
         <div class="container mx-auto px-6 py-4 text-center text-gray-500">
@@ -91,43 +145,66 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Inisialisasi Data Pengguna ---
+            // --- Elemen Navigasi ---
+            const profileButton = document.getElementById('profile-button');
+            const profileDropdown = document.getElementById('profile-dropdown');
+            const logoutButton = document.getElementById('logout-button');
+            const logoutConfirmModal = document.getElementById('logout-confirm-modal');
+            const cancelLogoutBtn = document.getElementById('cancel-logout-btn');
+            const confirmLogoutBtn = document.getElementById('confirm-logout-btn');
+
+            // --- Logika Inisialisasi Data Pengguna ---
             const loggedInUserString = localStorage.getItem('loggedInUser');
             if (loggedInUserString) {
                 const loggedInUser = JSON.parse(loggedInUserString);
-                // Update UI Profil
+                // Update UI Profil di Header & Dropdown
                 document.getElementById('header-avatar').src = loggedInUser.avatar;
                 document.getElementById('profile-username').textContent = loggedInUser.username;
                 document.getElementById('profile-email').textContent = loggedInUser.email;
+                document.getElementById('dropdown-username').textContent = loggedInUser.username;
+                document.getElementById('dropdown-email').textContent = loggedInUser.email;
             } else {
-                 // Redirect if not logged in
                 window.location.href = './loginpage.html';
             }
             
-            // Script to handle navigation back to specific sections on beranda.html
-            const linksToBeranda = document.querySelectorAll('a[href^="./beranda.html#"]');
-            linksToBeranda.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetSection = this.getAttribute('onclick').match(/'(.*?)'/)[1];
-                    sessionStorage.setItem('targetSection', targetSection);
-                    window.location.href = './beranda.html';
-                });
+            // --- Logika Navigasi ---
+            // Navigasi kembali ke Beranda dengan target section
+            document.querySelectorAll('a[href^="./beranda.html"]').forEach(link => {
+                const onclickAttr = link.getAttribute('onclick');
+                if (onclickAttr) {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetSection = onclickAttr.match(/'(.*?)'/)[1];
+                        sessionStorage.setItem('targetSection', targetSection);
+                        window.location.href = './beranda.html';
+                    });
+                }
+            });
+
+            // Tampilkan/Sembunyikan Dropdown Profil
+            profileButton.addEventListener('click', () => {
+                profileDropdown.classList.toggle('hidden');
+            });
+            
+            // Sembunyikan dropdown jika klik di luar
+            window.addEventListener('click', (e) => {
+                if (!profileButton.contains(e.target) && !profileDropdown.contains(e.target)) {
+                    profileDropdown.classList.add('hidden');
+                }
+            });
+
+            // --- Logika Logout ---
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                profileDropdown.classList.add('hidden');
+                logoutConfirmModal.classList.remove('hidden');
+            });
+            cancelLogoutBtn.addEventListener('click', () => logoutConfirmModal.classList.add('hidden'));
+            confirmLogoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('loggedInUser');
+                window.location.href = './loginpage.html';
             });
         });
-
-        // Add a check on beranda.html to read 'targetSection' from sessionStorage
-        // and switch to the correct tab. This part would need to be added to beranda.html's script.
-        /*
-            // In beranda.html's script, inside DOMContentLoaded:
-            const targetSection = sessionStorage.getItem('targetSection');
-            if (targetSection) {
-                switchPage(targetSection);
-                sessionStorage.removeItem('targetSection'); // Clean up
-            } else {
-                switchPage('beranda-content'); // Default page
-            }
-        */
     </script>
 
 </body>
