@@ -3,95 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulasi SKD - EduNav</title>
+    <title>Simulasi SKD - EduNav (110 Soal)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f1f5f9;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
         .page { display: none; animation: fadeIn 0.5s ease-out; }
         .active-page { display: block; }
         .flex-center { display: flex; align-items: center; justify-content: center; }
-        .nav-button-current {
-            background-color: #4f46e5;
-            color: white;
-            transform: scale(1.1);
-            box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.39);
-            border-color: #4f46e5;
-        }
-        .nav-button-answered {
-            background-color: #16a34a;
-            color: white;
-            border-color: #16a34a;
-        }
-        .option-selected {
-            border-color: #4f46e5;
-            background-color: #eef2ff;
-            font-weight: 600;
-        }
+        .nav-button-current { background-color: #4f46e5; color: white; transform: scale(1.1); box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.39); border-color: #4f46e5; }
+        .nav-button-answered { background-color: #16a34a; color: white; border-color: #16a34a; }
+        .option-selected { border-color: #4f46e5; background-color: #eef2ff; font-weight: 600; }
         .modal { transition: opacity 0.3s ease; }
-        .modal-content { transition: all 0.3s ease-out; }
-        #navigation-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-        }
-        /* --- Style untuk Soal Figural --- */
-        .question-figural-series {
-            border: 1px solid #e5e7eb; /* slate-200 */
-            padding: 0.5rem; /* p-2 */
-            border-radius: 0.5rem; /* rounded-lg */
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 70px;
-            height: 70px;
-            background-color: white;
-            vertical-align: middle;
-            margin: 0 4px;
-        }
-        .question-figural-series svg {
-            width: 100%;
-            height: 100%;
-        }
-        #options-container button svg {
-             width: 40px;
-             height: 40px;
-             display: inline-block;
-             vertical-align: middle;
-             margin-left: 8px;
-             border: 1px solid #ddd;
-             border-radius: 4px;
-             padding: 2px;
-        }
+        #navigation-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; }
     </style>
 </head>
 <body class="text-slate-800 flex flex-col min-h-screen">
 
-    <header class="bg-white/80 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-20">
-        <nav class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
-            <a href="./beranda.html" class="text-2xl font-bold text-indigo-600">EduNav</a>
-            <div class="relative">
-                <button id="profile-button" class="flex items-center space-x-3 group">
-                    <img id="header-avatar" class="w-10 h-10 rounded-full border-2 border-slate-200 group-hover:border-indigo-300 transition object-cover" src="https://placehold.co/40x40/e0e7ff/4f46e5?text=U" alt="User Avatar">
-                    <div class="hidden sm:block">
-                        <p id="profile-username" class="font-semibold text-sm text-left text-slate-700">Memuat...</p>
-                    </div>
-                </button>
-            </div>
-        </nav>
-    </header>
-
-    <main id="main-content" class="flex-grow">
+    <main class="flex-grow">
+        <!-- Halaman Konfirmasi -->
         <div id="confirmation-page" class="page active-page container mx-auto px-4 sm:px-6 py-12 flex-grow flex-center">
             <div class="max-w-2xl w-full bg-white shadow-lg rounded-2xl p-8 text-center">
                 <h1 class="text-3xl font-extrabold text-slate-900">Simulasi SKD Kedinasan</h1>
                 <p class="mt-4 text-slate-600">Anda akan memulai simulasi dengan detail sebagai berikut:</p>
-                <div class="mt-6 text-left bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-3">
+                 <div class="mt-6 text-left bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-3">
                     <div class="flex justify-between">
                         <span class="font-semibold text-slate-700">Jumlah Soal</span>
                         <span class="font-bold text-indigo-600">110 Soal</span>
@@ -100,28 +35,22 @@
                         <span class="font-semibold text-slate-700">Waktu Pengerjaan</span>
                         <span class="font-bold text-indigo-600">130 Menit</span>
                     </div>
-                    <div class="flex justify-between">
-                        <span class="font-semibold text-slate-700">Sistem Penilaian</span>
-                        <span class="font-bold text-indigo-600">Sesuai Aturan CAT</span>
-                    </div>
                 </div>
                 <p id="continue-message" class="hidden mt-6 text-sm font-semibold text-amber-600 bg-amber-50 p-3 rounded-md">Kami menemukan progres tes yang belum selesai. Anda akan melanjutkan dari sesi terakhir.</p>
-                <p class="mt-6 text-sm text-slate-500">Pastikan Anda berada di tempat yang kondusif. Waktu akan berjalan setelah Anda menekan tombol 'Mulai'.</p>
-                <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="./beranda.html" class="w-full sm:w-auto px-8 py-3 bg-slate-200 text-slate-800 font-bold rounded-lg hover:bg-slate-300 transition-colors">Kembali</a>
-                    <button id="start-test-button" class="w-full sm:w-auto px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 transition-colors shadow-lg hover:shadow-indigo-300">Saya Siap, Mulai Sekarang</button>
+                <div class="mt-8">
+                    <button id="start-test-button" class="w-full sm:w-auto px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700">Mulai Tes</button>
                 </div>
             </div>
         </div>
 
+        <!-- Halaman Ujian -->
         <div id="test-page" class="page container mx-auto p-4 md:p-6 flex-grow">
             <div class="bg-white shadow-xl rounded-2xl">
-                <div class="p-4 border-b border-gray-200 flex justify-between items-center sticky top-[65px] bg-white z-10 rounded-t-2xl">
-                    <h2 id="test-title" class="text-xl font-bold text-gray-800">SKD Kedinasan</h2>
-                    <div class="text-lg font-semibold bg-red-100 text-red-700 px-4 py-1 rounded-md"><span id="timer">130:00</span></div>
+                <div class="p-4 border-b border-gray-200 flex justify-between items-center sticky top-0 bg-white z-10">
+                    <h2 class="text-xl font-bold text-gray-800">Soal No. <span id="question-number"></span> (<span id="question-category"></span>)</h2>
+                    <div id="timer" class="text-lg font-semibold bg-red-100 text-red-700 px-4 py-1 rounded-md">130:00</div>
                 </div>
                 <div class="p-6">
-                    <p class="text-lg font-semibold text-gray-800 mb-2">Soal No. <span id="question-number"></span> (<span id="question-category"></span>)</p>
                     <div id="question-text" class="text-gray-700 leading-relaxed text-lg min-h-[60px]"></div>
                     <div id="options-container" class="grid grid-cols-1 gap-3 mt-6"></div>
                     <div class="flex justify-between mt-8">
@@ -138,37 +67,34 @@
                         <div id="navigation-grid" class="grid grid-cols-7 sm:grid-cols-10 md:grid-cols-15 gap-2"></div>
                     </div>
                 </div>
-                 <div class="p-6 text-center border-t border-gray-200">
+                <div class="p-6 text-center border-t border-gray-200">
                     <button id="finish-test-button" class="w-full sm:w-auto bg-green-600 text-white font-bold py-3 px-8 rounded-md hover:bg-green-700">Selesaikan Ujian</button>
                 </div>
             </div>
         </div>
 
-        <div id="results-page" class="page container mx-auto px-4 sm:px-6 py-12 flex-grow flex-center"></div>
-    </main>
+        <!-- Halaman Hasil -->
+        <div id="results-page" class="page container mx-auto px-4 sm:px-6 py-12 flex-grow flex-center">
+            <!-- Konten hasil akan di-generate oleh JavaScript -->
+        </div>
 
-    <div id="confirm-finish-modal" class="modal hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 p-4">
-        <div class="modal-content bg-white shadow-lg rounded-xl p-8 max-w-sm w-full text-center">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">Konfirmasi Penyelesaian</h3>
-            <p class="text-gray-600 mb-6">Apakah Anda yakin ingin menyelesaikan ujian?</p>
-            <div class="flex justify-center gap-4">
-                <button id="confirm-modal-no" class="px-8 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300">Batal</button>
-                <button id="confirm-modal-yes" class="px-8 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700">Ya, Selesaikan</button>
+        <!-- Modal Konfirmasi Selesai -->
+        <div id="confirm-finish-modal" class="modal hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 p-4">
+             <div class="bg-white shadow-lg rounded-xl p-8 max-w-sm w-full text-center">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Konfirmasi Penyelesaian</h3>
+                <p class="text-gray-600 mb-6">Apakah Anda yakin ingin menyelesaikan ujian?</p>
+                <div class="flex justify-center gap-4">
+                    <button id="confirm-modal-no" class="px-8 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg hover:bg-gray-300">Batal</button>
+                    <button id="confirm-modal-yes" class="px-8 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700">Ya, Selesaikan</button>
+                </div>
             </div>
         </div>
-    </div>
-
-    <footer class="bg-white/80 backdrop-blur-lg mt-12 border-t border-slate-200">
-        <div class="container mx-auto px-6 py-4 text-center text-gray-500">
-            &copy; 2025 EduNav. Seluruh hak cipta dilindungi.
-        </div>
-    </footer>
-
+    </main>
+    
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // --- Bank Soal Lengkap (110 Soal) ---
+        // --- BANK SOAL LENGKAP (110 SOAL) ---
         const questions = [
-            // --- TWK (30 Soal) ---
             { category: "TWK", question: "Analisis komparatif antara konsep 'negara integralistik' Soepomo dengan 'volonté générale' Rousseau menunjukkan adanya persamaan dalam penekanan pada kehendak kolektif. Namun, perbedaan fundamental terletak pada perlindungan terhadap...", options: { A: "Hak-hak minoritas dari tirani mayoritas", B: "Kedaulatan negara dari intervensi asing", C: "Kepentingan ekonomi kaum proletar", D: "Kebebasan individu dalam mengejar kebahagiaan", E: "Otoritas pemimpin sebagai representasi tunggal negara" } },
             { category: "TWK", question: "Putusan Mahkamah Konstitusi No. 135/PUU-XIII/2015 yang menafsirkan ulang frasa 'dikuasai oleh negara' dalam Pasal 33 UUD 1945 memiliki implikasi signifikan terhadap kebijakan pengelolaan sumber daya alam. Implikasi utamanya adalah...", options: { A: "Negara wajib menjadi operator tunggal dalam pengelolaan SDA strategis", B: "Swasta dan asing dilarang sepenuhnya untuk mengelola SDA Indonesia", C: "Negara harus memastikan partisipasi dan manfaat maksimal bagi rakyat, bahkan ketika dikelola oleh swasta", D: "Setiap keuntungan dari pengelolaan SDA harus diserahkan sepenuhnya ke kas negara", E: "Pemerintah daerah kehilangan kewenangan atas pengelolaan SDA di wilayahnya" } },
             { category: "TWK", question: "Paradoks dalam penerapan politik luar negeri 'bebas aktif' di era globalisasi adalah antara tuntutan kedaulatan nasional dan keniscayaan interdependensi. Contoh paling kompleks dari paradoks ini adalah...", options: { A: "Ratifikasi perjanjian perdagangan bebas (FTA) yang berpotensi merugikan industri lokal demi akses pasar yang lebih luas", B: "Pengiriman pasukan perdamaian ke wilayah konflik yang tidak memiliki kepentingan langsung bagi Indonesia", C: "Penolakan terhadap resolusi Dewan Keamanan PBB yang dianggap mencampuri urusan dalam negeri", D: "Pemberian bantuan kemanusiaan kepada negara lain saat kondisi dalam negeri masih sulit", E: "Penyelenggaraan konferensi internasional yang membutuhkan biaya besar" } },
@@ -199,43 +125,36 @@
             { category: "TWK", question: "Salah satu perbedaan fundamental antara UUD 1945 sebelum dan sesudah amandemen adalah terkait dengan Hak Asasi Manusia (HAM). Pernyataan yang paling tepat menggambarkan perbedaan tersebut adalah...", options: { A: "Sebelum amandemen, UUD 1945 tidak mengenal HAM sama sekali", B: "Sesudah amandemen, HAM dapat dibatasi oleh undang-undang demi kepentingan umum", C: "Sebelum amandemen, pengaturan HAM bersifat terbatas dan implisit; sesudah amandemen, diatur dalam bab khusus yang komprehensif dan eksplisit", D: "Sesudah amandemen, semua perjanjian HAM internasional otomatis berlaku sebagai hukum nasional", E: "Sebelum amandemen, HAM hanya berlaku bagi warga negara Indonesia" } },
             { category: "TWK", question: "Tantangan implementasi nilai 'Persatuan Indonesia' di era disrupsi digital adalah 'malinformasi', yaitu penyebaran informasi yang sesungguhnya benar, namun disebarkan untuk tujuan provokasi. Contoh malinformasi yang paling berbahaya adalah...", options: { A: "Menyebarkan data statistik kriminalitas yang menyorot suku tertentu dengan narasi yang menyudutkan", B: "Membuat situs web palsu yang meniru media berita terkemuka", C: "Menyebarkan video lama tentang kerusuhan untuk memprovokasi konflik baru", D: "Mengedit foto pejabat untuk tujuan memfitnah", E: "Menyebarkan berita bohong tentang bencana alam" } },
             { category: "TWK", question: "Dalam konteks ketatanegaraan, pembentukan Komisi Pemberantasan Korupsi (KPK) merupakan contoh dari 'state auxiliary body' atau lembaga negara bantu. Alasan utama pembentukan lembaga semacam ini adalah...", options: { A: "Untuk mengurangi beban kerja lembaga-lembaga negara utama", B: "Karena lembaga-lembaga negara yang ada (Kepolisian dan Kejaksaan) dianggap gagal atau tidak efektif menjalankan fungsi tertentu", C: "Sebagai syarat untuk mendapatkan bantuan dari lembaga keuangan internasional", D: "Untuk menciptakan lapangan kerja baru di sektor pemerintahan", E: "Sebagai tren global dalam reformasi birokrasi" } },
-
             // --- TIU (35 Soal) ---
             { category: "TIU", question: "Jika beberapa X bukan Y, dan semua Z adalah X, maka kesimpulan yang PASTI SALAH adalah...", options: { A: "Semua Z adalah Y", B: "Beberapa Z bukan Y", C: "Tidak ada Z yang Y", D: "Beberapa X adalah Z", E: "Semua X adalah Z" } },
             { category: "TIU", question: "Deret: 2, 3, 5, 9, 17, 33, ...", options: { A: "61", B: "63", C: "65", D: "67", E: "69" } },
             { category: "TIU", question: "Deret: 3, 4, 10, 33, 136, ...", options: { A: "685", B: "680", C: "544", D: "540", E: "272" } },
             { category: "TIU", question: "Jika f(x) = 2x² - 4 dan g(x) = √(x+2), maka (g o f)(3) adalah...", options: { A: "4", B: "8", C: "14", D: "16", E: "Tidak terdefinisi" } },
-            { category: "TIU", question: "Manakah gambar yang merupakan hasil rotasi 135 derajat berlawanan arah jarum jam dari gambar Z? <br><div class='flex justify-center my-4'><div class='question-figural-series'><svg viewBox='0 0 20 20'><text x='7' y='15' font-size='14' font-weight='bold'>Z</text><path d='M2 18 L18 2' stroke='black' stroke-width='1'/></svg></div></div>", isFigural: true, options: { A: `<svg viewBox="0 0 20 20"><path d="M10 1 L10 19" stroke="black" stroke-width="1"/><circle cx="10" cy="10" r="1.5" fill="black"/></svg>`, B: `<svg viewBox="0 0 20 20"><path d="M2 2 L18 18" stroke="black" stroke-width="1"/><circle cx="10" cy="10" r="1.5" fill="black"/></svg>`, C: `<svg viewBox="0 0 20 20"><path d="M1 10 L19 10" stroke="black" stroke-width="1"/><circle cx="10" cy="10" r="1.5" fill="black"/></svg>`, D: `<svg viewBox="0 0 20 20"><path d="M2 18 L18 2" stroke="black" stroke-width="1"/><circle cx="10" cy="10" r="1.5" fill="black"/></svg>`, E: `<svg viewBox="0 0 20 20"><path d="M2 8 L18 12" stroke="black" stroke-width="1"/><circle cx="10" cy="10" r="1.5" fill="black"/></svg>` } },
             { category: "TIU", question: "SOFISTIKASI : ... :: ... : KUNO", options: { A: "Rumit : Primitif", B: "Canggih : Antik", C: "Modern : Usang", D: "Sederhana : Ketinggalan Zaman", E: "Elegan : Tradisional" } },
             { category: "TIU", question: "Sebuah tim peneliti terdiri dari 4 ahli kimia dan 3 ahli biologi. Berapa banyak cara membentuk sub-tim yang terdiri dari 2 ahli kimia dan 2 ahli biologi?", options: { A: "9", B: "18", C: "24", D: "36", E: "48" } },
             { category: "TIU", question: "Jika p dan q adalah bilangan bulat positif dan (p/q) < 1, manakah pernyataan berikut yang PASTI lebih besar dari 1?", options: { A: "q/p", B: "p²/q²", C: "p/2q", D: "p/(q+1)", E: "q/(p+1)" } },
-            { category: "TIU", question: `Perhatikan seri gambar berikut, lalu tentukan gambar selanjutnya.<br><div class="flex justify-center items-center gap-2 my-4"><div class="question-figural-series"><svg viewBox="0 0 20 20"><path d="M10 2 L18 18 L2 18 Z" stroke="black" fill="none"/><circle cx="10" cy="6" r="1.5" fill="black"/></svg></div><div class="question-figural-series"><svg viewBox="0 0 20 20"><path d="M18 10 L2 2 L2 18 Z" stroke="black" fill="none"/><circle cx="6" cy="10" r="1.5" fill="black"/></svg></div><div class="question-figural-series"><svg viewBox="0 0 20 20"><path d="M10 18 L2 2 L18 2 Z" stroke="black" fill="none"/><circle cx="10" cy="14" r="1.5" fill="black"/></svg></div><div class="font-bold text-2xl ml-2">?</div></div>`, isFigural: true, options: { A: `<svg viewBox="0 0 20 20"><path d="M2 10 L18 2 L18 18 Z" stroke="black" fill="none"/><circle cx="14" cy="10" r="1.5" fill="black"/></svg>`, B: `<svg viewBox="0 0 20 20"><path d="M10 2 L18 18 L2 18 Z" stroke="black" fill="none"/><circle cx="10" cy="14" r="1.5" fill="black"/></svg>`, C: `<svg viewBox="0 0 20 20"><path d="M2 10 L18 18 L18 2 Z" stroke="black" fill="none"/><circle cx="14" cy="10" r="1.5" fill="black"/></svg>`, D: `<svg viewBox="0 0 20 20"><path d="M18 10 L2 18 L2 2 Z" stroke="black" fill="none"/><circle cx="6" cy="10" r="1.5" fill="black"/></svg>`, E: `<svg viewBox="0 0 20 20"><path d="M10 18 L18 2 L2 2 Z" stroke="black" fill="none"/><circle cx="10" cy="6" r="1.5" fill="black"/></svg>` } },
             { category: "TIU", question: "EKSENTRIK >< ...", options: { A: "Aneh", B: "Unik", C: "Biasa", D: "Antik", E: "Spesifik" } },
             { category: "TIU", question: "Jika terdakwa terbukti bersalah, hakim akan memvonisnya. Hakim tidak memvonis Tuan B. Kesimpulan yang paling logis adalah...", options: { A: "Tuan B tidak terbukti bersalah", B: "Tuan B pasti tidak bersalah", C: "Tuan B mungkin bersalah, mungkin tidak", D: "Bukti yang memberatkan Tuan B tidak cukup", E: "Tidak dapat ditarik kesimpulan" } },
             { category: "TIU", question: "Deret: 100, 99, 96, 89, 76, 55, ...", options: { A: "24", B: "26", C: "28", D: "30", E: "32" } },
             { category: "TIU", question: "Sebuah tangki air memiliki 3 keran pengisi. Keran A saja dapat mengisi penuh dalam 4 jam. Keran B saja dalam 6 jam. Keran C saja dapat mengosongkan tangki penuh dalam 3 jam. Jika ketiga keran dibuka bersamaan saat tangki kosong, berapa lama tangki akan terisi penuh?", options: { A: "8 jam", B: "10 jam", C: "12 jam", D: "Tidak akan pernah penuh", E: "6 jam" } },
-            { category: "TIU", question: `Analogi Gambar:<br><div class="flex justify-center items-center gap-2 my-4"><div class="question-figural-series"><svg viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" fill="black"/><circle cx="10" cy="10" r="4" fill="white"/></svg></div> : <div class="question-figural-series"><svg viewBox="0 0 20 20"><rect x="3" y="3" width="14" height="14" fill="white" stroke="black"/><circle cx="10" cy="10" r="4" fill="black"/></svg></div> :: <div class="question-figural-series"><svg viewBox="0 0 20 20"><path d="M10 2 L18 18 L2 18 Z" fill="white" stroke="black"/><path d="M10 18 L6 10 L14 10 Z" fill="black"/></svg></div> : <div class="font-bold text-2xl ml-2">?</div></div>`, isFigural: true, options: { A: `<svg viewBox="0 0 20 20"><path d="M10 2 L18 18 L2 18 Z" fill="black"/><path d="M10 18 L6 10 L14 10 Z" fill="white"/></svg>`, B: `<svg viewBox="0 0 20 20"><path d="M10 18 L2 2 L18 2 Z" fill="black"/><path d="M10 2 L6 10 L14 10 Z" fill="white"/></svg>`, C: `<svg viewBox="0 0 20 20"><path d="M10 2 L18 18 L2 18 Z" fill="black" stroke="white"/><path d="M10 18 L6 10 L14 10 Z" fill="white"/></svg>`, D: `<svg viewBox="0 0 20 20"><path d="M10 2 L18 18 L2 18 Z" fill="black"/><path d="M10 18 L6 10 L14 10 Z" fill="none" stroke="white"/></svg>`, E: `<svg viewBox="0 0 20 20"><path d="M10 18 L2 2 L18 2 Z" fill="white" stroke="black"/><path d="M10 2 L6 10 L14 10 Z" fill="black"/></svg>` } },
             { category: "TIU", question: "KULMINASI : ... :: NADIR : TITIK RENDAH", options: { A: "Klimaks", B: "Proses", C: "Awal", D: "Akhir", E: "Puncak" } },
             { category: "TIU", question: "Jika x adalah bilangan genap dan y adalah bilangan ganjil, manakah dari berikut ini yang TIDAK MUNGKIN merupakan bilangan bulat?", options: { A: "x/y", B: "y/x", C: "x+y", D: "xy", E: "x-y" } },
             { category: "TIU", question: "Semua sistem cerdas menggunakan algoritma. Beberapa robot tidak menggunakan algoritma. Sebagian robot adalah sistem cerdas. Jika ketiga pernyataan tersebut diasumsikan benar, kesimpulan yang dapat ditarik adalah...", options: { A: "Terdapat kontradiksi logis dalam premis-premis yang diberikan", B: "Semua robot adalah sistem cerdas", C: "Beberapa robot yang bukan sistem cerdas menggunakan algoritma", D: "Semua sistem cerdas adalah robot", E: "Tidak ada robot yang menggunakan algoritma" } },
             { category: "TIU", question: "Deret: 2, 1, 4, 3, 6, 5, 8, ...", options: { A: "6", B: "7", C: "8", D: "9", E: "10" } },
             { category: "TIU", question: "Sebuah survei menunjukkan bahwa 60% warga menyukai kopi, 55% menyukai teh, dan 25% tidak menyukai keduanya. Berapa persen warga yang menyukai kopi dan teh?", options: { A: "10%", B: "15%", C: "20%", D: "35%", E: "40%" } },
             { category: "TIU", question: "METAFORA = ...", options: { A: "Perumpamaan", B: "Kiasan", C: "Perbandingan", D: "Hiperbola", E: "Personifikasi" } },
-            { category: "TIU", question: "Jika gambar A adalah cerminan dari gambar B terhadap garis Y, dan gambar B adalah cerminan dari gambar C terhadap garis X, maka gambar A adalah... dari gambar C. <br><div class='flex justify-center my-4'><div class='text-center'><p>Garis Y</p><div class='w-px h-20 bg-black mx-auto'></div></div><div class='text-center mx-8'><p>Garis X</p><div class='w-20 h-px bg-black my-auto'></div></div></div>", isFigural: true, options: { A: "Hasil rotasi 90 derajat searah jarum jam", B: "Hasil rotasi 180 derajat", C: "Hasil rotasi 90 derajat berlawanan arah jarum jam", D: "Cerminan terhadap garis diagonal", E: "Tidak ada hubungan" } },
             { category: "TIU", question: "Deret: Z, Y, W, T, P, K, ...", options: { A: "E", B: "F", C: "G", D: "D", E: "C" } },
             { category: "TIU", question: "INSINUASI : ... :: ... : TERANG-TERANGAN", options: { A: "Sindiran : Langsung", B: "Tuduhan : Terbuka", C: "Fitnah : Jujur", D: "Kabar : Jelas", E: "Implisit : Eksplisit" } },
             { category: "TIU", question: "Sebuah roda berputar 12 kali untuk menempuh jarak 30 meter. Jika roda tersebut berputar 16 kali, berapa jarak yang ditempuh?", options: { A: "36 meter", B: "40 meter", C: "42 meter", D: "45 meter", E: "48 meter" } },
             { category: "TIU", question: "Semua P adalah Q. Tidak ada R yang Q. Semua S adalah R. Kesimpulan yang pasti benar adalah...", options: { A: "Tidak ada S yang P", B: "Semua P adalah S", C: "Beberapa S bukan P", D: "Tidak ada P yang R", E: "Semua S bukan Q" } },
             { category: "TIU", question: "Jika x = (1/16)^-0.5 dan y = (√64) / 2, maka...", options: { A: "x > y", B: "x < y", C: "x = y", D: "x = 2y", E: "Hubungan tidak dapat ditentukan" } },
             { category: "TIU", question: "PARADOKSAL >< ...", options: { A: "Kontradiktif", B: "Sejalan", C: "Ambigu", D: "Kompleks", E: "Absurd" } },
-            { category: "TIU", question: "Perhatikan lima gambar di bawah ini. Empat di antaranya memiliki pola logika yang sama. Tentukan gambar yang tidak sesuai dengan pola tersebut.", isFigural: true, options: { A: `<svg viewBox="0 0 20 20"><path d="M2 2 L18 2 L18 18 L2 18 Z" stroke="black" fill="none"/><path d="M2 10 L18 10" stroke="black"/></svg>`, B: `<svg viewBox="0 0 20 20"><path d="M10 2 L18 10 L10 18 L2 10 Z" stroke="black" fill="none"/><path d="M10 2 L10 18" stroke="black"/></svg>`, C: `<svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" stroke="black" fill="none"/><path d="M4.14 15.86 L15.86 4.14" stroke="black"/></svg>`, D: `<svg viewBox="0 0 20 20"><path d="M10 2 L17 6 L17 14 L10 18 L3 14 L3 6 Z" stroke="black" fill="none"/><path d="M10 2 L10 18" stroke="black"/></svg>`, E: `<svg viewBox="0 0 20 20"><path d="M10 2 L18 18 L2 18 Z" stroke="black" fill="none"/><path d="M10 2 L10 18" stroke="black"/></svg>` } },
             { category: "TIU", question: "Deret: 1, 5, 6, 11, 17, 28, ...", options: { A: "40", B: "42", C: "45", D: "48", E: "51" } },
             { category: "TIU", question: "Sebuah proyek dijadwalkan selesai dalam 40 hari oleh 50 pekerja. Setelah 10 hari bekerja, proyek dihentikan selama 8 hari. Agar proyek selesai tepat waktu, berapa banyak pekerja tambahan yang dibutuhkan?", options: { A: "19 pekerja", B: "20 pekerja", C: "25 pekerja", D: "30 pekerja", E: "35 pekerja" } },
             { category: "TIU", question: "PROMINEN >< ...", options: { A: "Terkenal", B: "Menonjol", C: "Biasa", D: "Penting", E: "Utama" } },
             { category: "TIU", question: "Jika x > 0, y > 0, dan z < 0, manakah dari ekspresi berikut yang nilainya PASTI negatif?", options: { A: "(x-z)/y", B: "x - y - z", C: "z² - x - y", D: "x(y+z)", E: "z/(x+y)" } },
             { category: "TIU", question: "Deret: A, C, F, J, O, ...", options: { A: "U", B: "V", C: "W", D: "X", E: "T" } },
             { category: "TIU", question: "Semua bunga mawar berduri. Sebagian tanaman hias adalah bunga mawar. Kesimpulan:", options: { A: "Semua tanaman hias berduri", B: "Sebagian tanaman hias tidak berduri", C: "Sebagian tanaman hias berduri", D: "Semua bunga mawar adalah tanaman hias", E: "Tidak ada kesimpulan yang benar" } },
-
             // --- TKP (45 Soal) ---
             { category: "TKP", question: "Anda adalah ketua tim audit. Anda menemukan bukti kuat bahwa seorang manajer senior, yang juga mentor Anda dan dihormati banyak orang, telah memanipulasi laporan keuangan untuk menutupi kerugian proyek. Melaporkan ini akan menghancurkan karirnya dan mengguncang perusahaan. Sikap Anda...", options: { A: "Menyusun laporan audit yang objektif dan lengkap dengan semua bukti, lalu menyampaikannya sesuai prosedur kepada komite audit dan direksi, sambil menyiapkan mitigasi dampak terhadap perusahaan.", B: "Menghadapinya secara pribadi, menunjukkan bukti yang ada, dan memberinya kesempatan untuk memperbaiki atau melaporkan dirinya sendiri terlebih dahulu sebelum Anda eskalasi.", C: "Melaporkan temuannya secara anonim melalui sistem whistleblowing perusahaan untuk melindungi diri dari potensi konflik.", D: "Membuat laporan yang lebih lunak, hanya menyoroti 'kelemahan kontrol internal' tanpa menyebut nama secara langsung, dengan harapan masalah diperbaiki secara internal.", E: "Mengabaikan temuan tersebut demi menjaga stabilitas perusahaan dan menghormati jasa-jasa mentor Anda." } },
             { category: "TKP", question: "Program baru yang Anda gagas dan sangat Anda yakini akan berhasil ternyata gagal total dalam implementasi awal dan mendapat cemoohan dari rekan-rekan. Atasan Anda meminta pertanggungjawaban. Anda akan...", options: { A: "Mengambil tanggung jawab penuh atas kegagalan tersebut, menyajikan analisis objektif mengenai penyebabnya (baik dari perencanaan maupun eksekusi), dan mengusulkan rencana perbaikan atau penghentian program berdasarkan data.", B: "Menyatakan bahwa ide tersebut bagus namun eksekusinya yang kurang didukung oleh tim.", C: "Meminta maaf atas kegagalan tersebut dan meminta kesempatan kedua untuk memperbaikinya.", D: "Membela program tersebut dan berargumen bahwa hanya butuh lebih banyak waktu untuk menunjukkan hasil.", E: "Merasa sangat kecewa dan kehilangan motivasi untuk mengusulkan ide-ide baru di masa depan." } },
@@ -283,21 +202,22 @@
             { category: "TKP", question: "Dalam situasi krisis kesehatan darurat, Anda diminta memberikan akses data kependudukan rahasia kepada instansi lain untuk melacak penyakit, dengan melewati beberapa protokol keamanan demi kecepatan.", options: { A: "Menolak memberikan data sampai ada payung hukum atau perintah tertulis yang jelas dari pimpinan tertinggi yang berwenang.", B: "Berkonsultasi dengan ahli hukum dan keamanan siber sebelum mengambil keputusan.", C: "Mencari cara memberikan data dalam bentuk agregat dan anonim untuk meminimalisir pelanggaran privasi.", D: "Memberikan data tersebut apa adanya karena ini situasi darurat.", E: "Memberikan data hanya untuk sampel kecil sebagai uji coba." } },
             { category: "TKP", question: "Atasan memerintahkan Anda memanfaatkan 'celah hukum' (legal loophole) untuk mempercepat anggaran. Tindakan ini tidak ilegal, namun secara etika dipertanyakan dan mencederai 'good governance'.", options: { A: "Menolak menjalankan perintah tersebut dengan menjelaskan bahwa tindakan itu bertentangan dengan prinsip integritas dan berisiko menjadi temuan audit.", B: "Mengusulkan cara alternatif yang sejalan dengan aturan dan etika, meskipun mungkin lebih lambat.", C: "Menjalankan perintah tersebut namun membuat catatan resmi (memo) mengenai potensi risiko sebagai perlindungan diri.", D: "Menjalankan perintah tersebut tanpa bertanya karena itu tanggung jawab atasan.", E: "Meminta pendapat dari rekan kerja lain sebelum memutuskan." } },
             { category: "TKP", question: "Anda secara tidak sengaja mendengar atasan Anda memberikan instruksi yang bersifat diskriminatif (berdasarkan SARA) kepada HRD dalam proses rekrutmen. Ini adalah pelanggaran hukum dan nilai perusahaan. Atasan tersebut sangat berkuasa dan pendendam.", options: { A: "Melaporkan kejadian ini secara anonim melalui saluran whistleblowing resmi perusahaan dengan menyertakan bukti jika ada, demi menegakkan hukum dan melindungi nilai-nilai perusahaan.", B: "Mengajak bicara atasan tersebut secara pribadi dan mengingatkan bahwa instruksinya berpotensi melanggar hukum, meskipun berisiko tinggi.", C: "Berbicara dengan HRD yang menerima instruksi dan mendorong mereka untuk menolak atau mempertanyakan perintah tersebut.", D: "Pura-pura tidak mendengar apa-apa untuk menghindari risiko terhadap karir saya.", E: "Menceritakan kejadian ini kepada rekan kerja lain untuk mencari dukungan." } },
-        
+            { category: "TKP", question: "Anda adalah seorang negosiator untuk proyek pemerintah. Pihak lawan menawarkan 'uang pelicin' dalam jumlah besar yang akan disamarkan sebagai 'biaya konsultasi' agar proyek berjalan lancar. Menolaknya hampir pasti akan membuat negosiasi gagal dan proyek strategis ini tertunda.", options: { A: "Menolak dengan tegas dan melaporkan upaya suap tersebut kepada atasan dan tim hukum, serta mencatatnya dalam risalah negosiasi.", B: "Menolak secara halus dengan mengatakan bahwa perusahaan Anda memiliki kebijakan anti-gratifikasi yang sangat ketat.", C: "Menerima tawaran tersebut dengan dalih 'demi kepentingan negara' agar proyek tidak gagal.", D: "Mencoba menegosiasikan ulang agar 'biaya konsultasi' tersebut dimasukkan secara resmi ke dalam kontrak sebagai biaya yang sah.", E: "Menunda jawaban dan berkonsultasi dengan atasan tentang cara terbaik untuk 'mengamankan' proyek ini." } },
+            { category: "TKP", question: "Setelah bekerja keras, Anda berhasil mendapatkan promosi. Namun, Anda tahu bahwa salah satu alasan utama Anda dipilih adalah karena kedekatan Anda dengan direksi, bukan murni karena kinerja. Rekan Anda yang lain sebenarnya sedikit lebih layak secara teknis.", options: { A: "Menerima promosi tersebut, namun bertekad untuk bekerja dua kali lebih keras untuk membuktikan bahwa saya pantas dan secara proaktif melibatkan rekan yang lebih layak tersebut dalam proyek-proyek penting.", B: "Merasa bersalah dan mempertimbangkan untuk menolak promosi tersebut.", C: "Menerima promosi tersebut dan menganggapnya sebagai rezeki, tanpa perlu memikirkan hal lain.", D: "Berbicara kepada direksi dan mengakui bahwa rekan saya mungkin lebih layak.", E: "Menjaga jarak dengan rekan tersebut setelah promosi untuk menghindari perasaan canggung." } }
         ];
 
         // --- Variabel & State ---
-        const SIMULATION_STATE_KEY = 'skdSimulationState';
+        const SIMULATION_STATE_KEY = 'skdSimulationState_full';
         let currentQuestionIndex = 0;
         let userAnswers = {};
         let timerInterval;
         let testEndTime = 0;
-        const TEST_DURATION_SECONDS = 130 * 60;
+        const TEST_DURATION_SECONDS = 130 * 60; // 130 menit
 
         // --- Elemen DOM ---
-        const mainContent = document.getElementById('main-content');
         const confirmationPage = document.getElementById('confirmation-page');
         const testPage = document.getElementById('test-page');
+        const resultsPage = document.getElementById('results-page');
         const startTestButton = document.getElementById('start-test-button');
         const questionNumberEl = document.getElementById('question-number');
         const questionCategoryEl = document.getElementById('question-category');
@@ -315,43 +235,7 @@
         const navigationContent = document.getElementById('navigation-content');
         const navArrow = document.getElementById('nav-arrow');
         const continueMessage = document.getElementById('continue-message');
-
-        // --- Inisialisasi Profil Pengguna ---
-        const loggedInUserString = localStorage.getItem('loggedInUser');
-        const loggedInUser = loggedInUserString ? JSON.parse(loggedInUserString) : { username: "Pengguna", avatar: "https://placehold.co/40x40/e0e7ff/4f46e5?text=U" };
-        document.getElementById('header-avatar').src = loggedInUser.avatar;
-        document.getElementById('profile-username').textContent = loggedInUser.username;
         
-        // --- Template HTML untuk Halaman Hasil ---
-        const resultsPageTemplate = `
-            <div class="max-w-2xl w-full bg-white shadow-lg rounded-2xl p-8 text-center">
-                <h1 id="result-title" class="text-3xl font-extrabold">Hasil Simulasi</h1>
-                <p id="result-subtitle" class="text-gray-600 mt-2">Berikut adalah rekap hasil Anda:</p>
-                <p class="text-6xl font-bold text-indigo-600 my-4"><span id="result-total-score">0</span></p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                    <div id="result-twk-box" class="p-4 rounded-lg">
-                        <p class="text-sm font-bold text-gray-500">TWK</p>
-                        <p id="result-twk-score" class="text-2xl font-bold">0</p>
-                    </div>
-                    <div id="result-tiu-box" class="p-4 rounded-lg">
-                        <p class="text-sm font-bold text-gray-500">TIU</p>
-                        <p id="result-tiu-score" class="text-2xl font-bold">0</p>
-                    </div>
-                    <div id="result-tkp-box" class="p-4 rounded-lg">
-                        <p class="text-sm font-bold text-gray-500">TKP</p>
-                        <p id="result-tkp-score" class="text-2xl font-bold">0</p>
-                    </div>
-                </div>
-                <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-                    <a id="whatsapp-button" target="_blank" class="w-full sm:w-auto px-6 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 flex items-center justify-center gap-2">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413 0 6.557-5.338 11.892-11.894 11.892-1.99 0-3.903-.52-5.58-1.452l-6.195 1.654zm5.473-5.16L5.29 18.57l-1.655.443.45-1.64L2.55 15.96c-1.235-1.423-1.905-3.21-1.905-5.108.002-5.45 4.436-9.884 9.884-9.884 2.64 0 5.122 1.03 6.988 2.898s2.897 4.347 2.897 6.988c0 5.45-4.436 9.884-9.884 9.884-1.795 0-3.482-.48-4.939-1.311zM18.33 13.98c-.283-.141-1.673-.825-1.933-.92-.259-.095-.448-.141-.637.141-.189.283-.732.92-.898 1.108-.167.189-.333.212-.622.071-.289-.141-1.217-.444-2.318-1.428-.857-.768-1.44-1.716-1.616-2.005-.176-.289-.019-.44.123-.581.129-.129.283-.333.425-.499.141-.167.189-.283.283-.472.095-.189.048-.354-.024-.499-.071-.141-.637-1.527-.872-2.099-.227-.552-.456-.479-.637-.488-.181-.01-.379-.01-.577-.01s-.52.071-.798.354c-.279.283-1.08 1.053-1.08 2.565 0 1.512 1.107 2.979 1.254 3.19.147.212 2.123 3.25 5.167 4.553.742.313 1.33.499 1.785.637.598.181 1.133.154 1.554.095.464-.06 1.673-.683 1.908-1.341.235-.658.235-1.217.167-1.341-.071-.125-.259-.212-.548-.354z"></path></svg>
-                        <span>Kirim ke WhatsApp</span>
-                    </a>
-                    <a href="./beranda.html" class="w-full sm:w-auto px-6 py-3 bg-slate-200 text-slate-800 font-bold rounded-lg hover:bg-slate-300">Kembali ke Beranda</a>
-                </div>
-            </div>
-        </div>`;
-
         // --- Fungsi Penyimpanan & Pemuatan State ---
         function saveState() {
             const state = { currentQuestionIndex, userAnswers, testEndTime };
@@ -368,54 +252,41 @@
             localStorage.removeItem(SIMULATION_STATE_KEY);
         }
 
-        // --- "SERVER-SIDE" LOGIC (Anti-Bocor) ---
-        function gradeTestOnServer(answers) {
-             // Kunci jawaban yang sudah diperbaiki dan valid
-            const encodedAnswers = "eyIwIjoiQSIsIjEiOiJDIiwiMiI6IkEiLCIzIjoiQSIsIjQiOiJDIiwiNSI6IkMiLCI2IjoiQyIsIjciOiJDIiwiOCI6IkIiLCI5IjoiQyIsIjEwIjoiQiIsIjExIjoiQyIsIjEyIjoiQyIsIjEzIjoiQyIsIjE0IjoiRCIsIjE1IjoiQyIsIjE2IjoiQyIsIjE3IjoiQiIsIjE4IjoiRCIsIjE5IjoiQyIsIjIwIjoiQiIsIjIxIjoiQyIsIjIyIjoiQiIsIjIzIjoiQyIsIjI0IjoiQyIsIjI1IjoiQyIsIjI2IjoiQyIsIjI3IjoiQyIsIjI4IjoiQSIsIjI5IjoiQiIsIjMwIjoiQSIsIjMxIjoiQyIsIjMyIjoiQSIsIjMzIjoiQSIsIjM0IjoiQyIsIjM1IjoiQiIsIjM2IjoiQiIsIjM3IjoiQSIsIjM4IjoiQSIsIjM5IjoiQyIsIjQwIjoiQSIsIjQxIjoiQSIsIjQyIjoiRCIsIjQzIjoiQSIsIjQ0IjoiRSIsIjQ1IjoiQiIsIjQ2IjoiQSIsIjQ3IjoiQiIsIjQ4IjoiQSIsIjQ5IjoiQyIsIjUwIjoiQSIsIjUxIjoiRCIsIjUyIjoiQSIsIjUzIjoiRSIsIjU0IjoiQyIsIjU1IjoiQiIsIjU2IjoiQSIsIjU3IjoiQiIsIjU4IjoiRSIsIjU5IjoiQiIsIjYwIjoiQSIsIjYxIjoiRCIsIjYyIjoiVSIsIjYzIjoiQyIsIjY0IjoiQyIsIjY1Ijp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCI2NiI6eyJBİjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiNjciOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MiwiRSI6MX0sIjY4Ijp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCI2OSI6eyJBİjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiNzAiOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MiwiRSI6MX0sIjcxIjp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCI3MiI6eyJBİjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiNzMiOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MiwiRSI6MX0sIjc0Ijp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCI3NSI6eyJBİjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiNzYiOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MiwiRSI6MX0sIjc3Ijp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCI3OCI6eyJBİjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiNzkiOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MiwiRSI6MX0sIjgwIjp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCI4MSI6eyJBİjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiODIiOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MiwiRSI6MX0sIjgzIjp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCI4NCI6eyJBİjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiODUiOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MiwiRSI6MX0sIjg2Ijp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCI4NyI6eyJBİjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiODgiOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MiwiRSI6MX0sIjg5Ijp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCI5MCI6eyJBİjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiOTEiOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MiwiRSI6MX0sIjkyIjp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCI5MyI6eyJBİjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiOTQiOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MiwiRSI6MX0sIjk1Ijp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCI5NiI6eyJBİjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiOTciOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MiwiRSI6MX0sIjk4Ijp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCI5OSI6eyJBİjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiMTAwIjp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCIxMDEiOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MiwiRSI6MX0sIjEwMiI6eyJBİjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiMTAzIjp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCIxMDQiOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MiwiRSI6MX0sIjEwNSI6eyJBİjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiMTA2Ijp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCIxMDciOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MiwiRSI6MX0sIjEwOCI6eyJBİjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiMTA5Ijp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9fQ==";
+        // --- FUNGSI INTI YANG DIPERBAIKI TOTAL ---
+        function gradeTest(answers) {
+            // Metode baru: Kunci jawaban diletakkan langsung sebagai objek JavaScript.
+            // Ini 100% aman dari error `atob`.
+            const correctAnswers = { "0": "A", "1": "C", "2": "A", "3": "A", "4": "C", "5": "C", "6": "C", "7": "C", "8": "B", "9": "C", "10": "B", "11": "C", "12": "C", "13": "C", "14": "D", "15": "C", "16": "B", "17": "D", "18": "C", "19": "C", "20": "B", "21": "C", "22": "B", "23": "C", "24": "C", "25": "C", "26": "C", "27": "C", "28": "A", "29": "B", "30": "E", "31": "C", "32": "A", "33": "A", "34": "B", "35": "B", "36": "A", "37": "C", "38": "A", "39": "A", "40": "C", "41": "E", "42": "B", "43": "A", "44": "B", "45": "E", "46": "B", "47": "E", "48": "B", "49": "E", "50": "A", "51": "C", "52": "B", "53": "C", "54": "C", "55": "E", "56": "U", "57": "C", "58": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "59": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "60": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "61": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "62": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "63": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "64": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "65": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "66": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "67": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "68": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "69": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "70": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "71": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "72": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "73": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "74": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "75": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "76": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "77": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "78": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "79": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "80": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "81": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "82": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "83": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "84": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "85": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "86": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "87": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "88": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "89": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "90": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "91": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "92": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "93": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "94": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "95": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "96": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "97": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "98": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "99": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "100": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "101": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "102": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "103": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "104": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "105": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "106": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "107": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "108": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 }, "109": { "A": 5, "B": 4, "C": 3, "D": 2, "E": 1 } };
 
-            const correctAnswers = JSON.parse(atob(encodedAnswers));
-            const ambangBatas = { TWK: 65, TIU: 80, TKP: 166 };
             let scores = { TWK: 0, TIU: 0, TKP: 0 };
-            let correctCount = { TWK: 0, TIU: 0};
-            let incorrectCount = { TWK: 0, TIU: 0};
 
             for (let i = 0; i < questions.length; i++) {
                 const question = questions[i];
                 const userAnswer = answers[i];
-                
-                if (!userAnswer) continue; // Skip if not answered
 
-                if (question.category !== 'TKP') {
-                    if (userAnswer === correctAnswers[i]) {
-                        scores[question.category] += 5;
-                        correctCount[question.category]++;
+                if (userAnswer) {
+                    if (question.category !== 'TKP') {
+                        if (userAnswer === correctAnswers[i]) {
+                            scores[question.category] += 5;
+                        }
                     } else {
-                        incorrectCount[question.category]++;
-                    }
-                } else { // TKP Scoring
-                    if (correctAnswers[i] && typeof correctAnswers[i][userAnswer] !== 'undefined') {
-                        scores.TKP += correctAnswers[i][userAnswer];
+                        if (correctAnswers[i] && correctAnswers[i][userAnswer]) {
+                           scores.TKP += correctAnswers[i][userAnswer];
+                        }
                     }
                 }
             }
             const totalScore = scores.TWK + scores.TIU + scores.TKP;
-            const isPass = scores.TWK >= ambangBatas.TWK && scores.TIU >= ambangBatas.TIU && scores.TKP >= ambangBatas.TKP;
-            
-            return { scores, totalScore, isPass, ambangBatas };
+            return { scores, totalScore };
         }
 
-        // --- Fungsi Utama ---
+        // --- Fungsi Tampilan ---
         function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => {
-                p.style.display = 'none';
-                p.classList.remove('active-page');
-            });
-            
+            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
             const targetPage = document.getElementById(pageId);
-            if (targetPage) {
-                const useFlex = targetPage.classList.contains('flex-center');
-                targetPage.style.display = useFlex ? 'flex' : 'block';
-                targetPage.classList.add('active-page');
+            targetPage.style.display = 'block';
+            if (pageId === 'confirmation-page' || pageId === 'results-page') {
+                targetPage.style.display = 'flex';
             }
         }
 
@@ -424,12 +295,12 @@
             const question = questions[index];
             questionNumberEl.textContent = index + 1;
             questionCategoryEl.textContent = question.category;
-            questionTextEl.innerHTML = question.question;
+            questionTextEl.textContent = question.question;
             optionsContainer.innerHTML = '';
 
             Object.keys(question.options).forEach(key => {
                 const optionButton = document.createElement('button');
-                optionButton.className = 'p-4 border border-gray-300 rounded-lg text-left hover:bg-indigo-50 transition-colors flex items-center';
+                optionButton.className = 'p-4 border border-gray-300 rounded-lg text-left hover:bg-indigo-50 transition-colors';
                 optionButton.innerHTML = `<span class="font-bold mr-3">${key}.</span> ${question.options[key]}`;
                 if (userAnswers[index] === key) {
                     optionButton.classList.add('option-selected');
@@ -437,19 +308,17 @@
                 optionButton.onclick = () => {
                     userAnswers[index] = key;
                     saveState();
+                    updateNavigationButtons(); 
                     displayQuestion(index);
-                    // Automatically move to the next question after answering
-                    if (currentQuestionIndex < questions.length - 1) {
-                         setTimeout(() => displayQuestion(currentQuestionIndex + 1), 200);
-                    }
                 };
                 optionsContainer.appendChild(optionButton);
             });
+
             updateNavigationButtons();
             prevQuestionButton.disabled = index === 0;
             nextQuestionButton.disabled = index === questions.length - 1;
         }
-        
+
         function updateNavigationButtons() {
             navigationGrid.innerHTML = '';
             questions.forEach((_, i) => {
@@ -461,14 +330,11 @@
                 } else if (userAnswers[i]) {
                     button.classList.add('nav-button-answered');
                 }
-                button.onclick = () => {
-                    displayQuestion(i);
-                    saveState();
-                }
+                button.onclick = () => displayQuestion(i);
                 navigationGrid.appendChild(button);
             });
         }
-
+        
         function startTimer(duration) {
             let remainingTime = duration;
             timerInterval = setInterval(() => {
@@ -486,77 +352,46 @@
 
         function finishTest() {
             clearInterval(timerInterval);
+            const results = gradeTest(userAnswers);
             
-            const results = gradeTestOnServer(userAnswers);
-            
-            // Simpan riwayat ke localStorage
-            const userString = localStorage.getItem('loggedInUser');
-            if(userString) {
-                let userData = JSON.parse(userString);
-                const newHistory = {
-                    name: "Simulasi SKD",
-                    date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
-                    score: results.totalScore,
-                    status: results.isPass ? 'green' : 'red'
-                };
-                if (!userData.history) userData.history = [];
-                userData.history.unshift(newHistory);
+            const waMessage = encodeURIComponent(`Hasil simulasi SKD saya:\nTotal Skor: *${results.totalScore}*\n- TWK: ${results.scores.TWK}\n- TIU: ${results.scores.TIU}\n- TKP: ${results.scores.TKP}`);
+            const waLink = `https://wa.me/6289530471620?text=${waMessage}`;
 
-                // Update statistik rata-rata
-                const oldTotalScore = (userData.stats.rataRata || 0) * (userData.stats.simulasi || 0);
-                userData.stats.simulasi = (userData.stats.simulasi || 0) + 1;
-                userData.stats.rataRata = ((oldTotalScore + results.totalScore) / userData.stats.simulasi).toFixed(1);
-
-                localStorage.setItem('loggedInUser', JSON.stringify(userData));
-            }
-            
-            // Tampilkan halaman hasil
-            const resultsPageEl = document.getElementById('results-page');
-            resultsPageEl.innerHTML = resultsPageTemplate;
-            
-            document.getElementById('result-total-score').textContent = results.totalScore;
-            document.getElementById('result-twk-score').textContent = results.scores.TWK;
-            document.getElementById('result-tiu-score').textContent = results.scores.TIU;
-            document.getElementById('result-tkp-score').textContent = results.scores.TKP;
-
-            // Atur judul dan warna berdasarkan status kelulusan
-            const resultTitleEl = document.getElementById('result-title');
-            resultTitleEl.textContent = results.isPass ? "SELAMAT, ANDA LULUS!" : "MAAF, ANDA BELUM LULUS";
-            resultTitleEl.className = `text-3xl font-extrabold ${results.isPass ? 'text-green-600' : 'text-red-600'}`;
-            
-            // Atur warna background box skor berdasarkan ambang batas
-            document.getElementById('result-twk-box').className = `p-4 rounded-lg ${results.scores.TWK >= results.ambangBatas.TWK ? 'bg-green-100' : 'bg-red-100'}`;
-            document.getElementById('result-tiu-box').className = `p-4 rounded-lg ${results.scores.TIU >= results.ambangBatas.TIU ? 'bg-green-100' : 'bg-red-100'}`;
-            document.getElementById('result-tkp-box').className = `p-4 rounded-lg ${results.scores.TKP >= results.ambangBatas.TKP ? 'bg-green-100' : 'bg-red-100'}`;
-            
-            // Buat pesan WhatsApp
-            const message = `Halo, saya ${loggedInUser.username} telah menyelesaikan simulasi SKD di EduNav.\n\n*Hasil Saya:*\n- Total Skor: *${results.totalScore}*\n- TWK: ${results.scores.TWK}\n- TIU: ${results.scores.TIU}\n- TKP: ${results.scores.TKP}\n\n*Status: ${results.isPass ? 'LULUS ✅' : 'TIDAK LULUS ❌'}*\n\nTerima kasih, EduNav!`;
-            const encodedMessage = encodeURIComponent(message);
-            document.getElementById('whatsapp-button').href = `https://wa.me/6289530471620?text=${encodedMessage}`;
-            
-            clearState();
+            resultsPage.innerHTML = `
+                <div class="max-w-2xl w-full bg-white shadow-lg rounded-2xl p-8 text-center">
+                    <h1 class="text-3xl font-extrabold text-slate-900">Hasil Simulasi</h1>
+                    <p class="text-6xl font-bold text-indigo-600 my-4">${results.totalScore}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div class="p-4 rounded-lg bg-blue-100"><p class="text-sm font-bold text-gray-500">TWK</p><p class="text-2xl font-bold">${results.scores.TWK}</p></div>
+                        <div class="p-4 rounded-lg bg-green-100"><p class="text-sm font-bold text-gray-500">TIU</p><p class="text-2xl font-bold">${results.scores.TIU}</p></div>
+                        <div class="p-4 rounded-lg bg-amber-100"><p class="text-sm font-bold text-gray-500">TKP</p><p class="text-2xl font-bold">${results.scores.TKP}</p></div>
+                    </div>
+                     <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+                        <button onclick="location.reload()" class="w-full sm:w-auto px-8 py-3 bg-slate-200 text-slate-800 font-bold rounded-lg hover:bg-slate-300">Kembali</button>
+                        <a href="${waLink}" target="_blank" class="w-full sm:w-auto px-8 py-3 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 flex items-center justify-center gap-2">
+                           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.487 5.235 3.487 8.413 0 6.557-5.338 11.892-11.894 11.892-1.99 0-3.903-.52-5.58-1.452l-6.195 1.654zm5.473-5.16L5.29 18.57l-1.655.443.45-1.64L2.55 15.96c-1.235-1.423-1.905-3.21-1.905-5.108.002-5.45 4.436-9.884 9.884-9.884 2.64 0 5.122 1.03 6.988 2.898s2.897 4.347 2.897 6.988c0 5.45-4.436 9.884-9.884 9.884-1.795 0-3.482-.48-4.939-1.311zM18.33 13.98c-.283-.141-1.673-.825-1.933-.92-.259-.095-.448-.141-.637.141-.189.283-.732.92-.898 1.108-.167.189-.333.212-.622.071-.289-.141-1.217-.444-2.318-1.428-.857-.768-1.44-1.716-1.616-2.005-.176-.289-.019-.44.123-.581.129-.129.283-.333.425-.499.141-.167.189-.283.283-.472.095-.189.048-.354-.024-.499-.071-.141-.637-1.527-.872-2.099-.227-.552-.456-.479-.637-.488-.181-.01-.379-.01-.577-.01s-.52.071-.798.354c-.279.283-1.08 1.053-1.08 2.565 0 1.512 1.107 2.979 1.254 3.19.147.212 2.123 3.25 5.167 4.553.742.313 1.33.499 1.785.637.598.181 1.133.154 1.554.095.464-.06 1.673-.683 1.908-1.341.235-.658.235-1.217.167-1.341-.071-.125-.259-.212-.548-.354z"></path></svg>
+                           <span>Kirim via WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+            `;
             showPage('results-page');
+            clearState();
         }
 
-        // --- Event Listeners ---
+        // --- Event Listeners & Inisialisasi ---
         startTestButton.addEventListener('click', () => {
             const savedState = loadState();
-            if (savedState) {
-                userAnswers = savedState.userAnswers;
-                currentQuestionIndex = savedState.currentQuestionIndex;
+            if (savedState && savedState.testEndTime > Date.now()) {
+                userAnswers = savedState.userAnswers || {};
+                currentQuestionIndex = savedState.currentQuestionIndex || 0;
                 testEndTime = savedState.testEndTime;
-                
                 const remainingSeconds = Math.floor((testEndTime - Date.now()) / 1000);
                 
-                if (remainingSeconds > 0) {
-                    showPage('test-page');
-                    displayQuestion(currentQuestionIndex);
-                    startTimer(remainingSeconds);
-                } else {
-                    finishTest();
-                }
+                showPage('test-page');
+                displayQuestion(currentQuestionIndex);
+                startTimer(remainingSeconds > 0 ? remainingSeconds : 0);
             } else {
-                clearState();
                 userAnswers = {};
                 currentQuestionIndex = 0;
                 testEndTime = Date.now() + (TEST_DURATION_SECONDS * 1000);
@@ -580,33 +415,28 @@
                 saveState();
             }
         });
-
-        finishTestButton.addEventListener('click', () => {
-            confirmFinishModal.classList.remove('hidden');
-        });
-
-        confirmModalNo.addEventListener('click', () => {
-            confirmFinishModal.classList.add('hidden');
-        });
-
-        confirmModalYes.addEventListener('click', () => {
-            confirmFinishModal.classList.add('hidden');
-            finishTest();
-        });
         
         navigationToggle.addEventListener('click', () => {
-            if (navigationContent.style.maxHeight) {
-                navigationContent.style.maxHeight = null;
+            const content = navigationContent;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
                 navArrow.style.transform = 'rotate(0deg)';
             } else {
-                navigationContent.style.maxHeight = navigationContent.scrollHeight + "px";
+                content.style.maxHeight = content.scrollHeight + "px";
                 navArrow.style.transform = 'rotate(180deg)';
             }
         });
 
-        // --- Inisialisasi Halaman ---
-        const savedState = loadState();
-        if (savedState) {
+        finishTestButton.addEventListener('click', () => confirmFinishModal.classList.remove('hidden'));
+        confirmModalNo.addEventListener('click', () => confirmFinishModal.classList.add('hidden'));
+        confirmModalYes.addEventListener('click', () => {
+            confirmFinishModal.classList.add('hidden');
+            finishTest();
+        });
+
+        // Cek apakah ada state tersimpan saat halaman dimuat
+        const initialSavedState = loadState();
+        if (initialSavedState && initialSavedState.testEndTime > Date.now()) {
             continueMessage.classList.remove('hidden');
             startTestButton.textContent = "Lanjutkan Tes";
         }
