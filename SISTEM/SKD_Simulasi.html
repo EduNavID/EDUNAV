@@ -340,7 +340,7 @@
         
         // --- "SERVER-SIDE" LOGIC (Anti-Bocor) ---
         function gradeTestOnServer(answers) {
-            const encodedAnswers = "eyIwIjoiQSIsIjEiOiJDIiwiMiI6IkEiLCIzIjoiQSIsIjQiOiJDIiwiNSI6IkMiLCI2IjoiQyIsIjciOiJDIiwiOCI6IkIiLCI5IjoiQyIsIjEwIjoiQiIsIjExIjoiQyIsIjEyIjoiQyIsIjEzIjoiQyIsIjE0IjoiRCIsIjE1IjoiQyIsIjE2IjoiQiIsIjE3IjoiRCIsIjE4IjoiQyIsIjE5IjoiQyIsIjIwIjoiQiIsIjIxIjoiQyIsIjIyIjoiQiIsIjIzIjoiQyIsIjI0IjoiQyIsIjI1IjoiQyIsIjI2IjoiQyIsIjI3IjoiQyIsIjI4IjoiQSIsIjI5IjoiQiIsIjMwIjoiRSIsIjMxIjoiQyIsIjMyIjoiQSIsIjMzIjoiQSIsIjM0IjoiQyIsIjM1IjoiQiIsIjM2IjoiQiIsIjM3IjoiQSIsIjM4IjoiQSIsIjM5IjoiQyIsIjQwIjoiQSIsIjQxIjoiQSIsIjQyIjoiQyIsIjQzIjoiQSIsIjQ0IjoiRSIsIjQ1IjoiQiIsIjQ2IjoiQSIsIjQ3IjoiQiIsIjQ4IjoiRSIsIjQ5IjoiQiIsIjUwIjoiQiIsIjUxIjoiQSIsIjUyIjoiRSIsIjUzIjoiQSIsIjU0IjoiQyIsIjU1IjoiQSIsIjU2IjoiRSIsIjU3IjoiQyIsIjU4IjoiQSIsIjU5IjoiQyIsIjYwIjoiRSIsIjYxIjoiQyIsIjYyIjoiQyIsIjYzIjoiRSIsIjY0IjoiQSIsIjY1Ijp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCI2NiI6eyJBIjo1LCJCIjoyLCJDIjozLCJEIjo0LCJFIjoxfSwiNjciOnsiQSI6NSwiQiI6MiwiQyI6NCwiRCI6MywiRSI6MX0sIjY4Ijp7IkEiOjUsIkIiOjMsIkMiOjEsIkQiOjIsIkUiOjR9LCI2OSI6eyJBIjo1LCJCIjozLCJDIjoyLCJEIjo0LCJFIjoxfSwiNzAiOnsiQSI6NSwiQiI6MywiQyI6MSwiRCI6MiwiRSI6NH0sIjcxIjp7IkEiOjUsIkIiOjMsIkMiOjIsIkQiOjQsIkUiOjF9LCI3MiI6eyJBIjo1LCJCIjozLCJDIjoyLCJEIjo0LCJFIjoxfSwiNzMiOnsiQSI6NSwiQiI6NCwiQyI6MiwiRCI6MywiRSI6MX0sIjc0Ijp7IkEiOjUsIkIiOjMsIkMiOjIsIkQiOjEsIkUiOjR9LCI3NSI6eyJBIjo1LCJCIjoyLCJDIjo0LCJEIjoxLCJFIjozfSwiNzYiOnsiQSI6NSwiQiI6NCwiQyI6MSwiRCI6MiwiRSI6M30sIjc3Ijp7IkEiOjUsIkIiOjMsIkMiOjQsIkQiOjEsIkUiOjJ9LCI3OCI6eyJBIjo1LCJCIjoxLCJDIjozLCJEIjoyLCJFIjoxfSwiNzkiOnsiQSI6NSwiQiI6MiwiQyI6MSwiRCI6MywiRSI6NH0sIjgwIjp7IkEiOjUsIkIiOjMsIkMiOjQsIkQiOjEsIkUiOjJ9LCI4MSI6eyJBIjozLCJCIjoyLCJDIjo1LCJEIjo0LCJFIjoxfSwiODIiOnsiQSI6NSwiQiI6NCwiQyI6MSwiRCI6MiwiRSI6M30sIjgzIjp7IkEiOjUsIkIiOjEsIkMiOjIsIkQiOjMsIkUiOjR9LCI4NCI6eyJBIjo1LCJCIjo0LCJDIjozLCJEIjoxLCJFIjoyfSwiODUiOnsiQSI6NSwiQiI6MywiQyI6MiwiRCI6NCwiRSI6MX0sIjg2Ijp7IkEiOjUsIkIiOjIsIkMiOjMsIkQiOjEsIkUiOjR9LCI4NyI6eyJBIjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiODgiOnsiQSI6NSwiQiI6MywiQyI6MiwiRCI6NCwiRSI6MX0sIjg5Ijp7IkEiOjUsIkIiOjMsIkMiOjQsIkQiOjEsIkUiOjJ9LCI5MCI6eyJBIjo1LCJCIjozLCJDIjoxLCJEIjoyLCJFIjoxfSwiOTEiOnsiQSI6NSwiQiI6MSwiQyI6MywiRCI6MiwiRSI6NH0sIjkyIjp7IkEiOjUsIkIiOjIsIkMiOjQsIkQiOjEsIkUiOjN9LCI5MyI6eyJBIjo0LCJCIjo1LCJDIjozLCJEIjoxLCJFIjoyfSwiOTQiOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MSwiRSI6Mn0sIjk1Ijp7IkEiOjUsIkIiOjIsIkMiOjEsIkQiOjMsIkUiOjR9LCI5NiI6eyJBIjo1LCJCIjo0LCJDIjoyLCJEIjozLCJFIjoxfSwiOTciOnsiQSI6NSwiQiI6MywiQyI6MiwiRCI6NCwiRSI6MX0sIjk4Ijp7IkEiOjUsIkIiOjMsIkMiOjIsIkQiOjQsIkUiOjF9LCI5OSI6eyJBIjo1LCJCIjoxLCJDIjoyLCJEIjozLCJFIjoxfSwiMTAwIjp7IkEiOjQsIkIiOjMsIkMiOjUsIkQiOjEsIkUiOjJ9LCIxMDEiOnsiQSI6NSwiQiI6NCwiQyI6MiwiRCI6MywiRSI6MX0sIjEwMiI6eyJBIjo1LCJCIjozLCJDIjoyLCJEIjoxLCJFIjoxfSwiMTAzIjp7IkEiOjQsIkIiOjUsIkMiOjMsIkQiOjEsIkUiOjJ9LCIxMDQiOnsiQSI6NSwiQiI6MywiQyI6MSwiRCI6MiwiRSI6NH0sIjEwNSI6eyJBIjo1LCJCIjozLCJDIjoxLCJEIjoyLCJFIjoxfSwiMTA2Ijp7IkEiOjUsIkIiOjIsIkMiOjEsIkQiOjMsIkUiOjR9LCIxMDciOnsiQSI6NSwiQiI6NCwiQyI6MiwiRCI6MSwiRSI6M30sIjEwOCI6eyJBIjo1LCJCIjozLCJDIjo0LCJEIjoxLCJFIjoyfSwiMTA5Ijp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9fQ==";
+            const encodedAnswers = "eyIwIjoiQSIsIjEiOiJDIiwiMiI6IkEiLCIzIjoiQSIsIjQiOiJDIiwiNSI6IkMiLCI2IjoiQyIsIjciOiJDIiwiOCI6IkIiLCI5IjoiQyIsIjEwIjoiQiIsIjExIjoiQyIsIjEyIjoiQyIsIjEzIjoiQyIsIjE0IjoiRCIsIjE1IjoiQyIsIjE2IjoiQiIsIjE3IjoiRCIsIjE4IjoiQyIsIjE5IjoiQyIsIjIwIjoiQiIsIjIxIjoiQyIsIjIyIjoiQiIsIjIzIjoiQyIsIjI0IjoiQyIsIjI1IjoiQyIsIjI2IjoiQyIsIjI3IjoiQyIsIjI4IjoiQSIsIjI5IjoiQiIsIjMwIjoiRSIsIjMxIjoiQyIsIjMyIjoiQSIsIjMzIjoiQSIsIjM0IjoiQyIsIjM1IjoiQiIsIjM2IjoiQiIsIjM3IjoiQSIsIjM4IjoiQSIsIjM5IjoiQyIsIjQwIjoiQSIsIjQxIjoiQSIsIjQyIjoiQyIsIjQzIjoiQSIsIjQ0IjoiRSIsIjQ1IjoiQiIsIjQ2IjoiQSIsIjQ3IjoiQiIsIjQ4IjoiRSIsIjQ5IjoiQiIsIjUwIjoiQiIsIjUxIjoiQSIsIjUyIjoiRSIsIjUzIjoiQSIsIjU0IjoiQyIsIjU1IjoiQSIsIjU2IjoiRSIsIjU3IjoiQyIsIjU4IjoiQSIsIjU5IjoiQyIsIjYwIjoiRSIsIjYxIjoiQyIsIjYyIjoiQyIsIjYzIjoiRSIsIjY0IjoiQSIsIjY1Ijp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9LCI2NiI6eyJBIjo1LCJCIjoyLCJDIjozLCJEIjo0LCJFIjoxfSwiNjciOnsiQSI6NSwiQiI6MiwiQyI6NCwiRCI6MywiRSI6MX0sIjY4Ijp7IkEiOjUsIkIiOjMsIkMiOjEsIkQiOjIsIkUiOjR9LCI2OSI6eyJBIjo1LCJCIjozLCJDIjoyLCJEIjo0LCJFIjoxfSwiNzAiOnsiQSI6NSwiQiI6MywiQyI6MSwiRCI6MiwiRSI6NH0sIjcxIjp7IkEiOjUsIkIiOjMsIkMiOjEsIkQiOjIsIkUiOjR9LCI3MiI6eyJBIjo1LCJCIjozLCJDIjoyLCJEIjo0LCJFIjoxfSwiNzMiOnsiQSI6NSwiQiI6NCwiQyI6MiwiRCI6MywiRSI6MX0sIjc0Ijp7IkEiOjUsIkIiOjMsIkMiOjIsIkQiOjEsIkUiOjR9LCI3NSI6eyJBIjo1LCJCIjoyLCJDIjo0LCJEIjoxLCJFIjozfSwiNzYiOnsiQSI6NSwiQiI6NCwiQyI6MSwiRCI6MiwiRSI6M30sIjc3Ijp7IkEiOjUsIkIiOjMsIkMiOjQsIkQiOjEsIkUiOjJ9LCI3OCI6eyJBIjo1LCJCIjoxLCJDIjozLCJEIjoyLCJFIjoxfSwiNzkiOnsiQSI6NSwiQiI6MiwiQyI6MSwiRCI6MywiRSI6NH0sIjgwIjp7IkEiOjUsIkIiOjMsIkMiOjQsIkQiOjEsIkUiOjJ9LCI4MSI6eyJBIjozLCJCIjoyLCJDIjo1LCJEIjo0LCJFIjoxfSwiODIiOnsiQSI6NSwiQiI6NCwiQyI6MSwiRCI6MiwiRSI6M30sIjgzIjp7IkEiOjUsIkIiOjEsIkMiOjIsIkQiOjMsIkUiOjR9LCI4NCI6eyJBIjo1LCJCIjo0LCJDIjozLCJEIjoxLCJFIjoyfSwiODUiOnsiQSI6NSwiQiI6MywiQyI6MiwiRCI6NCwiRSI6MX0sIjg2Ijp7IkEiOjUsIkIiOjIsIkMiOjMsIkQiOjEsIkUiOjR9LCI4NyI6eyJBIjo1LCJCIjo0LCJDIjozLCJEIjoyLCJFIjoxfSwiODgiOnsiQSI6NSwiQiI6MywiQyI6MiwiRCI6NCwiRSI6MX0sIjg5Ijp7IkEiOjUsIkIiOjMsIkMiOjQsIkQiOjEsIkUiOjJ9LCI5MCI6eyJBIjo1LCJCIjozLCJDIjoxLCJEIjoyLCJFIjoxfSwiOTEiOnsiQSI6NSwiQiI6MSwiQyI6MywiRCI6MiwiRSI6NH0sIjkyIjp7IkEiOjUsIkIiOjIsIkMiOjQsIkQiOjEsIkUiOjN9LCI5MyI6eyJBIjo0LCJCIjo1LCJDIjozLCJEIjoxLCJFIjoyfSwiOTQiOnsiQSI6NSwiQiI6NCwiQyI6MywiRCI6MSwiRSI6Mn0sIjk1Ijp7IkEiOjUsIkIiOjIsIkMiOjEsIkQiOjMsIkUiOjR9LCI5NiI6eyJBIjo1LCJCIjo0LCJDIjoyLCJEIjozLCJFIjoxfSwiOTciOnsiQSI6NSwiQiI6MywiQyI6MiwiRCI6NCwiRSI6MX0sIjk4Ijp7IkEiOjUsIkIiOjMsIkMiOjIsIkQiOjQsIkUiOjF9LCI5OSI6eyJBIjo1LCJCIjoxLCJDIjoyLCJEIjozLCJFIjoxfSwiMTAwIjp7IkEiOjQsIkIiOjMsIkMiOjUsIkQiOjEsIkUiOjJ9LCIxMDEiOnsiQSI6NSwiQiI6NCwiQyI6MiwiRCI6MywiRSI6MX0sIjEwMiI6eyJBIjo1LCJCIjozLCJDIjoyLCJEIjoxLCJFIjoxfSwiMTAzIjp7IkEiOjQsIkIiOjUsIkMiOjMsIkQiOjEsIkUiOjJ9LCIxMDQiOnsiQSI6NSwiQiI6MywiQyI6MSwiRCI6MiwiRSI6NH0sIjEwNSI6eyJBIjo1LCJCIjozLCJDIjoxLCJEIjoyLCJFIjoxfSwiMTA2Ijp7IkEiOjUsIkIiOjIsIkMiOjEsIkQiOjMsIkUiOjR9LCIxMDciOnsiQSI6NSwiQiI6NCwiQyI6MiwiRCI6MSwiRSI6M30sIjEwOCI6eyJBIjo1LCJCIjozLCJDIjo0LCJEIjoxLCJFIjoyfSwiMTA5Ijp7IkEiOjUsIkIiOjQsIkMiOjMsIkQiOjIsIkUiOjF9fQ==";
             const correctAnswers = JSON.parse(atob(encodedAnswers));
             const ambangBatas = { TWK: 65, TIU: 80, TKP: 166 };
             let scores = { TWK: 0, TIU: 0, TKP: 0 };
@@ -404,18 +404,14 @@
             questionTextEl.innerHTML = question.question;
             optionsContainer.innerHTML = '';
 
-            const isTKP = question.category === 'TKP';
-
-            const optionsSource = isTKP ? 
-                { A: "Sangat Setuju", B: "Setuju", C: "Ragu-ragu", D: "Tidak Setuju", E: "Sangat Tidak Setuju" } : 
-                question.options;
+            // [PERBAIKAN] Selalu gunakan opsi dari objek soal, tidak peduli kategorinya.
+            const optionsSource = question.options; 
             
             Object.keys(optionsSource).forEach(key => {
                 const optionButton = document.createElement('button');
                 optionButton.className = 'p-4 border border-gray-300 rounded-lg text-left hover:bg-indigo-50 transition-colors';
                 
-                // For TKP, use the predefined text. For others, use text from the question object.
-                const optionText = isTKP ? optionsSource[key] : question.options[key];
+                const optionText = optionsSource[key]; // Langsung ambil teks dari sumber opsi.
                 optionButton.innerHTML = `<span class="font-bold mr-3">${key}.</span> ${optionText}`;
 
                 if (userAnswers[index] === key) {
@@ -424,7 +420,12 @@
                 optionButton.onclick = () => {
                     userAnswers[index] = key;
                     saveExamState();
-                    displayQuestion(index);
+                    // Langsung pindah ke soal berikutnya setelah memilih jawaban (opsional, tapi umum di TKP)
+                    if (currentQuestionIndex < questions.length - 1) {
+                        displayQuestion(currentQuestionIndex + 1);
+                    } else {
+                        displayQuestion(index); // Re-render soal terakhir untuk menunjukkan pilihan
+                    }
                 };
                 optionsContainer.appendChild(optionButton);
             });
