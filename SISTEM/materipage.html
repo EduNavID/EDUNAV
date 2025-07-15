@@ -98,15 +98,16 @@
             
             <div class="mt-10 text-left max-w-3xl mx-auto">
                 <div class="space-y-4">
-                    <div class="bg-slate-50 p-5 rounded-lg border border-slate-200 flex items-center justify-between transition hover:shadow-sm hover:border-slate-300">
+                    <div id="pembahasan-skd1" class="item-pembahasan bg-slate-50 p-5 rounded-lg border border-slate-200 flex items-center justify-between transition hover:shadow-sm hover:border-slate-300">
                         <div>
                             <p class="font-bold text-slate-800">Pembahasan SKD Kedinasan</p>
                             <p class="text-sm text-slate-500">Simulasi 15 Juli 2025</p>
                         </div>
-                        <a href="./pembahasan1.html" class="bg-indigo-600 text-white font-semibold text-sm py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors">
+                        <a href="./pembahasan1.html" data-key="pembahasan1" class="bg-indigo-600 text-white font-semibold text-sm py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors">
                             Lihat Pembahasan
                         </a>
                     </div>
+
                     <div class="bg-white p-5 rounded-lg border-l-4 border-slate-300 flex items-center justify-between opacity-70">
                         <div>
                             <p class="font-bold text-slate-700">Pembahasan Try Out UTBK #1</p>
@@ -114,6 +115,7 @@
                         </div>
                         <span class="text-sm font-semibold text-slate-600 bg-slate-200 px-3 py-1 rounded-full">Coming Soon</span>
                     </div>
+
                     <div class="bg-white p-5 rounded-lg border-l-4 border-slate-300 flex items-center justify-between opacity-70">
                         <div>
                             <p class="font-bold text-slate-700">Pembahasan SKD Kedinasan #2</p>
@@ -123,6 +125,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </main>
     
@@ -145,7 +148,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Elemen Navigasi ---
             const profileButton = document.getElementById('profile-button');
             const profileDropdown = document.getElementById('profile-dropdown');
             const logoutButton = document.getElementById('logout-button');
@@ -157,7 +159,6 @@
             const loggedInUserString = localStorage.getItem('loggedInUser');
             if (loggedInUserString) {
                 const loggedInUser = JSON.parse(loggedInUserString);
-                // Update UI Profil di Header & Dropdown
                 document.getElementById('header-avatar').src = loggedInUser.avatar;
                 document.getElementById('profile-username').textContent = loggedInUser.username;
                 document.getElementById('profile-email').textContent = loggedInUser.email;
@@ -168,7 +169,6 @@
             }
             
             // --- Logika Navigasi ---
-            // Navigasi kembali ke Beranda dengan target section
             document.querySelectorAll('a[href^="./beranda.html"]').forEach(link => {
                 const onclickAttr = link.getAttribute('onclick');
                 if (onclickAttr) {
@@ -181,12 +181,10 @@
                 }
             });
 
-            // Tampilkan/Sembunyikan Dropdown Profil
             profileButton.addEventListener('click', () => {
                 profileDropdown.classList.toggle('hidden');
             });
             
-            // Sembunyikan dropdown jika klik di luar
             window.addEventListener('click', (e) => {
                 if (!profileButton.contains(e.target) && !profileDropdown.contains(e.target)) {
                     profileDropdown.classList.add('hidden');
@@ -204,6 +202,34 @@
                 localStorage.removeItem('loggedInUser');
                 window.location.href = './loginpage.html';
             });
+            
+            // --- [BARU] Logika Status "Sudah Dilihat" ---
+
+            // 1. Fungsi untuk memeriksa status saat halaman dimuat
+            function checkVisitedStatus() {
+                const item = document.getElementById('pembahasan-skd1');
+                const link = item.querySelector('a[data-key="pembahasan1"]');
+                
+                if (localStorage.getItem('pembahasan1_visited') === 'true') {
+                    // Ganti warna dan teks jika sudah pernah dikunjungi
+                    item.classList.add('border-l-4', 'border-blue-500');
+                    link.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+                    link.classList.add('bg-blue-600', 'hover:bg-blue-700', 'cursor-default');
+                    link.textContent = 'Sudah Dilihat';
+                }
+            }
+
+            // 2. Fungsi untuk menandai saat link diklik
+            function markAsVisited() {
+                const link = document.querySelector('a[data-key="pembahasan1"]');
+                link.addEventListener('click', function() {
+                    localStorage.setItem('pembahasan1_visited', 'true');
+                });
+            }
+
+            // 3. Jalankan kedua fungsi
+            checkVisitedStatus();
+            markAsVisited();
         });
     </script>
 
