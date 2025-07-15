@@ -46,13 +46,13 @@
 </head>
 <body class="text-slate-800">
 
-    <!-- Header -->
     <header class="bg-white/80 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="#" id="logo-link" class="text-2xl font-bold text-indigo-600">EduNav</a>
             <div class="hidden md:flex items-center space-x-10">
                 <a href="#" class="nav-link" data-target="beranda-content">Beranda</a>
                 <a href="#" class="nav-link" data-target="simulasi-content">Simulasi Tes</a>
+                <a href="./materipage.html" class="text-slate-600 hover:text-indigo-600 transition-colors">Materi</a>
                 <a href="#" class="nav-link" data-target="pengumuman-content">Pengumuman</a>
             </div>
             <div class="relative">
@@ -74,7 +74,6 @@
                             <span>Profil Saya</span>
                         </a>
                     </div>
-                    <!-- Navigasi Tambahan -->
                     <div class="py-1 border-t border-slate-100">
                         <a href="#" class="nav-link flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100" data-target="beranda-content">
                             <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
@@ -84,12 +83,15 @@
                             <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z"></path></svg>
                             <span>Simulasi Tes</span>
                         </a>
+                        <a href="./materipage.html" class="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">
+                            <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                            <span>Materi</span>
+                        </a>
                         <a href="#" class="nav-link flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100" data-target="pengumuman-content">
                             <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
                             <span>Pengumuman</span>
                         </a>
                     </div>
-                    <!-- Akhir Navigasi Tambahan -->
                     <div class="py-1 border-t border-slate-100">
                         <a href="#" id="logout-button" class="flex items-center gap-3 w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
                              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
@@ -101,10 +103,8 @@
         </nav>
     </header>
 
-    <!-- Konten Utama -->
     <main class="container mx-auto px-6 py-8">
 
-        <!-- Konten Beranda (Default) -->
         <div id="beranda-content" class="content-section">
             <div class="bg-white p-8 md:p-12 rounded-2xl solid-shadow-lg grid md:grid-cols-2 gap-8 items-center">
                 <div class="text-left">
@@ -126,7 +126,6 @@
                     </svg>
                 </div>
             </div>
-            <!-- Keuntungan EduNav -->
             <div class="mt-16">
                 <h2 class="text-2xl font-bold text-center mb-2 text-slate-800">Kenapa Memilih EduNav?</h2>
                 <p class="text-center text-slate-500 mb-10">Kami menyediakan semua yang kamu butuhkan untuk sukses.</p>
@@ -147,18 +146,15 @@
             </div>
         </div>
 
-        <!-- Konten Simulasi Tes (Hidden by default) -->
         <div id="simulasi-content" class="content-section hidden">
             <h1 class="text-3xl font-extrabold text-slate-900 text-center mb-2">Pilih Simulasi Tes</h1>
             <p class="text-slate-600 text-center mb-10">Asah kemampuanmu pada bidang yang kamu tuju.</p>
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <!-- Link ke halaman UTBK -->
                 <a href="./utbk.html" class="group block bg-white p-8 rounded-xl solid-shadow card-hover border-2 border-transparent hover:border-indigo-500">
                     <h2 class="text-2xl font-bold text-indigo-700">Try Out UTBK</h2>
                     <p class="mt-2 text-slate-600">Raih PTN impianmu dengan persiapan matang.</p>
                     <span class="mt-4 inline-block font-semibold text-indigo-600 group-hover:underline">Mulai Mengerjakan &rarr;</span>
                 </a>
-                <!-- Link ke halaman SKD -->
                 <a href="./SKD.html" class="group block bg-white p-8 rounded-xl solid-shadow card-hover border-2 border-transparent hover:border-blue-500">
                     <h2 class="text-2xl font-bold text-blue-700">SKD Kedinasan</h2>
                     <p class="mt-2 text-slate-600">Jadilah abdi negara selanjutnya.</p>
@@ -167,7 +163,6 @@
             </div>
         </div>
 
-        <!-- Konten Pengumuman (Hidden by default) -->
         <div id="pengumuman-content" class="content-section hidden">
             <h1 class="text-3xl font-extrabold text-slate-900 text-center mb-10">Papan Pengumuman</h1>
             <div class="max-w-3xl mx-auto space-y-6">
@@ -188,7 +183,6 @@
             </div>
         </div>
         
-        <!-- KONTEN PROFIL SAYA (TEMPLATE) -->
         <div id="profil-content" class="content-section hidden">
             <div class="max-w-4xl mx-auto">
                 <div class="bg-white rounded-2xl solid-shadow-lg p-8 flex flex-col md:flex-row items-center gap-8">
@@ -230,7 +224,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- Data riwayat akan diisi oleh JavaScript -->
                                 <tr id="riwayat-tes-placeholder" class="hidden">
                                     <td colspan="4" class="text-center py-8 text-slate-500">Belum ada riwayat tes.</td>
                                 </tr>
@@ -242,7 +235,6 @@
         </div>
     </main>
 
-    <!-- Modal Konfirmasi Logout -->
     <div id="logout-confirm-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-60 flex items-center justify-center z-50">
         <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto text-center modal-container">
             <h3 class="text-lg font-bold text-slate-900">Konfirmasi Logout</h3>
@@ -254,7 +246,6 @@
         </div>
     </div>
 
-    <!-- Modal Edit Profil -->
     <div id="edit-profile-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-60 flex items-center justify-center z-50">
         <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full mx-auto modal-container">
             <h3 class="text-xl font-bold text-slate-900 mb-6">Edit Profil</h3>
@@ -269,12 +260,10 @@
                         <p class="text-xs text-slate-500 mt-2">JPG, PNG, atau GIF. Maks 1MB.</p>
                     </div>
                 </div>
-                <!-- Username (tidak bisa diedit) -->
                 <div class="mb-4">
                     <label class="block text-sm font-medium text-slate-700 mb-1">Username</label>
                     <p id="edit-username-display" class="text-slate-500 bg-slate-100 px-4 py-2 rounded-lg"></p>
                 </div>
-                <!-- Email (tidak bisa diedit) -->
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-slate-700 mb-1">Email</label>
                     <p id="edit-email-display" class="text-slate-500 bg-slate-100 px-4 py-2 rounded-lg"></p>
