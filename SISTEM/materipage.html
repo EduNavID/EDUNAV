@@ -84,7 +84,7 @@
             
             <div class="mt-10 text-left max-w-3xl mx-auto">
                 <div class="space-y-4">
-                    <div id="pembahasan-skd1" class="item-pembahasan bg-slate-50 p-5 rounded-lg border border-slate-200 flex items-center justify-between transition hover:shadow-sm hover:border-slate-300">
+                    <div class="item-pembahasan bg-slate-50 p-5 rounded-lg border border-slate-200 flex items-center justify-between transition hover:shadow-sm hover:border-slate-300">
                         <div>
                             <p class="font-bold text-slate-800">Pembahasan SKD Kedinasan</p>
                             <p class="text-sm text-slate-500">Simulasi 15 Juli 2025</p>
@@ -93,13 +93,17 @@
                             Lihat Pembahasan
                         </a>
                     </div>
-                    <div class="bg-white p-5 rounded-lg border-l-4 border-slate-300 flex items-center justify-between opacity-70">
+
+                    <div class="item-pembahasan bg-slate-50 p-5 rounded-lg border border-slate-200 flex items-center justify-between transition hover:shadow-sm hover:border-slate-300">
                         <div>
-                            <p class="font-bold text-slate-700">Pembahasan Try Out UTBK #1</p>
-                            <p class="text-sm text-slate-500">Akan tersedia setelah simulasi selesai</p>
+                            <p class="font-bold text-slate-800">Pembahasan Try Out UTBK #1</p>
+                            <p class="text-sm text-slate-500">Simulasi 20 Agustus 2025</p>
                         </div>
-                        <span class="text-sm font-semibold text-slate-600 bg-slate-200 px-3 py-1 rounded-full">Coming Soon</span>
+                        <a href="./pembahasan2.html" data-key="pembahasan2" class="bg-indigo-600 text-white font-semibold text-sm py-2 px-4 rounded-lg hover:bg-indigo-700 transition-colors">
+                            Lihat Pembahasan
+                        </a>
                     </div>
+
                     <div class="bg-white p-5 rounded-lg border-l-4 border-slate-300 flex items-center justify-between opacity-70">
                         <div>
                             <p class="font-bold text-slate-700">Pembahasan SKD Kedinasan #2</p>
@@ -184,27 +188,39 @@
                 window.location.href = './loginpage.html';
             });
             
-            function checkVisitedStatus() {
-                const item = document.getElementById('pembahasan-skd1');
-                const link = item.querySelector('a[data-key="pembahasan1"]');
-                
-                if (localStorage.getItem('pembahasan1_visited') === 'true') {
-                    item.classList.add('border-l-4', 'border-blue-500');
-                    link.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
-                    link.classList.add('bg-blue-600', 'hover:bg-blue-700', 'cursor-default');
-                    link.textContent = 'Sudah Dilihat';
-                }
-            }
-
-            function markAsVisited() {
-                const link = document.querySelector('a[data-key="pembahasan1"]');
-                link.addEventListener('click', function() {
-                    localStorage.setItem('pembahasan1_visited', 'true');
+            // --- [DIPERBARUI] Logika Status "Sudah Dilihat" ---
+            
+            // 1. Fungsi untuk memeriksa status semua item yang aktif
+            function checkAllVisitedStatus() {
+                const items = document.querySelectorAll('.item-pembahasan');
+                items.forEach(item => {
+                    const link = item.querySelector('a[data-key]');
+                    if (link) {
+                        const key = link.dataset.key;
+                        if (localStorage.getItem(key + '_visited') === 'true') {
+                            item.classList.add('border-l-4', 'border-blue-500');
+                            link.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+                            link.classList.add('bg-blue-600', 'hover:bg-blue-700', 'cursor-default');
+                            link.textContent = 'Sudah Dilihat';
+                        }
+                    }
                 });
             }
 
-            checkVisitedStatus();
-            markAsVisited();
+            // 2. Fungsi untuk menandai saat link diklik
+            function markLinksAsVisited() {
+                const links = document.querySelectorAll('a[data-key]');
+                links.forEach(link => {
+                    link.addEventListener('click', function() {
+                        const key = this.dataset.key;
+                        localStorage.setItem(key + '_visited', 'true');
+                    });
+                });
+            }
+
+            // 3. Jalankan kedua fungsi
+            checkAllVisitedStatus();
+            markLinksAsVisited();
         });
     </script>
 
