@@ -11,11 +11,12 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f1f5f9;
+            background-color: #f1f5f9; /* slate-100 */
         }
         .nav-link-active {
-            color: #4338ca;
+            color: #4338ca; /* indigo-700 */
             font-weight: 600;
+            position: relative;
         }
         .content-section, .modal-container {
             animation: fadeIn 0.4s ease-in-out;
@@ -24,27 +25,42 @@
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        .solid-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.07);
+        }
         .solid-shadow-lg {
              box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.07);
+        }
+        .card-hover {
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+        /* Custom file input */
+        #edit-avatar-input {
+            display: none;
         }
     </style>
 </head>
 <body class="text-slate-800">
 
+    <!-- Header -->
     <header class="bg-white/80 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="#" id="logo-link" class="text-2xl font-bold text-indigo-600">EduNav</a>
             <div class="hidden md:flex items-center space-x-10">
                 <a href="#" class="nav-link" data-target="beranda-content">Beranda</a>
-                <a href="./SKD.html" class="text-slate-600 hover:text-indigo-600 transition-colors">Simulasi SKD</a>
-                <a href="./utbk.html" class="text-slate-600 hover:text-indigo-600 transition-colors">Simulasi UTBK</a>
-                <a href="./materipage.html" class="text-slate-600 hover:text-indigo-600 transition-colors">Materi</a>
+                <a href="#" class="nav-link" data-target="simulasi-content">Simulasi Tes</a>
+                <a href="#" class="nav-link" data-target="pengumuman-content">Pengumuman</a>
             </div>
             <div class="relative">
                 <button id="profile-button" class="flex items-center space-x-3 group">
                     <img id="header-avatar" class="w-10 h-10 rounded-full border-2 border-slate-200 group-hover:border-indigo-300 transition object-cover" src="https://placehold.co/40x40/e0e7ff/4f46e5?text=U" alt="User Avatar">
                     <div class="hidden sm:block">
                         <p id="profile-username" class="font-semibold text-sm text-left text-slate-700">Memuat...</p>
+                        <p id="profile-email" class="text-xs text-slate-500 text-left">Memuat...</p>
                     </div>
                 </button>
                 <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg solid-shadow-lg z-20 py-2">
@@ -58,6 +74,22 @@
                             <span>Profil Saya</span>
                         </a>
                     </div>
+                    <!-- Navigasi Tambahan -->
+                    <div class="py-1 border-t border-slate-100">
+                        <a href="#" class="nav-link flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100" data-target="beranda-content">
+                            <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                            <span>Beranda</span>
+                        </a>
+                        <a href="#" class="nav-link flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100" data-target="simulasi-content">
+                            <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z"></path></svg>
+                            <span>Simulasi Tes</span>
+                        </a>
+                        <a href="#" class="nav-link flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-100" data-target="pengumuman-content">
+                            <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                            <span>Pengumuman</span>
+                        </a>
+                    </div>
+                    <!-- Akhir Navigasi Tambahan -->
                     <div class="py-1 border-t border-slate-100">
                         <a href="#" id="logout-button" class="flex items-center gap-3 w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
                              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
@@ -69,151 +101,412 @@
         </nav>
     </header>
 
+    <!-- Konten Utama -->
     <main class="container mx-auto px-6 py-8">
 
+        <!-- Konten Beranda (Default) -->
         <div id="beranda-content" class="content-section">
             <div class="bg-white p-8 md:p-12 rounded-2xl solid-shadow-lg grid md:grid-cols-2 gap-8 items-center">
                 <div class="text-left">
                     <h1 id="welcome-message" class="text-3xl md:text-4xl font-extrabold text-slate-900"></h1>
                     <p class="mt-4 text-lg text-slate-600 max-w-xl">EduNav adalah partner setiamu untuk menaklukkan ujian. Latihan, analisis, dan raih kampus impianmu di sini.</p>
-                     <div class="mt-8 flex flex-wrap gap-4 items-center">
-                        <a href="./SKD.html" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700">Mulai Simulasi SKD</a>
-                        <a href="./ldr.html" class="bg-slate-100 text-slate-700 font-bold py-3 px-6 rounded-lg hover:bg-slate-200">Lihat Leaderboard</a>
-                    </div>
+                    <button id="cta-simulasi" class="mt-6 bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-all shadow-lg hover:shadow-xl">
+                        Mulai Simulasi Sekarang
+                    </button>
                 </div>
                 <div class="hidden md:flex items-center justify-center p-4">
-                    <svg width="250" height="250" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="95" fill="#EEF2FF"/><path d="M100 20C144.183 20 180 55.8172 180 100C180 144.183 144.183 180 100 180C55.8172 180 20 144.183 20 100" stroke="#C7D2FE" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 12"/><path d="M85 125L125 85" stroke="#6366F1" stroke-width="8" stroke-linecap="round"/><path d="M75 85H125" stroke="#6366F1" stroke-width="8" stroke-linecap="round"/><path d="M75 105H105" stroke="#A5B4FC" stroke-width="8" stroke-linecap="round"/><path d="M140 100V140H60V60H100" stroke="#4F46E5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M140 60L100 100" stroke="#4F46E5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <svg width="250" height="250" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="95" fill="#EEF2FF"/>
+                        <path d="M100 20C144.183 20 180 55.8172 180 100C180 144.183 144.183 180 100 180C55.8172 180 20 144.183 20 100" stroke="#C7D2FE" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 12"/>
+                        <path d="M85 125L125 85" stroke="#6366F1" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M75 85H125" stroke="#6366F1" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M75 105H105" stroke="#A5B4FC" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M140 100V140H60V60H100" stroke="#4F46E5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M140 60L100 100" stroke="#4F46E5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+            <!-- Keuntungan EduNav -->
+            <div class="mt-16">
+                <h2 class="text-2xl font-bold text-center mb-2 text-slate-800">Kenapa Memilih EduNav?</h2>
+                <p class="text-center text-slate-500 mb-10">Kami menyediakan semua yang kamu butuhkan untuk sukses.</p>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl solid-shadow border border-transparent hover:border-indigo-300 card-hover">
+                        <h3 class="text-lg font-bold mb-2">Simulasi Realistis</h3>
+                        <p class="text-slate-600 text-sm">Rasakan pengalaman tes yang sesungguhnya dengan antarmuka dan sistem penilaian yang mirip aslinya.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl solid-shadow border border-transparent hover:border-indigo-300 card-hover">
+                        <h3 class="text-lg font-bold mb-2">Analisis Performa</h3>
+                        <p class="text-slate-600 text-sm">Dapatkan laporan detail kekuatan dan kelemahanmu untuk strategi belajar yang lebih efektif.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl solid-shadow border border-transparent hover:border-indigo-300 card-hover">
+                        <h3 class="text-lg font-bold mb-2">100% Gratis</h3>
+                        <p class="text-slate-600 text-sm">Kami berkomitmen menyediakan akses pendidikan berkualitas tanpa biaya sepeserpun.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Konten Simulasi Tes (Hidden by default) -->
+        <div id="simulasi-content" class="content-section hidden">
+            <h1 class="text-3xl font-extrabold text-slate-900 text-center mb-2">Pilih Simulasi Tes</h1>
+            <p class="text-slate-600 text-center mb-10">Asah kemampuanmu pada bidang yang kamu tuju.</p>
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Link ke halaman UTBK -->
+                <a href="./utbk.html" class="group block bg-white p-8 rounded-xl solid-shadow card-hover border-2 border-transparent hover:border-indigo-500">
+                    <h2 class="text-2xl font-bold text-indigo-700">Try Out UTBK</h2>
+                    <p class="mt-2 text-slate-600">Raih PTN impianmu dengan persiapan matang.</p>
+                    <span class="mt-4 inline-block font-semibold text-indigo-600 group-hover:underline">Mulai Mengerjakan &rarr;</span>
+                </a>
+                <!-- Link ke halaman SKD -->
+                <a href="./SKD.html" class="group block bg-white p-8 rounded-xl solid-shadow card-hover border-2 border-transparent hover:border-blue-500">
+                    <h2 class="text-2xl font-bold text-blue-700">SKD Kedinasan</h2>
+                    <p class="mt-2 text-slate-600">Jadilah abdi negara selanjutnya.</p>
+                    <span class="mt-4 inline-block font-semibold text-blue-600 group-hover:underline">Mulai Mengerjakan &rarr;</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Konten Pengumuman (Hidden by default) -->
+        <div id="pengumuman-content" class="content-section hidden">
+            <h1 class="text-3xl font-extrabold text-slate-900 text-center mb-10">Papan Pengumuman</h1>
+            <div class="max-w-3xl mx-auto space-y-6">
+                <div class="bg-white p-6 rounded-xl solid-shadow flex items-start space-x-4">
+                    <span class="flex-shrink-0 w-3 h-3 bg-purple-500 rounded-full mt-1.5"></span>
+                    <div>
+                        <p class="font-bold text-lg text-slate-800">Integrasi AI untuk Pembahasan (Coming Soon)</p>
+                        <p class="mt-2 text-slate-600">Kami sedang mengembangkan fitur AI canggih yang akan memberikan pembahasan soal yang lebih personal dan interaktif!</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl solid-shadow flex items-start space-x-4">
+                    <span class="flex-shrink-0 w-3 h-3 bg-blue-500 rounded-full mt-1.5"></span>
+                    <div>
+                        <p class="font-bold text-lg text-slate-800">Jadwal Simulasi SKD Kedinasan: 15 Juli 2025</p>
+                        <p class="mt-2 text-slate-600">Persiapkan dirimu! Simulasi Akbar SKD Kedinasan akan dibuka serentak. Jangan sampai ketinggalan!</p>
+                    </div>
                 </div>
             </div>
         </div>
         
+        <!-- KONTEN PROFIL SAYA (TEMPLATE) -->
         <div id="profil-content" class="content-section hidden">
             <div class="max-w-4xl mx-auto">
-                <div class="bg-white rounded-2xl solid-shadow-lg p-8 text-center">
-                    <img id="profile-page-avatar" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-indigo-200 object-cover" src="">
-                    <h1 id="profile-page-username" class="text-3xl font-bold text-slate-900"></h1>
-                    <p id="profile-page-email" class="text-slate-500 mt-1"></p>
+                <div class="bg-white rounded-2xl solid-shadow-lg p-8 flex flex-col md:flex-row items-center gap-8">
+                    <img id="profile-avatar-main" class="w-24 h-24 rounded-full border-4 border-indigo-200 object-cover" src="https://placehold.co/96x96/e0e7ff/4f46e5?text=U" alt="User Avatar">
+                    <div class="text-center md:text-left">
+                        <h1 id="profile-name-main" class="text-3xl font-bold text-slate-900">Nama Pengguna</h1>
+                        <p id="profile-email-main" class="text-slate-500 mt-1">email.pengguna@example.com</p>
+                    </div>
+                    <button id="edit-profile-btn" class="ml-auto mt-4 md:mt-0 bg-slate-200 text-slate-800 font-semibold py-2 px-4 rounded-lg hover:bg-slate-300 transition-colors">
+                        Edit Profil
+                    </button>
                 </div>
                 
                 <div class="mt-8 grid md:grid-cols-3 gap-6">
-                    <div class="bg-white p-6 rounded-xl shadow-sm text-center">
-                        <p class="text-sm font-semibold text-slate-500">Simulasi Diikuti</p>
-                        <p id="stat-simulasi" class="text-3xl font-bold text-indigo-600 mt-1">0</p>
+                    <div class="bg-white rounded-xl solid-shadow p-6">
+                        <p class="text-sm text-slate-500">Simulasi Dikerjakan</p>
+                        <p id="stat-simulasi" class="text-3xl font-bold text-indigo-600">0</p>
                     </div>
-                     <div class="bg-white p-6 rounded-xl shadow-sm text-center">
-                        <p class="text-sm font-semibold text-slate-500">Rata-rata Skor</p>
-                        <p id="stat-rata-rata" class="text-3xl font-bold text-indigo-600 mt-1">0</p>
+                    <div class="bg-white rounded-xl solid-shadow p-6">
+                        <p class="text-sm text-slate-500">Rata-rata Skor</p>
+                        <p id="stat-rata-rata" class="text-3xl font-bold text-green-600">0</p>
                     </div>
-                     <div class="bg-white p-6 rounded-xl shadow-sm text-center">
-                        <p class="text-sm font-semibold text-slate-500">Peringkat</p>
-                        <p id="stat-peringkat" class="text-3xl font-bold text-indigo-600 mt-1">N/A</p>
+                    <div class="bg-white rounded-xl solid-shadow p-6">
+                        <p class="text-sm text-slate-500">Peringkat (Umum)</p>
+                        <p id="stat-peringkat" class="text-3xl font-bold text-amber-600">N/A</p>
                     </div>
                 </div>
                 
-                <div class="mt-8 text-center">
-                    <a href="./skor.html" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition-colors shadow-lg inline-block">
-                        Lihat Riwayat Skor Lengkap
-                    </a>
+                <div class="mt-8 bg-white rounded-2xl solid-shadow-lg p-8">
+                    <h2 class="text-xl font-bold text-slate-800 mb-4">Riwayat Tes Terbaru</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="border-b border-slate-200 text-sm text-slate-500">
+                                    <th class="py-2">Nama Tes</th>
+                                    <th class="py-2">Tanggal</th>
+                                    <th class="py-2">Skor</th>
+                                    <th class="py-2"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data riwayat akan diisi oleh JavaScript -->
+                                <tr id="riwayat-tes-placeholder" class="hidden">
+                                    <td colspan="4" class="text-center py-8 text-slate-500">Belum ada riwayat tes.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
-    
+
+    <!-- Modal Konfirmasi Logout -->
+    <div id="logout-confirm-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-60 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto text-center modal-container">
+            <h3 class="text-lg font-bold text-slate-900">Konfirmasi Logout</h3>
+            <p class="mt-2 text-sm text-slate-600">Apakah Anda yakin ingin keluar dari sesi ini?</p>
+            <div class="mt-6 flex justify-center gap-4">
+                <button id="cancel-logout-btn" class="px-6 py-2 bg-slate-200 text-slate-800 font-semibold rounded-lg hover:bg-slate-300">Batal</button>
+                <button id="confirm-logout-btn" class="px-6 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700">Ya, Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Profil -->
+    <div id="edit-profile-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-60 flex items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full mx-auto modal-container">
+            <h3 class="text-xl font-bold text-slate-900 mb-6">Edit Profil</h3>
+            <form id="edit-profile-form">
+                <div class="flex items-center gap-4 mb-6">
+                    <img id="edit-avatar-preview" class="w-20 h-20 rounded-full object-cover border-2 border-slate-200" src="" alt="Avatar Preview">
+                    <div>
+                        <label for="edit-avatar-input" class="cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2 px-4 rounded-lg text-sm">
+                            Ganti Foto
+                        </label>
+                        <input type="file" id="edit-avatar-input" accept="image/*">
+                        <p class="text-xs text-slate-500 mt-2">JPG, PNG, atau GIF. Maks 1MB.</p>
+                    </div>
+                </div>
+                <!-- Username (tidak bisa diedit) -->
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Username</label>
+                    <p id="edit-username-display" class="text-slate-500 bg-slate-100 px-4 py-2 rounded-lg"></p>
+                </div>
+                <!-- Email (tidak bisa diedit) -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                    <p id="edit-email-display" class="text-slate-500 bg-slate-100 px-4 py-2 rounded-lg"></p>
+                </div>
+                <div class="flex justify-end gap-4">
+                    <button type="button" id="cancel-edit-profile-btn" class="px-6 py-2 bg-slate-200 text-slate-800 font-semibold rounded-lg hover:bg-slate-300">Batal</button>
+                    <button type="submit" class="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const USER_DB_KEY = 'eduNavUserDatabase';
             let loggedInUser = {};
 
-            function loadUserData() {
-                const userString = localStorage.getItem('loggedInUser');
-                if (userString) {
-                    loggedInUser = JSON.parse(userString);
-                } else {
-                    window.location.href = './loginpage.html';
-                }
-            }
+            const redirectToLogin = () => {
+                const currentPath = window.location.pathname;
+                const loginPagePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1) + 'loginpage.html';
+                window.location.href = loginPagePath;
+            };
+            
+            // --- Inisialisasi Elemen ---
+            const profileButton = document.getElementById('profile-button');
+            const profileDropdown = document.getElementById('profile-dropdown');
+            const logoutButton = document.getElementById('logout-button');
+            const logoutConfirmModal = document.getElementById('logout-confirm-modal');
+            const cancelLogoutBtn = document.getElementById('cancel-logout-btn');
+            const confirmLogoutBtn = document.getElementById('confirm-logout-btn');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const logoLink = document.getElementById('logo-link');
 
-            function renderUserInterface(user) {
-                if (!user) return;
+            // --- Elemen Edit Profil ---
+            const editProfileModal = document.getElementById('edit-profile-modal');
+            const editProfileBtn = document.getElementById('edit-profile-btn');
+            const cancelEditProfileBtn = document.getElementById('cancel-edit-profile-btn');
+            const editProfileForm = document.getElementById('edit-profile-form');
+            const editUsernameDisplay = document.getElementById('edit-username-display');
+            const editEmailDisplay = document.getElementById('edit-email-display');
+            const editAvatarInput = document.getElementById('edit-avatar-input');
+            const editAvatarPreview = document.getElementById('edit-avatar-preview');
+            let newAvatarDataUrl = null;
+
+            // --- [DISSEMPURNAKAN] Fungsi untuk menyimpan data sesi ke database utama ---
+            const saveCurrentSessionToDatabase = () => {
+                if (!loggedInUser || !loggedInUser.username) return;
                 
-                // Header
+                const userDbString = localStorage.getItem(USER_DB_KEY);
+                if (!userDbString) return;
+
+                let userDb = JSON.parse(userDbString);
+                
+                if (userDb[loggedInUser.username]) {
+                    // Buat objek profil yang lengkap dari data sesi saat ini
+                    const currentProfile = {
+                        avatar: loggedInUser.avatar,
+                        stats: loggedInUser.stats,
+                        history: loggedInUser.history
+                    };
+                    // Perbarui database utama dengan profil yang lengkap ini
+                    userDb[loggedInUser.username].profile = currentProfile;
+                    localStorage.setItem(USER_DB_KEY, JSON.stringify(userDb));
+                    
+                    // [PENTING] Perbarui juga data di 'loggedInUser' untuk konsistensi
+                    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+                }
+            };
+
+            // --- Fungsi untuk update semua data pengguna di UI ---
+            const updateAllUserData = (user) => {
+                if (!user) return;
+                // Update Header
                 document.getElementById('header-avatar').src = user.avatar;
                 document.getElementById('profile-username').textContent = user.username;
+                document.getElementById('profile-email').textContent = user.email;
+                
+                // Update Dropdown
                 document.getElementById('dropdown-username').textContent = user.username;
                 document.getElementById('dropdown-email').textContent = user.email;
 
-                // Welcome message
-                const welcomeEl = document.getElementById('welcome-message');
-                if(welcomeEl) welcomeEl.textContent = `Halo, ${user.username}!`;
+                // Update Welcome Message
+                document.getElementById('welcome-message').textContent = `Halo, ${user.username}!`;
+                
+                // Update Halaman Profil
+                document.getElementById('profile-avatar-main').src = user.avatar;
+                document.getElementById('profile-name-main').textContent = user.username;
+                document.getElementById('profile-email-main').textContent = user.email;
 
-                // Profile Page
-                const profilePageAvatar = document.getElementById('profile-page-avatar');
-                if (profilePageAvatar) {
-                    profilePageAvatar.src = user.avatar;
-                    document.getElementById('profile-page-username').textContent = user.username;
-                    document.getElementById('profile-page-email').textContent = user.email;
+                // Update Statistik
+                document.getElementById('stat-simulasi').textContent = user.stats.simulasi;
+                document.getElementById('stat-rata-rata').textContent = user.stats.rataRata;
+                document.getElementById('stat-peringkat').textContent = user.stats.peringkat;
+
+                // Update Riwayat Tes
+                const historyTableBody = document.querySelector('#profil-content tbody');
+                historyTableBody.innerHTML = ''; // Kosongkan tabel dulu
+                if (user.history && user.history.length > 0) {
+                    user.history.forEach(item => {
+                        const scoreColor = item.status === 'green' ? 'text-green-600' : 'text-red-600';
+                        const row = `
+                            <tr class="border-b border-slate-100">
+                                <td class="py-4 font-semibold">${item.name}</td>
+                                <td class="py-4 text-slate-600">${item.date}</td>
+                                <td class="py-4 font-bold ${scoreColor}">${item.score}</td>
+                                <td class="py-4 text-right"><a href="#" class="text-indigo-600 font-semibold hover:underline">Lihat Detail</a></td>
+                            </tr>`;
+                        historyTableBody.innerHTML += row;
+                    });
+                } else {
+                    historyTableBody.innerHTML = `
+                        <tr id="riwayat-tes-placeholder">
+                            <td colspan="4" class="text-center py-8 text-slate-500">Belum ada riwayat tes.</td>
+                        </tr>`;
+                }
+            };
+
+            // --- [DISSEMPURNAKAN] Fungsi untuk memuat data ---
+            const loadAndDisplayUserData = () => {
+                const userString = localStorage.getItem('loggedInUser');
+                if (userString) {
+                    loggedInUser = JSON.parse(userString);
+                    // Lakukan validasi dan set nilai default jika ada data yang hilang
+                    if (!loggedInUser.stats) loggedInUser.stats = { simulasi: 0, rataRata: 0, peringkat: "N/A" };
+                    if (!loggedInUser.history) loggedInUser.history = [];
+                    if (!loggedInUser.avatar) loggedInUser.avatar = `https://placehold.co/96x96/e0e7ff/4f46e5?text=${loggedInUser.username.charAt(0).toUpperCase()}`;
                     
-                    // Stats
-                    const userStats = user.stats || { simulasi: 0, rataRata: 0, peringkat: "N/A" };
-                    document.getElementById('stat-simulasi').textContent = userStats.simulasi;
-                    document.getElementById('stat-rata-rata').textContent = userStats.rataRata;
-                    document.getElementById('stat-peringkat').textContent = userStats.peringkat;
+                    updateAllUserData(loggedInUser);
+                } else {
+                    redirectToLogin();
                 }
-            }
+            };
 
-            function switchPage(targetId) {
-                document.querySelectorAll('.content-section').forEach(section => {
-                    section.classList.add('hidden');
+            const switchPage = (targetId) => {
+                contentSections.forEach(section => section.classList.add('hidden'));
+                document.getElementById(targetId)?.classList.remove('hidden');
+                
+                navLinks.forEach(link => {
+                    const isActive = link.dataset.target === targetId;
+                    link.classList.toggle('nav-link-active', isActive);
+                    if (!link.closest('#profile-dropdown')) {
+                         link.classList.toggle('text-slate-600', !isActive);
+                         link.classList.toggle('hover:text-indigo-600', !isActive);
+                    }
                 });
-                const targetEl = document.getElementById(targetId);
-                if (targetEl) {
-                    targetEl.classList.remove('hidden');
-                }
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.toggle('nav-link-active', link.dataset.target === targetId);
-                });
-                document.getElementById('profile-dropdown').classList.add('hidden');
-            }
-            
-            loadUserData();
-            renderUserInterface(loggedInUser);
+                profileDropdown.classList.add('hidden');
+            };
 
-            document.querySelectorAll('.nav-link').forEach(link => {
+            navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
                     switchPage(e.currentTarget.dataset.target);
                 });
             });
-
-            document.getElementById('logo-link').addEventListener('click', (e) => {
+            
+            logoLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 switchPage('beranda-content');
             });
+
+            document.getElementById('cta-simulasi').addEventListener('click', () => switchPage('simulasi-content'));
+
+            // --- Logika Edit Profil ---
+            editProfileBtn.addEventListener('click', () => {
+                editUsernameDisplay.textContent = loggedInUser.username;
+                editEmailDisplay.textContent = loggedInUser.email;
+                editAvatarPreview.src = loggedInUser.avatar;
+                newAvatarDataUrl = null;
+                editProfileModal.classList.remove('hidden');
+            });
+
+            editAvatarInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        newAvatarDataUrl = event.target.result;
+                        editAvatarPreview.src = newAvatarDataUrl;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            cancelEditProfileBtn.addEventListener('click', () => {
+                editProfileModal.classList.add('hidden');
+            });
+
+            editProfileForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (newAvatarDataUrl) {
+                    loggedInUser.avatar = newAvatarDataUrl;
+                }
+                updateAllUserData(loggedInUser);
+                saveCurrentSessionToDatabase(); // Langsung simpan setiap ada perubahan
+                editProfileModal.classList.add('hidden');
+            });
             
-            const profileButton = document.getElementById('profile-button');
-            const profileDropdown = document.getElementById('profile-dropdown');
-            profileButton.addEventListener('click', () => {
-                profileDropdown.classList.toggle('hidden');
+            // --- Logika Logout & Penyimpanan Otomatis ---
+            profileButton.addEventListener('click', () => profileDropdown.classList.toggle('hidden'));
+            logoutButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                profileDropdown.classList.add('hidden');
+                logoutConfirmModal.classList.remove('hidden');
+            });
+            cancelLogoutBtn.addEventListener('click', () => logoutConfirmModal.classList.add('hidden'));
+            confirmLogoutBtn.addEventListener('click', () => {
+                saveCurrentSessionToDatabase(); // Simpan data terakhir sebelum logout
+                localStorage.removeItem('loggedInUser');
+                redirectToLogin();
             });
             window.addEventListener('click', (e) => {
                 if (!profileButton.contains(e.target) && !profileDropdown.contains(e.target)) {
                     profileDropdown.classList.add('hidden');
                 }
             });
-            
-            const logoutButton = document.getElementById('logout-button');
-            logoutButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                localStorage.removeItem('loggedInUser');
-                window.location.href = './loginpage.html';
+
+            // Simpan data saat tab akan ditutup
+            window.addEventListener('beforeunload', () => {
+                saveCurrentSessionToDatabase();
             });
-            
-            const targetSection = sessionStorage.getItem('targetSection');
-            if (targetSection) {
-                switchPage(targetSection);
-                sessionStorage.removeItem('targetSection');
-            } else {
-                switchPage('beranda-content');
-            }
+
+            // --- Event listener untuk menyegarkan data saat tab kembali aktif ---
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible') {
+                    loadAndDisplayUserData();
+                }
+            });
+
+            // --- Inisialisasi Halaman ---
+            loadAndDisplayUserData();
+            switchPage('beranda-content');
         });
     </script>
 </body>
