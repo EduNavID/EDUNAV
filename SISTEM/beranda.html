@@ -17,8 +17,12 @@
             color: #4338ca;
             font-weight: 600;
         }
-        .content-section, .modal-container {
+        .content-section {
+            display: none; /* Semua section disembunyikan secara default */
             animation: fadeIn 0.4s ease-in-out;
+        }
+        .content-section.active {
+            display: block; /* Section yang aktif akan ditampilkan */
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
@@ -36,9 +40,6 @@
         .card-hover:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-        }
-        #edit-avatar-input {
-            display: none;
         }
     </style>
 </head>
@@ -93,43 +94,17 @@
                 <div class="text-left">
                     <h1 id="welcome-message" class="text-3xl md:text-4xl font-extrabold text-slate-900"></h1>
                     <p class="mt-4 text-lg text-slate-600 max-w-xl">EduNav adalah partner setiamu untuk menaklukkan ujian. Latihan, analisis, dan raih kampus impianmu di sini.</p>
-                    <button id="cta-simulasi" class="mt-6 bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition-all shadow-lg hover:shadow-xl">
+                    <button id="cta-simulasi" class="mt-6 bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-all shadow-lg hover:shadow-xl">
                         Mulai Simulasi Sekarang
                     </button>
                 </div>
                 <div class="hidden md:flex items-center justify-center p-4">
-                    <svg width="250" height="250" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="100" cy="100" r="95" fill="#EEF2FF"/>
-                        <path d="M100 20C144.183 20 180 55.8172 180 100C180 144.183 144.183 180 100 180C55.8172 180 20 144.183 20 100" stroke="#C7D2FE" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 12"/>
-                        <path d="M85 125L125 85" stroke="#6366F1" stroke-width="8" stroke-linecap="round"/>
-                        <path d="M75 85H125" stroke="#6366F1" stroke-width="8" stroke-linecap="round"/>
-                        <path d="M75 105H105" stroke="#A5B4FC" stroke-width="8" stroke-linecap="round"/>
-                        <path d="M140 100V140H60V60H100" stroke="#4F46E5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M140 60L100 100" stroke="#4F46E5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
-            </div>
-            <div class="mt-16">
-                <h2 class="text-2xl font-bold text-center mb-2 text-slate-800">Kenapa Memilih EduNav?</h2>
-                <p class="text-center text-slate-500 mb-10">Kami menyediakan semua yang kamu butuhkan untuk sukses.</p>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="bg-white p-6 rounded-xl solid-shadow border border-transparent hover:border-indigo-300 card-hover">
-                        <h3 class="text-lg font-bold mb-2">Simulasi Realistis</h3>
-                        <p class="text-slate-600 text-sm">Rasakan pengalaman tes yang sesungguhnya dengan antarmuka dan sistem penilaian yang mirip aslinya.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl solid-shadow border border-transparent hover:border-indigo-300 card-hover">
-                        <h3 class="text-lg font-bold mb-2">Analisis Performa</h3>
-                        <p class="text-slate-600 text-sm">Dapatkan laporan detail kekuatan dan kelemahanmu untuk strategi belajar yang lebih efektif.</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl solid-shadow border border-transparent hover:border-indigo-300 card-hover">
-                        <h3 class="text-lg font-bold mb-2">100% Gratis</h3>
-                        <p class="text-slate-600 text-sm">Kami berkomitmen menyediakan akses pendidikan berkualitas tanpa biaya sepeserpun.</p>
-                    </div>
+                     <svg width="250" height="250" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="95" fill="#EEF2FF"/><path d="M100 20C144.183 20 180 55.8172 180 100C180 144.183 144.183 180 100 180C55.8172 180 20 144.183 20 100" stroke="#C7D2FE" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 12"/><path d="M85 125L125 85" stroke="#6366F1" stroke-width="8" stroke-linecap="round"/><path d="M75 85H125" stroke="#6366F1" stroke-width="8" stroke-linecap="round"/><path d="M75 105H105" stroke="#A5B4FC" stroke-width="8" stroke-linecap="round"/><path d="M140 100V140H60V60H100" stroke="#4F46E5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M140 60L100 100" stroke="#4F46E5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
             </div>
         </div>
 
-        <div id="simulasi-content" class="content-section hidden">
+        <div id="simulasi-content" class="content-section">
             <h1 class="text-3xl font-extrabold text-slate-900 text-center mb-2">Pilih Simulasi Tes</h1>
             <p class="text-slate-600 text-center mb-10">Asah kemampuanmu pada bidang yang kamu tuju.</p>
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -146,17 +121,10 @@
             </div>
         </div>
 
-        <div id="pengumuman-content" class="content-section hidden">
+        <div id="pengumuman-content" class="content-section">
             <h1 class="text-3xl font-extrabold text-slate-900 text-center mb-10">Papan Pengumuman</h1>
             <div class="max-w-3xl mx-auto space-y-6">
-                <div class="bg-white p-6 rounded-xl solid-shadow flex items-start space-x-4">
-                    <span class="flex-shrink-0 w-3 h-3 bg-purple-500 rounded-full mt-1.5"></span>
-                    <div>
-                        <p class="font-bold text-lg text-slate-800">Integrasi AI untuk Pembahasan (Coming Soon)</p>
-                        <p class="mt-2 text-slate-600">Kami sedang mengembangkan fitur AI canggih yang akan memberikan pembahasan soal yang lebih personal dan interaktif!</p>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-xl solid-shadow flex items-start space-x-4">
+                 <div class="bg-white p-6 rounded-xl solid-shadow flex items-start space-x-4">
                     <span class="flex-shrink-0 w-3 h-3 bg-blue-500 rounded-full mt-1.5"></span>
                     <div>
                         <p class="font-bold text-lg text-slate-800">Jadwal Simulasi SKD Kedinasan: 15 Juli 2025</p>
@@ -166,17 +134,11 @@
             </div>
         </div>
         
-        <div id="profil-content" class="content-section hidden">
+        <div id="profil-content" class="content-section">
             <div class="max-w-4xl mx-auto">
                 <div class="bg-white rounded-2xl solid-shadow-lg p-8 text-center">
-                    <div class="relative w-24 h-24 mx-auto">
-                        <img id="profile-avatar-main" class="w-24 h-24 rounded-full border-4 border-indigo-200 object-cover" src="" alt="User Avatar">
-                        <label for="edit-avatar-input" class="absolute bottom-0 right-0 bg-slate-700 text-white rounded-full p-1.5 cursor-pointer hover:bg-slate-900 transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z"></path></svg>
-                        </label>
-                         <input type="file" id="edit-avatar-input" accept="image/*">
-                    </div>
-                    <h1 id="profile-name-main" class="text-3xl font-bold text-slate-900 mt-4"></h1>
+                    <img id="profile-avatar-main" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-indigo-200 object-cover" src="">
+                    <h1 id="profile-name-main" class="text-3xl font-bold text-slate-900"></h1>
                     <p id="profile-email-main" class="text-slate-500 mt-1"></p>
                 </div>
                 
@@ -205,7 +167,7 @@
     </main>
 
     <div id="logout-confirm-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-60 flex items-center justify-center z-50">
-        <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto text-center modal-container">
+        <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto text-center">
             <h3 class="text-lg font-bold text-slate-900">Konfirmasi Logout</h3>
             <p class="mt-2 text-sm text-slate-600">Apakah Anda yakin ingin keluar dari sesi ini?</p>
             <div class="mt-6 flex justify-center gap-4">
@@ -217,14 +179,10 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const USER_DB_KEY = 'eduNavUserDatabase';
             let loggedInUser = {};
 
-            const redirectToLogin = () => {
-                window.location.href = './loginpage.html';
-            };
+            const redirectToLogin = () => window.location.href = './loginpage.html';
             
-            // --- Elemen DOM ---
             const profileButton = document.getElementById('profile-button');
             const profileDropdown = document.getElementById('profile-dropdown');
             const logoutButton = document.getElementById('logout-button');
@@ -236,38 +194,17 @@
             const logoLink = document.getElementById('logo-link');
             const ctaSimulasi = document.getElementById('cta-simulasi');
 
-            // --- Elemen Edit Avatar ---
-            const editAvatarInput = document.getElementById('edit-avatar-input');
-
-            // --- Fungsi untuk menyimpan data sesi ke database utama ---
-            const saveCurrentSessionToDatabase = () => {
-                if (!loggedInUser || !loggedInUser.username) return;
-                let userDb = JSON.parse(localStorage.getItem(USER_DB_KEY) || '{}');
-                if (userDb[loggedInUser.username]) {
-                    userDb[loggedInUser.username].profile = {
-                        avatar: loggedInUser.avatar,
-                        stats: loggedInUser.stats,
-                        history: loggedInUser.history
-                    };
-                    localStorage.setItem(USER_DB_KEY, JSON.stringify(userDb));
-                    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
-                }
-            };
-
-            // --- Fungsi untuk update semua data pengguna di UI ---
             const updateAllUserData = (user) => {
                 if (!user) return;
                 const userAvatar = user.avatar || `https://placehold.co/96x96/e0e7ff/4f46e5?text=${user.username.charAt(0).toUpperCase()}`;
                 const userStats = user.stats || { simulasi: 0, rataRata: 0, peringkat: "N/A" };
                 
-                // Update elemen-elemen yang ada di semua halaman
                 document.getElementById('header-avatar').src = userAvatar;
                 document.getElementById('profile-username').textContent = user.username;
                 document.getElementById('dropdown-username').textContent = user.username;
                 document.getElementById('dropdown-email').textContent = user.email;
                 document.getElementById('welcome-message').textContent = `Halo, ${user.username}!`;
                 
-                // Update elemen-elemen di halaman profil
                 document.getElementById('profile-avatar-main').src = userAvatar;
                 document.getElementById('profile-name-main').textContent = user.username;
                 document.getElementById('profile-email-main').textContent = user.email;
@@ -276,7 +213,6 @@
                 document.getElementById('stat-peringkat').textContent = userStats.peringkat;
             };
 
-            // --- Fungsi untuk memuat data ---
             const loadAndDisplayUserData = () => {
                 const userString = localStorage.getItem('loggedInUser');
                 if (userString) {
@@ -290,9 +226,9 @@
             };
 
             const switchPage = (targetId) => {
-                contentSections.forEach(section => section.classList.add('hidden'));
+                contentSections.forEach(section => section.classList.remove('active'));
                 const targetEl = document.getElementById(targetId);
-                if(targetEl) targetEl.classList.remove('hidden');
+                if (targetEl) targetEl.classList.add('active');
                 
                 navLinks.forEach(link => {
                     link.classList.toggle('nav-link-active', link.dataset.target === targetId);
@@ -300,7 +236,6 @@
                 profileDropdown.classList.add('hidden');
             };
             
-            // --- Event Listeners ---
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -315,19 +250,6 @@
 
             ctaSimulasi.addEventListener('click', () => switchPage('simulasi-content'));
 
-            editAvatarInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = (event) => {
-                        loggedInUser.avatar = event.target.result;
-                        updateAllUserData(loggedInUser);
-                        saveCurrentSessionToDatabase();
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
             profileButton.addEventListener('click', () => profileDropdown.classList.toggle('hidden'));
             logoutButton.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -335,7 +257,6 @@
             });
             cancelLogoutBtn.addEventListener('click', () => logoutConfirmModal.classList.add('hidden'));
             confirmLogoutBtn.addEventListener('click', () => {
-                saveCurrentSessionToDatabase();
                 localStorage.removeItem('loggedInUser');
                 redirectToLogin();
             });
@@ -346,15 +267,6 @@
                 }
             });
 
-            window.addEventListener('beforeunload', saveCurrentSessionToDatabase);
-            
-            document.addEventListener('visibilitychange', () => {
-                if (document.visibilityState === 'visible') {
-                    loadAndDisplayUserData();
-                }
-            });
-
-            // --- Inisialisasi Halaman ---
             loadAndDisplayUserData();
             switchPage('beranda-content');
         });
