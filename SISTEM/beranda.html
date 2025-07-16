@@ -156,22 +156,20 @@
                 const welcomeEl = document.getElementById('welcome-message');
                 if(welcomeEl) welcomeEl.textContent = `Halo, ${user.username}!`;
 
-                // Render riwayat tes (SISTEM BARU)
+                // Render riwayat tes
                 renderHistoryTable(user.history || []);
             }
 
-            // Fungsi baru yang bersih khusus untuk render tabel riwayat
+            // Fungsi untuk render tabel riwayat tanpa tombol detail
             function renderHistoryTable(historyData) {
                 const tableBody = document.getElementById('history-table-body');
                 if (!tableBody) return;
 
-                // Selalu kosongkan tabel sebelum mengisi
                 tableBody.innerHTML = '';
 
                 if (historyData.length > 0) {
                     historyData.forEach(item => {
                         const scoreColor = item.status === 'green' ? 'text-green-600' : 'text-red-600';
-                        // Template baris yang baru, hanya dengan 3 kolom. TIDAK ADA "Lihat Detail".
                         const rowHTML = `
                             <tr class="border-b border-slate-100 last:border-b-0">
                                 <td class="py-3 px-4 font-semibold">${item.name}</td>
@@ -181,7 +179,6 @@
                         tableBody.innerHTML += rowHTML;
                     });
                 } else {
-                    // Tampilkan pesan jika riwayat kosong
                     tableBody.innerHTML = `
                         <tr>
                             <td colspan="3" class="text-center py-8 text-slate-500">Belum ada riwayat tes.</td>
