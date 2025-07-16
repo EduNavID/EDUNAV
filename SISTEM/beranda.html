@@ -27,13 +27,6 @@
         .solid-shadow-lg {
              box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.07);
         }
-        .card-hover {
-            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-        }
     </style>
 </head>
 <body class="text-slate-800">
@@ -43,9 +36,9 @@
             <a href="#" id="logo-link" class="text-2xl font-bold text-indigo-600">EduNav</a>
             <div class="hidden md:flex items-center space-x-10">
                 <a href="#" class="nav-link" data-target="beranda-content">Beranda</a>
-                <a href="#" class="nav-link" data-target="simulasi-content">Simulasi Tes</a>
+                <a href="./SKD.html" class="text-slate-600 hover:text-indigo-600 transition-colors">Simulasi SKD</a>
+                <a href="./utbk.html" class="text-slate-600 hover:text-indigo-600 transition-colors">Simulasi UTBK</a>
                 <a href="./materipage.html" class="text-slate-600 hover:text-indigo-600 transition-colors">Materi</a>
-                <a href="#" class="nav-link" data-target="pengumuman-content">Pengumuman</a>
             </div>
             <div class="relative">
                 <button id="profile-button" class="flex items-center space-x-3 group">
@@ -84,7 +77,7 @@
                     <h1 id="welcome-message" class="text-3xl md:text-4xl font-extrabold text-slate-900"></h1>
                     <p class="mt-4 text-lg text-slate-600 max-w-xl">EduNav adalah partner setiamu untuk menaklukkan ujian. Latihan, analisis, dan raih kampus impianmu di sini.</p>
                      <div class="mt-8 flex flex-wrap gap-4 items-center">
-                        <button id="cta-simulasi" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700">Mulai Simulasi Sekarang</button>
+                        <a href="./SKD.html" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700">Mulai Simulasi SKD</a>
                         <a href="./ldr.html" class="bg-slate-100 text-slate-700 font-bold py-3 px-6 rounded-lg hover:bg-slate-200">Lihat Leaderboard</a>
                     </div>
                 </div>
@@ -93,100 +86,80 @@
                 </div>
             </div>
         </div>
-
-        <div id="simulasi-content" class="content-section hidden"></div>
-        <div id="pengumuman-content" class="content-section hidden"></div>
         
         <div id="profil-content" class="content-section hidden">
             <div class="max-w-4xl mx-auto">
-                <div class="bg-white rounded-2xl solid-shadow-lg p-8">
-                    </div>
+                <div class="bg-white rounded-2xl solid-shadow-lg p-8 text-center">
+                    <img id="profile-page-avatar" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-indigo-200 object-cover" src="">
+                    <h1 id="profile-page-username" class="text-3xl font-bold text-slate-900"></h1>
+                    <p id="profile-page-email" class="text-slate-500 mt-1"></p>
+                </div>
                 
                 <div class="mt-8 grid md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-sm text-center">
+                        <p class="text-sm font-semibold text-slate-500">Simulasi Diikuti</p>
+                        <p id="stat-simulasi" class="text-3xl font-bold text-indigo-600 mt-1">0</p>
                     </div>
+                     <div class="bg-white p-6 rounded-xl shadow-sm text-center">
+                        <p class="text-sm font-semibold text-slate-500">Rata-rata Skor</p>
+                        <p id="stat-rata-rata" class="text-3xl font-bold text-indigo-600 mt-1">0</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-sm text-center">
+                        <p class="text-sm font-semibold text-slate-500">Peringkat</p>
+                        <p id="stat-peringkat" class="text-3xl font-bold text-indigo-600 mt-1">N/A</p>
+                    </div>
+                </div>
                 
-                <div class="mt-8 bg-white rounded-2xl solid-shadow-lg p-8">
-                    <h2 class="text-xl font-bold text-slate-800 mb-4">Riwayat Tes Terbaru</h2>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead>
-                                <tr class="border-b border-slate-200 text-sm text-slate-500">
-                                    <th class="py-2 px-4">Nama Tes</th>
-                                    <th class="py-2 px-4">Tanggal</th>
-                                    <th class="py-2 px-4">Skor</th>
-                                </tr>
-                            </thead>
-                            <tbody id="history-table-body">
-                                </tbody>
-                        </table>
-                    </div>
+                <div class="mt-8 text-center">
+                    <a href="./skor.html" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition-colors shadow-lg inline-block">
+                        Lihat Riwayat Skor Lengkap
+                    </a>
                 </div>
             </div>
         </div>
     </main>
     
-    <div id="logout-confirm-modal" class="hidden fixed inset-0"></div>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             let loggedInUser = {};
 
-            // Fungsi untuk memuat data pengguna dari localStorage
             function loadUserData() {
                 const userString = localStorage.getItem('loggedInUser');
                 if (userString) {
                     loggedInUser = JSON.parse(userString);
                 } else {
-                    // Jika tidak ada data login, paksa kembali ke halaman login
                     window.location.href = './loginpage.html';
                 }
             }
 
-            // Fungsi untuk menampilkan semua data pengguna ke UI
             function renderUserInterface(user) {
                 if (!user) return;
                 
-                // Render data header
-                document.getElementById('header-avatar').src = user.avatar || 'https://placehold.co/40x40/e0e7ff/4f46e5?text=U';
+                // Header
+                document.getElementById('header-avatar').src = user.avatar;
                 document.getElementById('profile-username').textContent = user.username;
                 document.getElementById('dropdown-username').textContent = user.username;
                 document.getElementById('dropdown-email').textContent = user.email;
 
-                // Render pesan selamat datang
+                // Welcome message
                 const welcomeEl = document.getElementById('welcome-message');
                 if(welcomeEl) welcomeEl.textContent = `Halo, ${user.username}!`;
 
-                // Render riwayat tes
-                renderHistoryTable(user.history || []);
-            }
-
-            // Fungsi untuk render tabel riwayat tanpa tombol detail
-            function renderHistoryTable(historyData) {
-                const tableBody = document.getElementById('history-table-body');
-                if (!tableBody) return;
-
-                tableBody.innerHTML = '';
-
-                if (historyData.length > 0) {
-                    historyData.forEach(item => {
-                        const scoreColor = item.status === 'green' ? 'text-green-600' : 'text-red-600';
-                        const rowHTML = `
-                            <tr class="border-b border-slate-100 last:border-b-0">
-                                <td class="py-3 px-4 font-semibold">${item.name}</td>
-                                <td class="py-3 px-4 text-slate-600">${item.date}</td>
-                                <td class="py-3 px-4 font-bold ${scoreColor}">${item.score}</td>
-                            </tr>`;
-                        tableBody.innerHTML += rowHTML;
-                    });
-                } else {
-                    tableBody.innerHTML = `
-                        <tr>
-                            <td colspan="3" class="text-center py-8 text-slate-500">Belum ada riwayat tes.</td>
-                        </tr>`;
+                // Profile Page
+                const profilePageAvatar = document.getElementById('profile-page-avatar');
+                if (profilePageAvatar) {
+                    profilePageAvatar.src = user.avatar;
+                    document.getElementById('profile-page-username').textContent = user.username;
+                    document.getElementById('profile-page-email').textContent = user.email;
+                    
+                    // Stats
+                    const userStats = user.stats || { simulasi: 0, rataRata: 0, peringkat: "N/A" };
+                    document.getElementById('stat-simulasi').textContent = userStats.simulasi;
+                    document.getElementById('stat-rata-rata').textContent = userStats.rataRata;
+                    document.getElementById('stat-peringkat').textContent = userStats.peringkat;
                 }
             }
 
-            // Fungsi untuk navigasi antar halaman
             function switchPage(targetId) {
                 document.querySelectorAll('.content-section').forEach(section => {
                     section.classList.add('hidden');
@@ -201,11 +174,9 @@
                 document.getElementById('profile-dropdown').classList.add('hidden');
             }
             
-            // --- INSIALISASI DAN EVENT LISTENERS ---
             loadUserData();
             renderUserInterface(loggedInUser);
 
-            // Navigasi utama
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -217,10 +188,7 @@
                 e.preventDefault();
                 switchPage('beranda-content');
             });
-
-            document.getElementById('cta-simulasi').addEventListener('click', () => switchPage('simulasi-content'));
             
-            // Dropdown profil
             const profileButton = document.getElementById('profile-button');
             const profileDropdown = document.getElementById('profile-dropdown');
             profileButton.addEventListener('click', () => {
@@ -232,7 +200,6 @@
                 }
             });
             
-            // Logout
             const logoutButton = document.getElementById('logout-button');
             logoutButton.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -240,7 +207,6 @@
                 window.location.href = './loginpage.html';
             });
             
-            // Atur halaman default saat pertama kali dimuat
             const targetSection = sessionStorage.getItem('targetSection');
             if (targetSection) {
                 switchPage(targetSection);
