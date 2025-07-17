@@ -47,10 +47,10 @@
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="#" id="logo-link" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">EduNav</a>
             <div class="hidden md:flex items-center space-x-10">
-                <a href="#" class="nav-link text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-target="beranda-content">Beranda</a>
-                <a href="#" class="nav-link text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-target="simulasi-content">Simulasi Tes</a>
+                <a href="#" class="nav-link" data-target="beranda-content">Beranda</a>
+                <a href="#" class="nav-link" data-target="simulasi-content">Simulasi Tes</a>
                 <a href="./materipage.html" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400">Materi</a>
-                <a href="#" class="nav-link text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-target="pengumuman-content">Pengumuman</a>
+                <a href="#" class="nav-link" data-target="pengumuman-content">Pengumuman</a>
             </div>
             <div class="relative">
                 <button id="profile-button" class="flex items-center space-x-3 group">
@@ -104,6 +104,9 @@
                 <div class="text-left">
                     <h1 id="welcome-message" class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white"></h1>
                     <p class="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-xl">EduNav adalah partner setiamu untuk menaklukkan ujian. Latihan, analisis, dan raih kampus impianmu di sini.</p>
+                    <button id="cta-simulasi" class="mt-8 bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-all shadow-lg hover:shadow-indigo-400/50">
+                        Mulai Simulasi Sekarang
+                    </button>
                 </div>
                  <div class="hidden md:flex items-center justify-center p-4">
                      <svg width="250" height="250" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -116,6 +119,29 @@
                         <path d="M140 60L100 100" class="stroke-indigo-600 dark:stroke-indigo-300" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
+            </div>
+
+             <div class="mt-16">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white text-center">Keunggulan EduNav</h2>
+                <div class="mt-10 grid md:grid-cols-3 gap-8">
+                    <div class="bg-white dark:bg-slate-800 p-8 rounded-xl text-center shadow-lg">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">100% Gratis</h3>
+                        <p class="mt-2 text-slate-600 dark:text-slate-400">Akses semua fitur simulasi dan materi tanpa biaya apapun.</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-8 rounded-xl text-center shadow-lg">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Tracking Record Tes</h3>
+                        <p class="mt-2 text-slate-600 dark:text-slate-400">Lihat riwayat dan perkembangan skormu dari waktu ke waktu.</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-8 rounded-xl text-center shadow-lg">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Materi & Pembahasan</h3>
+                        <p class="mt-2 text-slate-600 dark:text-slate-400">Pelajari kembali soal-soal yang telah dikerjakan.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 bg-yellow-100 dark:bg-yellow-900/50 border-l-4 border-yellow-400 text-yellow-800 dark:text-yellow-300 p-4 rounded-r-lg" role="alert">
+                <p class="font-bold">Perhatian: Versi Demo</p>
+                <p>Website ini masih dalam tahap pengembangan. Mohon maaf jika masih terdapat kekurangan. Tim EduNav berjanji untuk terus melakukan perbaikan.</p>
             </div>
         </div>
 
@@ -182,7 +208,7 @@
         </div>
     </main>
 
-    <div id="logout-confirm-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+    <div id="logout-confirm-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4">
         <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-xl max-w-sm mx-auto text-center">
             <h3 class="text-lg font-bold text-slate-900 dark:text-white">Konfirmasi Logout</h3>
             <div class="mt-6 flex justify-center gap-4">
@@ -216,8 +242,6 @@
                     b.classList.toggle('bg-indigo-500', isActive);
                     b.classList.toggle('dark:bg-indigo-500', isActive);
                     b.classList.toggle('text-white', isActive);
-                    b.classList.toggle('bg-slate-200', !isActive);
-                    b.classList.toggle('dark:bg-slate-700', !isActive);
                 });
             };
             
@@ -244,6 +268,7 @@
             const navLinks = document.querySelectorAll('.nav-link');
             const contentSections = document.querySelectorAll('.content-section');
             const logoLink = document.getElementById('logo-link');
+            const ctaSimulasi = document.getElementById('cta-simulasi');
 
             const loadAndDisplayUserData = () => {
                 const userString = localStorage.getItem('loggedInUser');
@@ -267,7 +292,7 @@
                 document.querySelector('.content-section.active')?.classList.remove('active');
                 document.getElementById(targetId)?.classList.add('active');
                 
-                navLinks.forEach(link => {
+                document.querySelectorAll('.nav-link').forEach(link => {
                     link.classList.toggle('nav-link-active', link.dataset.target === targetId);
                 });
                 profileDropdown.classList.add('hidden');
@@ -284,6 +309,7 @@
             });
 
             logoLink.addEventListener('click', (e) => { e.preventDefault(); switchPage('beranda-content'); });
+            ctaSimulasi.addEventListener('click', () => switchPage('simulasi-content'));
             
             const logoutConfirmModal = document.getElementById('logout-confirm-modal');
             document.getElementById('logout-button').addEventListener('click', (e) => { e.preventDefault(); logoutConfirmModal.classList.remove('hidden'); });
@@ -305,7 +331,11 @@
                 }
             });
 
-            profileButton.addEventListener('click', () => profileDropdown.classList.toggle('hidden'));
+            profileButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('hidden');
+            });
+
             window.addEventListener('click', (e) => {
                 if (!profileButton.contains(e.target) && !profileDropdown.contains(e.target)) {
                     profileDropdown.classList.add('hidden');
