@@ -9,98 +9,61 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* CSS Reset and Font Setup */
         :root {
-            --bg-color: #f1f5f9; /* slate-100 */
-            --card-bg-color: #ffffff;
-            --text-color: #1e293b; /* slate-800 */
-            --text-muted-color: #475569; /* slate-600 */
-            --text-heading-color: #0f172a; /* slate-900 */
-            --border-color: #e2e8f0; /* slate-200 */
-        }
-        .dark {
-            --bg-color: #1e293b; /* slate-800 */
-            --card-bg-color: #334155; /* slate-700 */
-            --text-color: #cbd5e1; /* slate-300 */
-            --text-muted-color: #94a3b8; /* slate-400 */
-            --text-heading-color: #f1f5f9; /* slate-100 */
-            --border-color: #475569; /* slate-600 */
+            font-size: 16px; /* Default font size */
         }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: background-color 0.3s, color 0.3s;
         }
-        .card {
-            background-color: var(--card-bg-color);
-            transition: background-color 0.3s;
+        /* Page transition animation */
+        .content-section {
+            display: none;
         }
-        header {
-            background-color: color-mix(in srgb, var(--card-bg-color) 80%, transparent);
-            border-bottom-color: var(--border-color);
-            transition: background-color 0.3s, border-color 0.3s;
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
         }
-        h1, h2, h3 { color: var(--text-heading-color); }
-        p, span, a { color: var(--text-color); }
-        p.text-muted { color: var(--text-muted-color); }
-        .nav-link-active { color: #4338ca; font-weight: 600; }
-        .dark .nav-link-active { color: #818cf8; }
-        .content-section { display: none; animation: fadeIn 0.2s ease-in-out; }
-        .content-section.active { display: block; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .solid-shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.07); }
-        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1); }
+        /* Custom class for dark mode toggle button */
+        #dark-mode-toggle.toggled > span {
+            transform: translateX(1.5rem);
+        }
     </style>
 </head>
-<body class="text-slate-800">
+<body class="bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-200 transition-colors duration-300">
 
-    <header class="bg-white/80 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-50">
+    <header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="#" id="logo-link" class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">EduNav</a>
             <div class="hidden md:flex items-center space-x-10">
-                <a href="#" class="nav-link" data-target="beranda-content">Beranda</a>
-                <a href="#" class="nav-link" data-target="simulasi-content">Simulasi Tes</a>
-                <a href="./materipage.html" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Materi</a>
-                <a href="#" class="nav-link" data-target="pengumuman-content">Pengumuman</a>
+                <a href="#" class="nav-link text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-target="beranda-content">Beranda</a>
+                <a href="#" class="nav-link text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-target="simulasi-content">Simulasi Tes</a>
+                <a href="./materipage.html" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400">Materi</a>
+                <a href="#" class="nav-link text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400" data-target="pengumuman-content">Pengumuman</a>
             </div>
             <div class="relative">
                 <button id="profile-button" class="flex items-center space-x-3 group">
                     <img id="header-avatar" class="w-10 h-10 rounded-full border-2 border-slate-200 dark:border-slate-600 group-hover:border-indigo-300 transition object-cover" src="https://placehold.co/40x40/e0e7ff/4f46e5?text=U" alt="User Avatar">
                     <div class="hidden sm:block">
-                        <p id="profile-username" class="font-semibold text-sm text-left">Memuat...</p>
+                        <p id="profile-username" class="font-semibold text-sm text-left text-slate-700 dark:text-slate-200">Memuat...</p>
                     </div>
                 </button>
-                <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-56 card rounded-lg solid-shadow-lg z-20 py-2">
-                    <div class="px-4 py-2 border-b" style="border-color: var(--border-color);">
-                        <p class="font-bold truncate" id="dropdown-username">Username</p>
-                        <p class="text-sm text-muted" id="dropdown-email">email@example.com</p>
+                <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-56 bg-white dark:bg-slate-800 rounded-lg shadow-lg z-20 py-2">
+                    <div class="px-4 py-2 border-b border-slate-200 dark:border-slate-700">
+                        <p class="font-bold text-slate-800 dark:text-slate-100 truncate" id="dropdown-username">Username</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 truncate" id="dropdown-email">email@example.com</p>
                     </div>
                     <div class="py-1">
-                        <a href="#" data-target="profil-content" class="nav-link flex items-center gap-3 px-4 py-2 text-sm hover:bg-slate-200 dark:hover:bg-slate-600">
-                             <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                         <a href="#" data-target="profil-content" class="nav-link flex items-center gap-3 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">
+                             <svg class="w-5 h-5 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                             <span>Profil</span>
                         </a>
-                        <a href="#" data-target="beranda-content" class="nav-link flex items-center gap-3 px-4 py-2 text-sm hover:bg-slate-200 dark:hover:bg-slate-600">
-                             <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                            <span>Beranda</span>
-                        </a>
-                        <a href="#" data-target="simulasi-content" class="nav-link flex items-center gap-3 px-4 py-2 text-sm hover:bg-slate-200 dark:hover:bg-slate-600">
-                             <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            <span>Simulasi Tes</span>
-                        </a>
-                        <a href="./materipage.html" class="flex items-center gap-3 px-4 py-2 text-sm hover:bg-slate-200 dark:hover:bg-slate-600">
-                            <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                            <span>Materi</span>
-                        </a>
-                         <a href="#" data-target="pengumuman-content" class="nav-link flex items-center gap-3 px-4 py-2 text-sm hover:bg-slate-200 dark:hover:bg-slate-600">
-                             <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 13V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v2c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-                            <span>Pengumuman</span>
-                         </a>
                     </div>
-                    <div class="py-1 border-t" style="border-color: var(--border-color);">
+                    <div class="py-1 border-t border-slate-200 dark:border-slate-700">
                         <a href="#" id="logout-button" class="flex items-center gap-3 w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/50">
                              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                             <span>Logout</span>
@@ -114,67 +77,48 @@
     <main class="container mx-auto px-6 py-8">
 
         <div id="beranda-content" class="content-section">
-            <div class="card p-8 md:p-12 rounded-2xl solid-shadow-lg grid md:grid-cols-2 gap-8 items-center">
+            <div class="bg-white dark:bg-slate-800 p-8 md:p-12 rounded-2xl shadow-lg grid md:grid-cols-2 gap-8 items-center">
                 <div class="text-left">
-                    <h1 id="welcome-message" class="text-3xl md:text-4xl font-extrabold"></h1>
-                    <p class="mt-4 text-lg text-muted max-w-xl">EduNav adalah partner setiamu untuk menaklukkan ujian. Latihan, analisis, dan raih kampus impianmu di sini.</p>
-                    <button id="cta-simulasi" class="mt-6 bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-all shadow-lg hover:shadow-xl">
-                        Mulai Simulasi Sekarang
-                    </button>
+                    <h1 id="welcome-message" class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white"></h1>
+                    <p class="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-xl">EduNav adalah partner setiamu untuk menaklukkan ujian. Latihan, analisis, dan raih kampus impianmu di sini.</p>
                 </div>
-                <div class="hidden md:flex items-center justify-center p-4">
-                     <svg width="250" height="250" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="100" r="95" fill="#EEF2FF"/><path d="M100 20C144.183 20 180 55.8172 180 100C180 144.183 144.183 180 100 180C55.8172 180 20 144.183 20 100" stroke="#C7D2FE" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 12"/><path d="M85 125L125 85" stroke="#6366F1" stroke-width="8" stroke-linecap="round"/><path d="M75 85H125" stroke="#6366F1" stroke-width="8" stroke-linecap="round"/><path d="M75 105H105" stroke="#A5B4FC" stroke-width="8" stroke-linecap="round"/><path d="M140 100V140H60V60H100" stroke="#4F46E5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><path d="M140 60L100 100" stroke="#4F46E5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                 <div class="hidden md:flex items-center justify-center p-4">
+                     <svg width="250" height="250" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="95" class="fill-indigo-100 dark:fill-slate-700"/>
+                        <path d="M100 20C144.183 20 180 55.8172 180 100C180 144.183 144.183 180 100 180C55.8172 180 20 144.183 20 100" class="stroke-indigo-200 dark:stroke-slate-600" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 12"/>
+                        <path d="M85 125L125 85" class="stroke-indigo-500 dark:stroke-indigo-400" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M75 85H125" class="stroke-indigo-500 dark:stroke-indigo-400" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M75 105H105" class="stroke-indigo-400 dark:stroke-indigo-500" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M140 100V140H60V60H100" class="stroke-indigo-600 dark:stroke-indigo-300" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M140 60L100 100" class="stroke-indigo-600 dark:stroke-indigo-300" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </div>
-            </div>
-            <div class="mt-16">
-                <h2 class="text-3xl font-extrabold text-center">Keunggulan Kami</h2>
-                <p class="text-center text-muted mt-2">Platform yang dirancang untuk kesuksesanmu.</p>
-                <div class="mt-10 grid md:grid-cols-3 gap-8">
-                    <div class="card p-8 rounded-xl text-center solid-shadow-lg">
-                        <h3 class="text-xl font-bold mt-4">100% Gratis</h3>
-                        <p class="mt-2 text-muted">Akses semua fitur simulasi dan materi tanpa biaya apapun. Fokus belajar, bukan bayar.</p>
-                    </div>
-                    <div class="card p-8 rounded-xl text-center solid-shadow-lg">
-                        <h3 class="text-xl font-bold mt-4">Tracking Record Tes</h3>
-                        <p class="mt-2 text-muted">Lihat riwayat dan perkembangan skormu dari waktu ke waktu di halaman profil.</p>
-                    </div>
-                    <div class="card p-8 rounded-xl text-center solid-shadow-lg">
-                        <h3 class="text-xl font-bold mt-4">Materi & Pembahasan</h3>
-                        <p class="mt-2 text-muted">Pelajari kembali soal-soal yang telah dikerjakan melalui menu materi khusus.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-16 bg-yellow-50 dark:bg-yellow-900/50 border-l-4 border-yellow-400 text-yellow-700 dark:text-yellow-300 p-4 rounded-r-lg" role="alert">
-                <p class="font-bold">Perhatian: Versi Demo</p>
-                <p>Website ini masih dalam tahap pengembangan (demo). Mohon maaf jika masih terdapat banyak kekurangan dan kesalahan. Tim EduNav berjanji untuk terus melakukan perbaikan demi pengalaman belajar yang lebih baik. Terima kasih atas pengertian Anda.</p>
             </div>
         </div>
 
         <div id="simulasi-content" class="content-section">
-            <h1 class="text-3xl font-extrabold text-center mb-2">Pilih Simulasi Tes</h1>
-            <p class="text-muted text-center mb-10">Asah kemampuanmu pada bidang yang kamu tuju.</p>
+            <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white text-center mb-2">Pilih Simulasi Tes</h1>
+            <p class="text-slate-600 dark:text-slate-400 text-center mb-10">Asah kemampuanmu pada bidang yang kamu tuju.</p>
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <a href="./utbk.html" class="group block card p-8 rounded-xl solid-shadow-lg card-hover border-2 border-transparent hover:border-indigo-500">
+                <a href="./utbk.html" class="group block bg-white dark:bg-slate-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-transparent hover:border-indigo-500">
                     <h2 class="text-2xl font-bold text-indigo-700 dark:text-indigo-400">Try Out UTBK</h2>
-                    <p class="mt-2 text-muted">Raih PTN impianmu dengan persiapan matang.</p>
-                    <span class="mt-4 inline-block font-semibold text-indigo-600 dark:text-indigo-400 group-hover:underline">Mulai Mengerjakan &rarr;</span>
+                    <p class="mt-2 text-slate-600 dark:text-slate-400">Raih PTN impianmu dengan persiapan matang.</p>
                 </a>
-                <a href="./SKD.html" class="group block card p-8 rounded-xl solid-shadow-lg card-hover border-2 border-transparent hover:border-blue-500">
+                <a href="./SKD.html" class="group block bg-white dark:bg-slate-800 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-transparent hover:border-blue-500">
                     <h2 class="text-2xl font-bold text-blue-700 dark:text-blue-400">SKD Kedinasan</h2>
-                    <p class="mt-2 text-muted">Jadilah abdi negara selanjutnya.</p>
-                    <span class="mt-4 inline-block font-semibold text-blue-600 dark:text-blue-400 group-hover:underline">Mulai Mengerjakan &rarr;</span>
+                    <p class="mt-2 text-slate-600 dark:text-slate-400">Jadilah abdi negara selanjutnya.</p>
                 </a>
             </div>
         </div>
 
         <div id="pengumuman-content" class="content-section">
-            <h1 class="text-3xl font-extrabold text-center mb-10">Papan Pengumuman</h1>
+             <h1 class="text-3xl font-extrabold text-slate-900 dark:text-white text-center mb-10">Papan Pengumuman</h1>
             <div class="max-w-3xl mx-auto space-y-6">
-                 <div class="card p-6 rounded-xl solid-shadow-lg flex items-start space-x-4">
+                 <div class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex items-start space-x-4">
                     <span class="flex-shrink-0 w-3 h-3 bg-blue-500 rounded-full mt-1.5"></span>
                     <div>
-                        <p class="font-bold text-lg">Jadwal Simulasi SKD Kedinasan: 18 Juli 2025</p>
-                        <p class="mt-2 text-muted">Persiapkan dirimu! Simulasi Akbar SKD Kedinasan akan dibuka serentak. Jangan sampai ketinggalan!</p>
+                        <p class="font-bold text-lg text-slate-800 dark:text-slate-100">Jadwal Simulasi SKD Kedinasan: 18 Juli 2025</p>
+                        <p class="mt-2 text-slate-600 dark:text-slate-400">Persiapkan dirimu! Simulasi Akbar SKD Kedinasan akan dibuka serentak. Jangan sampai ketinggalan!</p>
                     </div>
                 </div>
             </div>
@@ -182,218 +126,176 @@
         
         <div id="profil-content" class="content-section">
             <div class="max-w-4xl mx-auto">
-                <div class="card rounded-2xl solid-shadow-lg p-8 text-center">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-8 text-center">
                     <img id="profile-avatar-main" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-indigo-200 object-cover" src="">
-                    <h1 id="profile-name-main" class="text-3xl font-bold"></h1>
-                    <p id="profile-email-main" class="text-muted mt-1"></p>
+                    <h1 id="profile-name-main" class="text-3xl font-bold text-slate-900 dark:text-white"></h1>
+                    <p id="profile-email-main" class="text-slate-500 dark:text-slate-400 mt-1"></p>
                 </div>
                 
-                <div class="mt-8 card rounded-xl solid-shadow-lg p-6">
-                    <h3 class="font-bold text-lg mb-4">Pengaturan</h3>
+                <div class="mt-8 bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6">
+                    <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-4">Pengaturan</h3>
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
-                            <label for="dark-mode-toggle">Mode Gelap</label>
-                            <button id="dark-mode-toggle" class="relative w-12 h-6 bg-gray-300 dark:bg-gray-600 rounded-full transition-colors duration-300 focus:outline-none">
-                                <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 dark:translate-x-6"></span>
+                            <label for="dark-mode-toggle" class="text-slate-700 dark:text-slate-300">Mode Gelap</label>
+                            <button id="dark-mode-toggle" class="relative w-12 h-6 bg-slate-300 dark:bg-slate-600 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-800">
+                                <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-300"></span>
                             </button>
                         </div>
-                        <div class="flex items-center justify-between border-t pt-4" style="border-color: var(--border-color)">
-                            <span>Hapus Riwayat Tes</span>
-                            <button id="clear-history-button" class="bg-amber-500 text-white font-semibold py-1 px-3 rounded-md text-sm hover:bg-amber-600">Hapus</button>
+                        <div class="flex items-center justify-between border-t border-slate-200 dark:border-slate-700 pt-4">
+                            <label class="text-slate-700 dark:text-slate-300">Ukuran Teks</label>
+                            <div id="font-size-controls" class="flex items-center gap-2">
+                                <button data-size="small" class="font-size-btn bg-slate-200 dark:bg-slate-700 w-8 h-8 rounded-md text-xs">A</button>
+                                <button data-size="normal" class="font-size-btn bg-slate-200 dark:bg-slate-700 w-8 h-8 rounded-md text-base">A</button>
+                                <button data-size="large" class="font-size-btn bg-slate-200 dark:bg-slate-700 w-8 h-8 rounded-md text-lg">A</button>
+                            </div>
                         </div>
-                         <div class="flex items-center justify-between border-t pt-4" style="border-color: var(--border-color)">
-                            <span>Reset Akun</span>
-                            <button id="reset-account-button" class="bg-red-600 text-white font-semibold py-1 px-3 rounded-md text-sm hover:bg-red-700">Reset</button>
+                         <div class="flex items-center justify-between border-t border-slate-200 dark:border-slate-700 pt-4">
+                            <label class="text-slate-700 dark:text-slate-300">Hapus Riwayat Tes</label>
+                            <button id="clear-history-button" class="bg-red-600 text-white font-semibold py-1 px-3 rounded-md text-sm hover:bg-red-700 transition-colors">Hapus</button>
                         </div>
                     </div>
-                </div>
-
-                <div class="mt-8 text-center">
-                    <a href="./skor.html" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition-colors shadow-lg inline-block">
-                        Lihat Riwayat Skor Lengkap
-                    </a>
                 </div>
             </div>
         </div>
     </main>
 
-    <div id="logout-confirm-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-60 flex items-center justify-center z-50">
-        <div class="card p-6 rounded-lg shadow-xl max-w-sm mx-auto text-center">
-            <h3 class="text-lg font-bold">Konfirmasi Logout</h3>
-            <p class="mt-2 text-sm text-muted">Apakah Anda yakin ingin keluar?</p>
+    <div id="logout-confirm-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-xl max-w-sm mx-auto text-center">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Konfirmasi Logout</h3>
             <div class="mt-6 flex justify-center gap-4">
-                <button id="cancel-logout-btn" class="px-6 py-2 bg-slate-200 dark:bg-slate-600 font-semibold rounded-lg hover:bg-slate-300 dark:hover:bg-slate-500">Batal</button>
-                <button id="confirm-logout-btn" class="px-6 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700">Ya, Logout</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="reset-confirm-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-60 flex items-center justify-center z-50">
-        <div class="card p-6 rounded-lg shadow-xl max-w-sm mx-auto text-center">
-            <h3 class="text-lg font-bold text-red-500">Reset Akun?</h3>
-            <p class="mt-2 text-sm text-muted">Tindakan ini akan menghapus akun dan semua data Anda secara permanen. Anda tidak bisa mengurungkannya.</p>
-            <div class="mt-6 flex justify-center gap-4">
-                <button id="cancel-reset-btn" class="px-6 py-2 bg-slate-200 dark:bg-slate-600 font-semibold rounded-lg hover:bg-slate-300 dark:hover:bg-slate-500">Batal</button>
-                <button id="confirm-reset-btn" class="px-6 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700">Ya, Reset Akun Saya</button>
+                <button id="cancel-logout-btn" class="px-6 py-2 bg-slate-200 dark:bg-slate-600 text-slate-800 dark:text-slate-200 font-semibold rounded-lg">Batal</button>
+                <button id="confirm-logout-btn" class="px-6 py-2 bg-red-600 text-white font-semibold rounded-lg">Ya, Logout</button>
             </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- GLOBAL STATE & UTILS ---
             let loggedInUser = {};
             const USER_DB_KEY = 'eduNavUserDatabase';
-
-            // --- Theme Setup ---
-            const darkModeToggle = document.getElementById('dark-mode-toggle');
             const htmlElement = document.documentElement;
+            const redirectToLogin = () => window.location.href = './index.html';
+
+            // --- THEME & FONT-SIZE CONTROLS ---
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            const fontSizeControls = document.getElementById('font-size-controls');
 
             const applyTheme = (theme) => {
-                if (theme === 'dark') {
-                    htmlElement.classList.add('dark');
-                } else {
-                    htmlElement.classList.remove('dark');
-                }
+                htmlElement.classList.toggle('dark', theme === 'dark');
+                darkModeToggle.classList.toggle('toggled', theme === 'dark');
             };
 
+            const applyFontSize = (size) => {
+                const sizes = { small: '14px', normal: '16px', large: '18px' };
+                htmlElement.style.fontSize = sizes[size] || '16px';
+                
+                fontSizeControls.querySelectorAll('button').forEach(b => {
+                    const isActive = b.dataset.size === size;
+                    b.classList.toggle('bg-indigo-500', isActive);
+                    b.classList.toggle('dark:bg-indigo-500', isActive);
+                    b.classList.toggle('text-white', isActive);
+                    b.classList.toggle('bg-slate-200', !isActive);
+                    b.classList.toggle('dark:bg-slate-700', !isActive);
+                });
+            };
+            
+            // Apply saved settings on initial load
+            applyTheme(localStorage.getItem('theme') || 'light');
+            applyFontSize(localStorage.getItem('fontSize') || 'normal');
+            
+            // Add event listeners for settings
             darkModeToggle.addEventListener('click', () => {
-                const isDark = htmlElement.classList.toggle('dark');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                const newTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+            
+            fontSizeControls.addEventListener('click', (e) => {
+                if(e.target.tagName === 'BUTTON') {
+                    const size = e.target.dataset.size;
+                    localStorage.setItem('fontSize', size);
+                    applyFontSize(size);
+                }
             });
 
-            // Apply saved theme on load
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                applyTheme(savedTheme);
-            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                applyTheme('dark'); // Default to system preference
-            }
-
-            // --- Core App Logic ---
-            const redirectToLogin = () => window.location.href = './index.html';
-            
+            // --- CORE APP & NAVIGATION LOGIC ---
             const profileButton = document.getElementById('profile-button');
             const profileDropdown = document.getElementById('profile-dropdown');
-            const logoutButton = document.getElementById('logout-button');
-            const logoutConfirmModal = document.getElementById('logout-confirm-modal');
-            const cancelLogoutBtn = document.getElementById('cancel-logout-btn');
-            const confirmLogoutBtn = document.getElementById('confirm-logout-btn');
-
-            const clearHistoryButton = document.getElementById('clear-history-button');
-            const resetAccountButton = document.getElementById('reset-account-button');
-            const resetConfirmModal = document.getElementById('reset-confirm-modal');
-            const cancelResetBtn = document.getElementById('cancel-reset-btn');
-            const confirmResetBtn = document.getElementById('confirm-reset-btn');
-
             const navLinks = document.querySelectorAll('.nav-link');
             const contentSections = document.querySelectorAll('.content-section');
             const logoLink = document.getElementById('logo-link');
-            const ctaSimulasi = document.getElementById('cta-simulasi');
-
-            const updateAllUserData = (user) => {
-                if (!user) return;
-                const userAvatar = user.avatar || `https://placehold.co/96x96/e0e7ff/4f46e5?text=${user.username.charAt(0).toUpperCase()}`;
-                
-                document.getElementById('header-avatar').src = userAvatar;
-                document.getElementById('profile-username').textContent = user.username;
-                document.getElementById('dropdown-username').textContent = user.username;
-                document.getElementById('dropdown-email').textContent = user.email;
-                document.getElementById('welcome-message').textContent = `Halo, ${user.username}!`;
-                
-                document.getElementById('profile-avatar-main').src = userAvatar;
-                document.getElementById('profile-name-main').textContent = user.username;
-                document.getElementById('profile-email-main').textContent = user.email;
-            };
 
             const loadAndDisplayUserData = () => {
                 const userString = localStorage.getItem('loggedInUser');
                 if (userString) {
                     loggedInUser = JSON.parse(userString);
-                    if (!loggedInUser.stats) loggedInUser.stats = { simulasi: 0, rataRata: 0, peringkat: "N/A" };
-                    if (!loggedInUser.history) loggedInUser.history = [];
-                    updateAllUserData(loggedInUser);
+                    const userAvatar = loggedInUser.avatar || `https://placehold.co/96x96/e0e7ff/4f46e5?text=${loggedInUser.username.charAt(0).toUpperCase()}`;
+                    document.getElementById('header-avatar').src = userAvatar;
+                    document.getElementById('profile-username').textContent = loggedInUser.username;
+                    document.getElementById('dropdown-username').textContent = loggedInUser.username;
+                    document.getElementById('dropdown-email').textContent = loggedInUser.email;
+                    document.getElementById('welcome-message').textContent = `Halo, ${loggedInUser.username}!`;
+                    document.getElementById('profile-avatar-main').src = userAvatar;
+                    document.getElementById('profile-name-main').textContent = loggedInUser.username;
+                    document.getElementById('profile-email-main').textContent = loggedInUser.email;
                 } else {
                     redirectToLogin();
                 }
             };
-
+            
             const switchPage = (targetId) => {
-                const activeSection = document.querySelector('.content-section.active');
-                if (activeSection && activeSection.id === targetId) return;
-
-                if (activeSection) activeSection.classList.remove('active');
+                document.querySelector('.content-section.active')?.classList.remove('active');
+                document.getElementById(targetId)?.classList.add('active');
                 
-                const targetEl = document.getElementById(targetId);
-                if (targetEl) targetEl.classList.add('active');
-
                 navLinks.forEach(link => {
-                    link.classList.toggle('nav-link-active', link.dataset.target === targetId);
+                    const isTargetActive = link.dataset.target === targetId;
+                    link.classList.toggle('text-indigo-600', isTargetActive);
+                    link.classList.toggle('dark:text-indigo-400', isTargetActive);
+                    link.classList.toggle('font-semibold', isTargetActive);
                 });
                 profileDropdown.classList.add('hidden');
             };
             
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
-                    const targetId = e.currentTarget.dataset.target;
-                    if (targetId) {
-                        e.preventDefault();
-                        switchPage(targetId);
-                    }
+                    e.preventDefault();
+                    if (e.currentTarget.dataset.target) switchPage(e.currentTarget.dataset.target);
                 });
             });
-            
+
             logoLink.addEventListener('click', (e) => { e.preventDefault(); switchPage('beranda-content'); });
-            ctaSimulasi.addEventListener('click', () => switchPage('simulasi-content'));
-            profileButton.addEventListener('click', () => profileDropdown.classList.toggle('hidden'));
-            logoutButton.addEventListener('click', (e) => { e.preventDefault(); logoutConfirmModal.classList.remove('hidden'); });
-            cancelLogoutBtn.addEventListener('click', () => logoutConfirmModal.classList.add('hidden'));
-            confirmLogoutBtn.addEventListener('click', () => { localStorage.removeItem('loggedInUser'); redirectToLogin(); });
             
-            // --- Settings Buttons Logic ---
-            clearHistoryButton.addEventListener('click', () => {
-                if (confirm('Apakah Anda yakin ingin menghapus semua riwayat tes? Skor dan statistik juga akan di-reset.')) {
+            // --- MODALS & ACTIONS ---
+            const logoutConfirmModal = document.getElementById('logout-confirm-modal');
+            document.getElementById('logout-button').addEventListener('click', (e) => { e.preventDefault(); logoutConfirmModal.classList.remove('hidden'); });
+            document.getElementById('cancel-logout-btn').addEventListener('click', () => logoutConfirmModal.classList.add('hidden'));
+            document.getElementById('confirm-logout-btn').addEventListener('click', () => { localStorage.removeItem('loggedInUser'); redirectToLogin(); });
+
+            document.getElementById('clear-history-button').addEventListener('click', () => {
+                if (confirm('Yakin ingin menghapus riwayat tes?')) {
                     loggedInUser.history = [];
                     loggedInUser.stats = { simulasi: 0, rataRata: 0, peringkat: "N/A" };
                     localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
-                    
                     let userDb = JSON.parse(localStorage.getItem(USER_DB_KEY) || '{}');
                     if(userDb[loggedInUser.username]) {
                         userDb[loggedInUser.username].profile.history = [];
                         userDb[loggedInUser.username].profile.stats = { simulasi: 0, rataRata: 0, peringkat: "N/A" };
                         localStorage.setItem(USER_DB_KEY, JSON.stringify(userDb));
                     }
-
                     alert('Riwayat tes berhasil dihapus.');
-                    loadAndDisplayUserData(); // Refresh data on screen
                 }
             });
 
-            resetAccountButton.addEventListener('click', () => resetConfirmModal.classList.remove('hidden'));
-            cancelResetBtn.addEventListener('click', () => resetConfirmModal.classList.add('hidden'));
-            confirmResetBtn.addEventListener('click', () => {
-                let userDb = JSON.parse(localStorage.getItem(USER_DB_KEY) || '{}');
-                delete userDb[loggedInUser.username]; // Hapus data user dari database
-                localStorage.setItem(USER_DB_KEY, JSON.stringify(userDb));
-
-                localStorage.removeItem('loggedInUser');
-                localStorage.removeItem('eduNavAccountCreated'); // Agar bisa daftar lagi
-                alert('Akun berhasil di-reset.');
-                redirectToLogin();
-            });
-
+            profileButton.addEventListener('click', () => profileDropdown.classList.toggle('hidden'));
             window.addEventListener('click', (e) => {
                 if (!profileButton.contains(e.target) && !profileDropdown.contains(e.target)) {
                     profileDropdown.classList.add('hidden');
                 }
             });
 
-            // Initial Page Load
-            const initialTarget = sessionStorage.getItem('targetSection') || 'beranda-content';
-            switchPage(initialTarget);
-            if (sessionStorage.getItem('targetSection')) {
-                sessionStorage.removeItem('targetSection');
-            }
-            
+            // INITIAL PAGE LOAD
+            switchPage('beranda-content');
             loadAndDisplayUserData();
         });
     </script>
