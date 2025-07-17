@@ -16,12 +16,10 @@
             font-family: 'Inter', sans-serif;
             background-color: #f1f5f9;
         }
-        /* Active link style for navigation */
         .nav-link-active {
-            color: #4f46e5; /* indigo-600 */
+            color: #4f46e5;
             font-weight: 600;
         }
-        /* Page transition animation */
         .content-section {
             display: none;
         }
@@ -98,6 +96,9 @@
                 <div class="text-left">
                     <h1 id="welcome-message" class="text-3xl md:text-4xl font-extrabold text-slate-900"></h1>
                     <p class="mt-4 text-lg text-slate-600 max-w-xl">EduNav adalah partner setiamu untuk menaklukkan ujian. Latihan, analisis, dan raih kampus impianmu di sini.</p>
+                    <button id="cta-simulasi" class="mt-8 bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-all shadow-lg hover:shadow-indigo-500/50">
+                        Mulai Simulasi Sekarang
+                    </button>
                 </div>
                  <div class="hidden md:flex items-center justify-center p-4">
                      <svg width="250" height="250" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -110,6 +111,29 @@
                         <path d="M140 60L100 100" class="stroke-indigo-600" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
+            </div>
+
+             <div class="mt-16">
+                <h2 class="text-3xl font-extrabold text-slate-900 text-center">Keunggulan EduNav</h2>
+                <div class="mt-10 grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-xl text-center shadow-lg">
+                        <h3 class="text-xl font-bold text-slate-900">100% Gratis</h3>
+                        <p class="mt-2 text-slate-600">Akses semua fitur simulasi dan materi tanpa biaya apapun.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl text-center shadow-lg">
+                        <h3 class="text-xl font-bold text-slate-900">Tracking Record Tes</h3>
+                        <p class="mt-2 text-slate-600">Lihat riwayat dan perkembangan skormu dari waktu ke waktu.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl text-center shadow-lg">
+                        <h3 class="text-xl font-bold text-slate-900">Materi & Pembahasan</h3>
+                        <p class="mt-2 text-slate-600">Pelajari kembali soal-soal yang telah dikerjakan.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 bg-yellow-100 border-l-4 border-yellow-400 text-yellow-800 p-4 rounded-r-lg" role="alert">
+                <p class="font-bold">Perhatian: Versi Demo</p>
+                <p>Website ini masih dalam tahap pengembangan. Mohon maaf jika masih terdapat kekurangan. Tim EduNav berjanji untuk terus melakukan perbaikan.</p>
             </div>
         </div>
 
@@ -152,7 +176,7 @@
                 <div class="mt-8 bg-white rounded-xl shadow-lg p-6">
                     <h3 class="font-bold text-lg text-slate-900 mb-4">Pengaturan Akun</h3>
                     <div class="space-y-4">
-                        <div class="flex items-center justify-between border-t border-slate-200 pt-4">
+                        <div class="flex items-center justify-between">
                             <label class="text-slate-700">Ukuran Teks</label>
                             <div id="font-size-controls" class="flex items-center gap-2">
                                 <button data-size="small" class="font-size-btn bg-slate-200 w-8 h-8 rounded-md text-xs">A</button>
@@ -169,6 +193,12 @@
                             <button id="reset-account-button" class="bg-red-600 text-white font-semibold py-1 px-3 rounded-md text-sm hover:bg-red-700 transition-colors">Reset</button>
                         </div>
                     </div>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <a href="./skor.html" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-indigo-700 transition-colors shadow-lg inline-block">
+                        Lihat Riwayat Skor Lengkap
+                    </a>
                 </div>
             </div>
         </div>
@@ -211,6 +241,7 @@
                     const isActive = b.dataset.size === size;
                     b.classList.toggle('bg-indigo-500', isActive);
                     b.classList.toggle('text-white', isActive);
+                    b.classList.toggle('bg-slate-200', !isActive);
                 });
             };
             
@@ -230,6 +261,7 @@
             const navLinks = document.querySelectorAll('.nav-link');
             const contentSections = document.querySelectorAll('.content-section');
             const logoLink = document.getElementById('logo-link');
+            const ctaSimulasi = document.getElementById('cta-simulasi');
 
             const loadAndDisplayUserData = () => {
                 const userString = localStorage.getItem('loggedInUser');
@@ -270,6 +302,7 @@
             });
 
             logoLink.addEventListener('click', (e) => { e.preventDefault(); switchPage('beranda-content'); });
+            ctaSimulasi.addEventListener('click', () => switchPage('simulasi-content'));
             
             const logoutConfirmModal = document.getElementById('logout-confirm-modal');
             document.getElementById('logout-button').addEventListener('click', (e) => { e.preventDefault(); logoutConfirmModal.classList.remove('hidden'); });
